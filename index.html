@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#d8eff1" />
+  <meta name="description" content="StudyOS 2 — a calm, sky-inspired academic command centre for Class 11." />
+  <title>StudyOS 2</title>
+  <style>
+    :root{
+      --bg:#edf7f8;
+      --bg-2:#f9f3e7;
+      --panel:rgba(255,255,255,.83);
+      --panel-solid:#ffffff;
+      --panel-soft:rgba(246,252,252,.8);
+      --text:#27343a;
+      --muted:#6e7e84;
+      --line:rgba(64,95,101,.13);
+      --accent:#6aaeb6;
+      --accent-strong:#4c8f99;
+      --accent-soft:#dff1f2;
+      --gold:#d4ae59;
+      --gold-soft:#f8edcf;
+      --sage:#80967a;
+      --sage-soft:#e7efe3;
+      --peach:#dca88a;
+      --peach-soft:#f7e7dc;
+      --danger:#b76561;
+      --danger-soft:#f6dfdd;
+      --shadow:0 16px 42px rgba(63,94,103,.10);
+      --shadow-sm:0 7px 20px rgba(63,94,103,.08);
+      --radius:18px;
+      --radius-sm:12px;
+      --nav-width:246px;
+      --topbar-h:76px;
+      --transition:180ms ease;
+    }
+    html[data-theme="dark"]{
+      --bg:#1c2b31;
+      --bg-2:#2f302b;
+      --panel:rgba(34,50,56,.88);
+      --panel-solid:#223238;
+      --panel-soft:rgba(38,56,61,.78);
+      --text:#ecf2f1;
+      --muted:#a7b8bb;
+      --line:rgba(225,245,244,.10);
+      --accent:#7fc4cc;
+      --accent-strong:#9ad6dc;
+      --accent-soft:rgba(115,185,194,.18);
+      --gold:#e0be69;
+      --gold-soft:rgba(214,174,87,.16);
+      --sage:#a1b998;
+      --sage-soft:rgba(129,150,122,.17);
+      --peach:#e2af92;
+      --peach-soft:rgba(217,167,137,.16);
+      --danger:#d88984;
+      --danger-soft:rgba(181,100,96,.18);
+      --shadow:0 20px 50px rgba(0,0,0,.24);
+      --shadow-sm:0 10px 26px rgba(0,0,0,.20);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(900px 440px at 83% -8%, rgba(255,219,164,.28), transparent 60%),
+        radial-gradient(760px 420px at 8% 0%, rgba(141,205,210,.30), transparent 62%),
+        linear-gradient(145deg,var(--bg),var(--bg-2));
+      background-attachment:fixed;
+      overflow-x:hidden;
+    }
+    body::before{
+      content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.35;
+      background:
+        radial-gradient(500px 220px at 45% 10%, rgba(255,255,255,.75), transparent 70%),
+        radial-gradient(380px 250px at 90% 35%, rgba(221,239,235,.25), transparent 70%);
+    }
+    button,input,select,textarea{font:inherit;color:inherit}
+    button{border:0;background:none;cursor:pointer}
+    button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{
+      outline:3px solid color-mix(in srgb,var(--accent) 45%, transparent);outline-offset:2px
+    }
+    a{color:inherit}
+    .app-shell{min-height:100%;display:flex}
+    .sidebar{
+      width:var(--nav-width);position:fixed;inset:0 auto 0 0;padding:18px 14px;z-index:30;
+      display:flex;flex-direction:column;gap:16px;border-right:1px solid var(--line);
+      background:linear-gradient(180deg,rgba(255,255,255,.60),rgba(239,249,248,.72));
+      backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);
+    }
+    html[data-theme="dark"] .sidebar{background:linear-gradient(180deg,rgba(26,43,48,.92),rgba(32,48,53,.87))}
+    .brand{display:flex;align-items:center;gap:11px;padding:8px 8px 4px}
+    .brand-mark{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;color:#fff;font-weight:800;background:linear-gradient(145deg,var(--accent-strong),#98cfd0 62%,var(--gold));box-shadow:0 9px 20px rgba(78,145,154,.24)}
+    .brand-copy strong{display:block;font-size:16px;letter-spacing:.02em}.brand-copy span{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+    .nav{display:flex;flex-direction:column;gap:5px;margin-top:4px}.nav button{
+      width:100%;display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:13px;color:var(--muted);font-weight:650;text-align:left;transition:background var(--transition),color var(--transition),transform var(--transition)
+    }
+    .nav button:hover{background:var(--accent-soft);color:var(--text);transform:translateX(2px)}
+    .nav button.active{background:linear-gradient(90deg,var(--accent-soft),rgba(255,255,255,.15));color:var(--accent-strong);box-shadow:inset 0 0 0 1px rgba(76,143,153,.06)}
+    .nav-icon{width:20px;height:20px;display:grid;place-items:center;font-size:17px;flex:0 0 20px}.nav-label{font-size:13px}
+    .sidebar-bottom{margin-top:auto;padding:8px}.mini-target{padding:13px;border:1px solid var(--line);border-radius:14px;background:var(--panel-soft)}
+    .mini-target .row{display:flex;justify-content:space-between;gap:12px;align-items:center}.mini-target small{color:var(--muted)}
+    .mini-bar{height:7px;background:rgba(114,151,156,.13);border-radius:999px;overflow:hidden;margin-top:10px}.mini-bar>div{height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--accent),var(--gold));width:0;transition:width .35s ease}
+    .main-wrap{margin-left:var(--nav-width);width:calc(100% - var(--nav-width));min-width:0}
+    .topbar{height:var(--topbar-h);display:flex;align-items:center;gap:12px;padding:14px 24px;position:sticky;top:0;z-index:20;background:linear-gradient(180deg,rgba(239,248,248,.92),rgba(239,248,248,.66));backdrop-filter:blur(13px);-webkit-backdrop-filter:blur(13px);border-bottom:1px solid var(--line)}
+    html[data-theme="dark"] .topbar{background:linear-gradient(180deg,rgba(29,45,50,.94),rgba(29,45,50,.75))}
+    .menu-btn{display:none;width:40px;height:40px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+    .topbar-title{min-width:0;flex:1}.topbar-title h1{font-size:20px;line-height:1.2;margin:0}.topbar-title p{font-size:12px;color:var(--muted);margin:4px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .top-actions{display:flex;align-items:center;gap:8px}.icon-btn{width:40px;height:40px;border:1px solid var(--line);border-radius:12px;background:var(--panel);box-shadow:var(--shadow-sm)}
+    .page{padding:24px;max-width:1600px;margin:0 auto}.page.hidden{display:none}
+    .grid{display:grid;gap:16px}.g-4{grid-template-columns:repeat(4,minmax(0,1fr))}.g-3{grid-template-columns:repeat(3,minmax(0,1fr))}.g-2{grid-template-columns:repeat(2,minmax(0,1fr))}.g-auto{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:18px;min-width:0}.card.compact{padding:14px}.card-title{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:13px}.card-title h3{font-size:15px;margin:0}.card-title p{margin:4px 0 0;color:var(--muted);font-size:12px}
+    .hero{position:relative;overflow:hidden;padding:24px;background:linear-gradient(135deg,rgba(224,245,246,.90),rgba(253,243,224,.78) 65%,rgba(255,255,255,.82));border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);}
+    html[data-theme="dark"] .hero{background:linear-gradient(135deg,rgba(49,79,86,.86),rgba(70,67,56,.72) 70%,rgba(40,57,61,.86))}
+    .hero::after{content:"";position:absolute;right:-50px;top:-75px;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(246,216,144,.42),transparent 67%);pointer-events:none}.hero::before{content:"";position:absolute;left:-85px;bottom:-115px;width:300px;height:190px;border-radius:50%;background:radial-gradient(circle,rgba(144,209,211,.28),transparent 66%);pointer-events:none}
+    .hero-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;position:relative;z-index:1}.hero h2{font-size:27px;line-height:1.15;margin:0 0 8px;letter-spacing:-.02em}.hero p{max-width:720px;color:var(--muted);font-size:14px;line-height:1.6;margin:0}.hero-actions{display:flex;gap:9px;flex-wrap:wrap;justify-content:flex-end}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:9px 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel-solid);font-weight:700;font-size:12px;transition:transform var(--transition),box-shadow var(--transition),background var(--transition)}.btn:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm)}.btn.primary{background:linear-gradient(135deg,var(--accent-strong),var(--accent));color:#fff;border-color:transparent}.btn.gold{background:linear-gradient(135deg,#cda64e,var(--gold));color:#fff;border-color:transparent}.btn.danger{background:var(--danger-soft);color:var(--danger)}.btn.ghost{background:transparent}.btn.small{min-height:34px;padding:7px 10px;font-size:11px;border-radius:10px}
+    .metric{padding:17px}.metric .metric-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.metric-label{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.07em}.metric-value{font-size:27px;font-weight:800;margin-top:7px;letter-spacing:-.03em}.metric-sub{color:var(--muted);font-size:11px;margin-top:6px}.metric-icon{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--accent-soft)}
+    .progress-track{height:10px;background:rgba(90,128,133,.13);border-radius:999px;overflow:hidden}.progress-track.tiny{height:7px}.progress-fill{height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--accent-strong),var(--accent),var(--gold));transition:width .35s ease}
+    .subject-card{padding:16px}.subject-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.subject-name{display:flex;align-items:center;gap:9px}.subject-dot{width:11px;height:11px;border-radius:50%;background:var(--accent)}.subject-name strong{font-size:13px}.teacher{font-size:11px;color:var(--muted)}
+    .subject-stats{display:flex;justify-content:space-between;align-items:center;margin-top:13px;color:var(--muted);font-size:11px}.subject-stats strong{color:var(--text);font-size:12px}.subject-card .progress-track{margin-top:8px}
+    .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin:3px 0 12px}.section-head h2{font-size:18px;margin:0}.section-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.section-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .task-list{display:flex;flex-direction:column;gap:8px}.task-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:11px;align-items:center;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.30)}.task-row.done{opacity:.66}.task-check{width:20px;height:20px;border-radius:6px;border:2px solid #9eb0b2;display:grid;place-items:center;appearance:none;background:transparent;cursor:pointer}.task-check:checked{background:var(--accent-strong);border-color:var(--accent-strong)}.task-check:checked::after{content:"✓";color:#fff;font-size:13px;font-weight:800}.task-main{min-width:0}.task-main strong{display:block;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.task-main small{display:block;color:var(--muted);font-size:10px;margin-top:3px}.task-meta{font-size:10px;color:var(--muted);text-align:right}.task-pill{font-size:9px;font-weight:800;padding:5px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent-strong);white-space:nowrap}.task-pill.personal{background:var(--peach-soft);color:var(--peach)}
+    .empty{padding:28px 16px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px;font-size:12px}.empty strong{display:block;color:var(--text);margin-bottom:5px}
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.input,.select,.textarea{width:100%;padding:10px 11px;border-radius:11px;border:1px solid var(--line);background:var(--panel-solid);font-size:12px}.textarea{min-height:90px;resize:vertical}.inline-input{min-width:150px}.search-wrap{position:relative;min-width:200px;flex:1}.search-wrap span{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted)}.search-wrap input{padding-left:32px}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:15px}.table{width:100%;border-collapse:collapse;min-width:830px}.table th,.table td{padding:10px 11px;border-bottom:1px solid var(--line);font-size:11px;text-align:left;vertical-align:middle}.table th{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);background:var(--panel-soft)}.table tr:last-child td{border-bottom:0}.table tr:hover td{background:rgba(255,255,255,.18)}
+    .check-row{display:flex;gap:7px;justify-content:flex-start;align-items:center}.check-icon{width:22px;height:22px;border-radius:7px;border:2px solid #9aafb0;appearance:none;background:transparent;cursor:pointer;position:relative}.check-icon:checked{background:var(--accent-strong);border-color:var(--accent-strong)}.check-icon:checked::after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-weight:800;font-size:12px}.priority{font-size:9px;font-weight:800;padding:5px 7px;border-radius:999px}.priority.high{background:var(--danger-soft);color:var(--danger)}.priority.medium{background:var(--gold-soft);color:#9a7925}.priority.low{background:var(--sage-soft);color:#667e61}
+    .unit-label{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:15px 0 8px}.unit-label::before{content:"";width:17px;height:1px;background:var(--line)}
+    .badge{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:999px;font-size:9px;font-weight:800;background:var(--accent-soft);color:var(--accent-strong);white-space:nowrap}.badge.formative{background:var(--peach-soft);color:var(--peach)}.badge.custom{background:var(--sage-soft);color:#63775e}.badge.disabled{background:rgba(130,130,130,.12);color:var(--muted)}
+    .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(270px,380px);gap:16px;align-items:start}.sticky-card{position:sticky;top:95px}
+    .planner-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.sum-box{padding:13px;border:1px solid var(--line);border-radius:13px;background:var(--panel-soft)}.sum-box .k{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}.sum-box .v{font-size:18px;font-weight:800;margin-top:5px}
+    .warn{padding:12px 14px;border-radius:13px;background:var(--danger-soft);color:var(--danger);font-size:11px;line-height:1.55;border:1px solid color-mix(in srgb,var(--danger) 15%, transparent)}.note{padding:12px 14px;border-radius:13px;background:var(--gold-soft);color:#826b2d;font-size:11px;line-height:1.55}.success{padding:12px 14px;border-radius:13px;background:var(--sage-soft);color:#5d7358;font-size:11px;line-height:1.55}
+    .calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}.cal-head{font-size:10px;color:var(--muted);font-weight:800;text-align:center;padding:5px}.cal-cell{min-height:92px;padding:7px;border:1px solid var(--line);border-radius:12px;background:var(--panel);cursor:pointer;transition:transform var(--transition),box-shadow var(--transition),background var(--transition)}.cal-cell:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm)}.cal-cell.dim{opacity:.45}.cal-cell.today{box-shadow:inset 0 0 0 2px rgba(76,143,153,.24)}.cal-date{font-size:11px;font-weight:800}.cal-indicators{min-height:24px;display:flex;align-items:center;gap:5px;margin-top:10px}.cal-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent)}.cal-dot.personal-dot{background:var(--peach)}.cal-dot.event-dot{background:var(--gold)}.cal-cell.complete{background:linear-gradient(180deg,var(--sage-soft),var(--panel))}.cal-cell.partial{background:linear-gradient(180deg,var(--accent-soft),var(--panel))}
+    .history-list{display:flex;flex-direction:column;gap:8px}.history-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 11px;border:1px solid var(--line);border-radius:12px}.history-date{font-size:11px;font-weight:700}.history-date small{display:block;color:var(--muted);font-weight:500;margin-top:2px}
+    .setting-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,340px);gap:16px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}.setting-row:last-child{border-bottom:0}.setting-row strong{font-size:12px}.setting-row p{margin:4px 0 0;color:var(--muted);font-size:11px;line-height:1.5}.setting-control{display:flex;gap:8px;justify-content:flex-end;align-items:center}
+    .switch{position:relative;width:46px;height:26px;display:inline-block}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;inset:0;border-radius:999px;background:rgba(123,148,152,.25);transition:var(--transition);cursor:pointer}.slider::before{content:"";position:absolute;width:20px;height:20px;left:3px;top:3px;border-radius:50%;background:#fff;box-shadow:0 2px 7px rgba(0,0,0,.14);transition:var(--transition)}.switch input:checked + .slider{background:var(--accent-strong)}.switch input:checked + .slider::before{transform:translateX(20px)}
+    .subject-setting{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(120px,180px) auto;gap:9px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}.subject-setting:last-child{border-bottom:0}.subject-setting .sw{display:flex;justify-content:center}.subject-setting small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(18,30,34,.46);display:flex;align-items:center;justify-content:center;padding:18px;z-index:100;opacity:0;pointer-events:none;transition:opacity var(--transition)}.modal-backdrop.open{opacity:1;pointer-events:auto}.modal{width:min(640px,100%);max-height:min(90vh,860px);overflow:auto;background:var(--panel-solid);border:1px solid var(--line);border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.25);transform:translateY(8px) scale(.985);transition:transform var(--transition)}.modal-backdrop.open .modal{transform:none}.modal-head{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:17px 18px;border-bottom:1px solid var(--line);background:var(--panel-solid)}.modal-head h3{margin:0;font-size:16px}.modal-body{padding:18px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;flex-wrap:wrap}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field label{display:block;font-size:10px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}.field.full{grid-column:1/-1}
+    .toast{position:fixed;right:18px;bottom:18px;z-index:120;max-width:360px;padding:11px 13px;border-radius:12px;background:var(--panel-solid);border:1px solid var(--line);box-shadow:var(--shadow);font-size:11px;opacity:0;transform:translateY(8px);pointer-events:none;transition:var(--transition)}.toast.show{opacity:1;transform:none}
+    .drawer-overlay{display:none}
+    .kicker{font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:800}.muted{color:var(--muted)}.small{font-size:11px}.strong{font-weight:800}.flex{display:flex}.between{justify-content:space-between}.center{align-items:center}.gap8{gap:8px}.gap12{gap:12px}.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt20{margin-top:20px}.hidden{display:none!important}
+    .stat-line{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:11px;margin:8px 0}.stat-line strong{font-size:12px}.soft-box{padding:13px;border-radius:13px;background:var(--panel-soft);border:1px solid var(--line)}
+    .streak-badge{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--gold-soft);border-radius:11px;color:#876c27;font-size:11px;font-weight:800}
+    .plan-day{border:1px solid var(--line);border-radius:14px;overflow:hidden}.plan-day-head{padding:11px 12px;background:var(--panel-soft);display:flex;justify-content:space-between;align-items:center;gap:8px}.plan-day-head strong{font-size:12px}.plan-day-head small{color:var(--muted);font-size:10px}.plan-day-body{padding:9px}.plan-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:center;padding:8px 7px;border-radius:10px}.plan-row:hover{background:rgba(255,255,255,.18)}.plan-row+.plan-row{margin-top:2px}.plan-row .time{font-size:10px;color:var(--muted);min-width:40px}.plan-row .name{font-size:11px;font-weight:700}.plan-row .sub{display:block;color:var(--muted);font-size:9px;margin-top:2px}.plan-row .dur{font-size:10px;font-weight:800;color:var(--accent-strong)}
+    .timeline-mini{display:grid;grid-template-columns:1fr auto;gap:7px 12px}.timeline-mini div{font-size:10px;color:var(--muted)}.timeline-mini strong{font-size:11px;color:var(--text)}
+    .chip-row{display:flex;gap:6px;flex-wrap:wrap}.chip{border:1px solid var(--line);padding:6px 9px;border-radius:999px;font-size:10px;color:var(--muted);background:var(--panel-solid);cursor:pointer}.chip.active{background:var(--accent-soft);color:var(--accent-strong);border-color:rgba(80,150,158,.18)}
+    .formative-note{margin-top:7px;font-size:10px;color:var(--peach);font-weight:700}
+    .two-col-mobile{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .footer-note{text-align:center;color:var(--muted);font-size:10px;padding:20px 0 10px}
+    @media (max-width:1100px){.g-4{grid-template-columns:repeat(2,minmax(0,1fr))}.split{grid-template-columns:1fr}.sticky-card{position:static}.planner-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (max-width:820px){
+      :root{--nav-width:0px}.sidebar{transform:translateX(-100%);width:246px;transition:transform .22s ease;box-shadow:var(--shadow)}.sidebar.open{transform:none}.main-wrap{margin-left:0;width:100%}.menu-btn{display:grid;place-items:center}.topbar{padding:12px 15px}.page{padding:16px 14px 92px}.hero-inner{flex-direction:column}.hero-actions{justify-content:flex-start}.g-3,.g-2{grid-template-columns:1fr}.setting-row{grid-template-columns:1fr}.setting-control{justify-content:flex-start}.subject-setting{grid-template-columns:auto minmax(0,1fr) auto}.subject-setting .teacher-field{grid-column:2/-1}.drawer-overlay{display:block;position:fixed;inset:0;background:rgba(10,20,25,.35);z-index:25;opacity:0;pointer-events:none;transition:opacity .22s ease}.drawer-overlay.open{opacity:1;pointer-events:auto}
+    }
+    @media (max-width:580px){.g-4{grid-template-columns:1fr 1fr}.metric-value{font-size:23px}.planner-summary{grid-template-columns:1fr 1fr}.form-grid{grid-template-columns:1fr}.task-row{grid-template-columns:auto minmax(0,1fr) auto}.task-row .task-meta{display:none}.calendar{gap:4px}.cal-cell{min-height:74px;padding:6px}.cal-hours{font-size:9px}.topbar-title h1{font-size:17px}.hero h2{font-size:23px}.table{min-width:760px}}
+
+    .pomo-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:stretch}
+    .pomo-display{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:300px;text-align:center;background:linear-gradient(145deg,rgba(126,205,214,.08),rgba(255,255,255,.02));border:1px solid var(--line);border-radius:22px;padding:28px}
+    .pomo-mode{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:700}
+    .pomo-time{font-size:clamp(4rem,11vw,7rem);line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.06em;margin:18px 0}
+    .pomo-controls{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+    .pomo-sessions{margin-top:16px;color:var(--muted);font-size:.85rem}
+    .pomo-settings{display:grid;gap:12px;align-content:start}
+    .pomo-presets{display:flex;gap:8px;flex-wrap:wrap}
+    .pomo-presets .btn{flex:1;min-width:90px}
+    .subject-choice-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .subject-choice{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025);cursor:pointer}
+    .subject-choice input{width:18px;height:18px;accent-color:var(--accent)}
+    @media(max-width:800px){.pomo-wrap{grid-template-columns:1fr}.subject-choice-list{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">S2</div>
+      <div class="brand-copy"><strong>StudyOS 2</strong><span>Academic command centre</span></div>
+    </div>
+    <nav class="nav" aria-label="Primary navigation">
+      <button data-page="dashboard" class="active"><span class="nav-icon">⌂</span><span class="nav-label">Dashboard</span></button>
+      <button data-page="today"><span class="nav-icon">◷</span><span class="nav-label">Today</span></button>
+      <button data-page="syllabus"><span class="nav-icon">▤</span><span class="nav-label">Syllabus</span></button>
+      <button data-page="planner"><span class="nav-icon">✦</span><span class="nav-label">Smart Planner</span></button>
+      <button data-page="daily"><span class="nav-icon">✓</span><span class="nav-label">My Daily Plan</span></button>
+      <button data-page="progress"><span class="nav-icon">◒</span><span class="nav-label">Progress</span></button>
+      <button data-page="settings"><span class="nav-icon">⚙</span><span class="nav-label">Settings</span></button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="mini-target">
+        <div class="row"><div><small>Target</small><div class="strong" id="miniTargetDate">—</div></div><div class="strong" id="miniTargetDays">—</div></div>
+        <div class="mini-bar"><div id="miniTargetBar"></div></div>
+        <div class="small muted mt8" id="miniTargetMeta">Set a target date in Planner.</div>
+      </div>
+    </div>
+  </aside>
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <main class="main-wrap">
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Open navigation">☰</button>
+      <div class="topbar-title"><h1 id="pageTitle">Dashboard</h1><p id="pageSubtitle">A calm view of what matters next.</p></div>
+      <div class="top-actions"><button class="icon-btn" id="quickAddBtn" title="Add personal task" aria-label="Add personal task">＋</button><button class="icon-btn" id="themeQuickBtn" title="Toggle theme" aria-label="Toggle theme">☾</button></div>
+    </header>
+
+    <section class="page" data-page-view="dashboard">
+      <div class="hero">
+        <div class="hero-inner">
+          <div><div class="kicker">StudyOS 2 · Class 11</div><h2>Study with clarity, not chaos.</h2><p>Know what remains, protect your time, and let the planner adapt as your real work gets completed.</p><div class="chip-row mt12"><span class="streak-badge">🔥 <span id="heroStreak">0 day streak</span></span><span class="badge" id="heroTargetBadge">Target not set</span></div></div>
+          <div class="hero-actions"><button class="btn primary" data-action="go-planner">✦ Generate Plan</button><button class="btn ghost" data-action="rebalance">↻ Rebalance</button></div>
+        </div>
+      </div>
+      <div class="grid g-4 mt16" id="dashboardMetrics"></div>
+      <div class="grid g-2 mt16">
+        <div class="card"><div class="card-title"><div><h3>Subject progress</h3><p>Checklist-based completion across active subjects.</p></div><span class="badge" id="subjectCountBadge">0 active</span></div><div id="subjectProgressList"></div></div>
+        <div class="card"><div class="card-title"><div><h3>Today at a glance</h3><p>Academic plan + personal study tasks.</p></div><button class="btn small ghost" data-action="open-today">View Today</button></div><div id="dashboardTodayList"></div></div>
+      </div>
+      <div class="grid g-2 mt16">
+        <div class="card"><div class="card-title"><div><h3>Planning pulse</h3><p>How your current target fits your available capacity.</p></div></div><div id="dashboardPulse"></div></div>
+        <div class="card"><div class="card-title"><div><h3>Recent study history</h3><p>Meaningful completed work by date.</p></div><button class="btn small ghost" data-action="open-progress">Progress</button></div><div id="dashboardHistory"></div></div>
+      </div>
+    </section>
+
+    <section class="page hidden" data-page-view="today">
+      <div class="section-head"><div><h2>Today</h2><p id="todayDateText">—</p></div><div class="section-actions"><button class="btn small ghost" data-action="open-daily">My Daily Plan</button><button class="btn small primary" data-action="go-planner">Planner</button></div></div>
+      <div class="grid g-4" id="todayMetrics"></div>
+      <div class="grid g-2 mt16"><div class="card"><div class="card-title"><div><h3>Academic tasks</h3><p>Generated by Smart Planner. Completion is preserved in history.</p></div></div><div id="todayAcademic"></div></div><div class="card"><div class="card-title"><div><h3>Personal tasks</h3><p>Never removed by planner regeneration.</p></div><button class="btn small primary" data-action="add-personal">＋ Add</button></div><div id="todayPersonal"></div></div></div>
+    </section>
+
+    <section class="page hidden" data-page-view="syllabus">
+      <div class="section-head"><div><h2>Syllabus</h2><p>Active, editable Class 11 syllabus with stable chapter IDs.</p></div><div class="section-actions"><button class="btn small primary" data-action="add-chapter">＋ Add custom chapter</button></div></div>
+      <div class="card"><div class="toolbar"><div class="search-wrap"><span>⌕</span><input class="input" id="syllabusSearch" placeholder="Search chapter, subject, teacher, custom topic…" /></div><select class="select inline-input" id="syllabusFilter"><option value="all">All</option><option value="active">Active</option><option value="completed">Completed</option><option value="incomplete">Incomplete</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="custom">Custom</option><option value="formative">Formative-only</option></select><select class="select inline-input" id="syllabusSubjectFilter"><option value="all">All subjects</option></select></div></div>
+      <div class="card mt16"><div id="syllabusTable"></div></div>
+    </section>
+
+    <section class="page hidden" data-page-view="planner">
+      <div class="section-head"><div><h2>Smart Planner</h2><p>Generate a future plan without touching your personal tasks or completed history.</p></div><div class="section-actions"><button class="btn small ghost" data-action="rebalance">↻ Rebalance from Today</button><button class="btn small primary" data-action="generate-plan">✦ Generate Plan</button></div></div>
+      <div class="split">
+        <div>
+          <div class="card"><div class="form-grid">
+            <div class="field"><label for="plannerTarget">Target date</label><input class="input" type="date" id="plannerTarget" /></div>
+            <div class="field"><label for="plannerHours">Available study hours / day</label><input class="input" type="number" id="plannerHours" min="0.25" max="16" step="0.25" /></div>
+            <div class="field"><label for="plannerSpeed">Playback speed</label><select class="select" id="plannerSpeed"><option value="1">1x</option><option value="1.25">1.25x</option><option value="1.5">1.5x</option><option value="2">2x</option></select></div>
+            <div class="field"><label for="plannerStrategy">Strategy</label><select class="select" id="plannerStrategy"><option value="balanced">Balanced</option><option value="priority">High-Priority First</option><option value="deadline">Exam / Deadline Focused</option></select></div>
+          </div><div id="plannerWarning" class="mt12"></div></div>
+          <div class="card mt16"><div class="card-title"><div><h3>Planning summary</h3><p>Playback only changes video/lecture time, never practice or revision time.</p></div></div><div class="planner-summary" id="plannerSummary"></div></div>
+          <div class="card mt16"><div class="card-title"><div><h3>Generated schedule</h3><p>Large chapters are split into stable task chunks.</p></div></div><div id="plannerSchedule"></div></div>
+        </div>
+        <aside class="sticky-card"><div class="card"><div class="card-title"><div><h3>How StudyOS is using your time</h3><p>Capacity is a hard ceiling.</p></div></div><div id="plannerSidebarInfo"></div></div></aside>
+      </div>
+    </section>
+
+    <section class="page hidden" data-page-view="daily">
+      <div class="section-head"><div><h2>My Daily Plan</h2><p>Your personal task space stays separate from the academic planner.</p></div><div class="section-actions"><button class="btn small primary" data-action="add-personal">＋ Add task</button></div></div>
+      <div class="grid g-3" id="dailyStats"></div>
+      <div class="card mt16"><div class="toolbar"><input class="input inline-input" style="flex:1;min-width:210px" id="dailySearch" placeholder="Search personal tasks…" /><select class="select inline-input" id="dailyFilter"><option value="all">All</option><option value="open">Open</option><option value="done">Completed</option></select><input class="input inline-input" type="date" id="dailyDateFilter" /></div></div>
+      <div class="card mt16"><div id="dailyTable"></div></div>
+    </section>
+
+    <section class="page hidden" data-page-view="progress">
+      <div class="section-head"><div><h2>Progress</h2><p>One consistent completion model across syllabus, planning and history.</p></div></div>
+      <div class="grid g-4" id="progressMetrics"></div>
+      <div class="grid g-2 mt16"><div class="card"><div class="card-title"><div><h3>Subject breakdown</h3><p>Completion is based on chapter checklist progress.</p></div></div><div id="progressSubjects"></div></div><div class="card"><div class="card-title"><div><h3>Checklist completion</h3><p>All configured activities across active chapters.</p></div></div><div id="progressChecklist"></div></div></div>
+      <div class="card mt16"><div class="card-title"><div><h3>Study history</h3><p>Meaningful completed study activity by date.</p></div></div><div id="progressHistory"></div></div>
+      <div class="card mt16"><div class="card-title"><div><h3>Calendar</h3><p>Click a date to inspect tasks and events.</p></div><div class="toolbar"><button class="btn small primary" data-action="add-event">＋ Event</button><button class="btn small ghost" id="calPrev">←</button><button class="btn small ghost" id="calToday">Today</button><button class="btn small ghost" id="calNext">→</button></div></div><div class="small strong" id="calendarTitle"></div><div class="calendar mt12" id="calendar"></div><div id="calendarDetails" class="mt12"></div></div>
+    </section>
+
+    <section class="page hidden" data-page-view="settings">
+      <div class="section-head"><div><h2>Settings</h2><p>Control appearance, your subjects, planner defaults, focus timer and data safety.</p></div></div>
+      <div class="grid g-2">
+        <div class="card"><div class="card-title"><div><h3>Appearance</h3><p>Light, dark or follow the system.</p></div></div><div class="setting-row"><div><strong>Theme</strong><p>Dark keeps the same teal, sky and warm-gold identity.</p></div><div class="setting-control"><select class="select" style="max-width:180px" id="themeSetting"><option value="light">Light</option><option value="dark">Dark</option><option value="system">System</option></select></div></div></div>
+        <div class="card"><div class="card-title"><div><h3>Planner defaults</h3><p>Used as starting values in Smart Planner.</p></div></div><div class="setting-row"><div><strong>Daily hours</strong><p>Hard maximum for generated academic work per day.</p></div><div class="setting-control"><input class="input" style="max-width:180px" type="number" id="settingDailyHours" min="0.25" max="16" step="0.25" /></div></div><div class="setting-row"><div><strong>Playback speed</strong><p>Applies only to video/lecture hours.</p></div><div class="setting-control"><select class="select" style="max-width:180px" id="settingSpeed"><option value="1">1x</option><option value="1.25">1.25x</option><option value="1.5">1.5x</option><option value="2">2x</option></select></div></div><div class="setting-row"><div><strong>Assumed video share</strong><p>Used when a chapter has no custom video duration.</p></div><div class="setting-control"><input class="input" style="max-width:180px" type="number" id="settingVideoShare" min="0" max="100" step="5" /></div></div><div class="setting-row"><div><strong>Strategy</strong><p>Default scheduling behaviour.</p></div><div class="setting-control"><select class="select" style="max-width:180px" id="settingStrategy"><option value="balanced">Balanced</option><option value="priority">High-Priority First</option><option value="deadline">Exam / Deadline Focused</option></select></div></div></div>
+      </div>
+      <div class="card mt16"><div class="card-title"><div><h3>Your subjects</h3><p>Tick only the subjects you actually study. Smart Planner uses only these subjects.</p></div></div><div id="subjectsSettings"></div></div>
+      <div class="card mt16"><div class="card-title"><div><h3>Pomodoro focus timer</h3><p>A persistent, adjustable timer for focused study sessions.</p></div></div><div id="pomodoroSettings"></div></div>
+      <div class="card mt16"><div class="card-title"><div><h3>Removed chapters</h3><p>Deleted from active planning, but always restorable.</p></div></div><div id="removedChapters"></div></div>
+      <div class="card mt16"><div class="card-title"><div><h3>Data safety</h3><p>Export JSON backups before major changes. Reset only affects StudyOS local data.</p></div></div><div class="toolbar"><button class="btn" data-action="export">Export backup</button><button class="btn" data-action="import">Import backup</button><button class="btn danger" data-action="reset">Reset StudyOS data</button></div><div class="small muted mt12">Storage key: <code>studyos2_v3</code></div></div>
+      <div class="footer-note">StudyOS 2 stores everything locally in this browser. No account or server is required.</div>
+    </section>
+  </main>
+</div>
+
+<input type="file" id="importFile" accept="application/json,.json" class="hidden" />
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-hidden="true"><div class="modal"><div class="modal-head"><h3 id="modalTitle">Modal</h3><button class="icon-btn" id="modalClose" aria-label="Close modal">×</button></div><div class="modal-body" id="modalBody"></div></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  'use strict';
+
+  // =========================================================
+  // CONFIG
+  // =========================================================
+  const CONFIG = {
+    VERSION: 3,
+    STORAGE_KEY: 'studyos2_v3',
+    LEGACY_KEYS: ['studyos2', 'studyos2_v1', 'studyos2_v2'],
+    TODAY: () => new Date(),
+    CHECKLIST_COUNT: 5,
+    DEFAULT_DAILY_HOURS: 3,
+    DEFAULT_SPEED: 1,
+    DEFAULT_STRATEGY: 'balanced',
+    DEFAULT_VIDEO_SHARE: 0.6,
+    PRIORITY_WEIGHT: { high: 3, medium: 2, low: 1 }
+  };
+
+  // =========================================================
+  // DEFAULT SYLLABUS
+  // =========================================================
+  const SUBJECT_DEFS = [
+    { id:'physics', name:'Physics', teacher:'' },
+    { id:'chemistry', name:'Chemistry', teacher:'' },
+    { id:'biology', name:'Biology', teacher:'Vipin Sir' },
+    { id:'mathematics', name:'Mathematics', teacher:'' },
+    { id:'english', name:'English Core', teacher:'' },
+    { id:'pe', name:'Physical Education', teacher:'Zaki Saudagar' },
+    { id:'cs', name:'Computer Science', teacher:'' }
+  ];
+  const SYLLABUS = [
+    ['physics', 'PHYSICS', [
+      'Units and Measurements','Motion in a Straight Line','Motion in a Plane','Laws of Motion','Work, Energy and Power','System of Particles and Rotational Motion','Gravitation','Mechanical Properties of Solids','Mechanical Properties of Fluids','Thermal Properties of Matter','Thermodynamics','Kinetic Theory','Oscillations','Waves'
+    ]],
+    ['chemistry','CHEMISTRY',[
+      'Some Basic Concepts of Chemistry','Structure of Atom','Classification of Elements and Periodicity in Properties','Chemical Bonding and Molecular Structure','Chemical Thermodynamics','Equilibrium','Redox Reactions','Organic Chemistry: Some Basic Principles and Techniques','Hydrocarbons'
+    ]],
+    ['biology','BIOLOGY',[
+      'The Living World','Biological Classification','Plant Kingdom','Animal Kingdom','Morphology of Flowering Plants','Anatomy of Flowering Plants','Structural Organisation in Animals','Cell: The Unit of Life','Biomolecules','Cell Cycle and Cell Division','Photosynthesis in Higher Plants','Respiration in Plants','Plant Growth and Development','Breathing and Exchange of Gases','Body Fluids and Circulation','Excretory Products and their Elimination','Locomotion and Movement','Neural Control and Coordination','Chemical Coordination and Integration','Digestion and Absorption'
+    ]],
+    ['mathematics','MATHEMATICS',[
+      'Sets','Relations & Functions','Trigonometric Functions','Complex Numbers and Quadratic Equations','Linear Inequalities','Permutations and Combinations','Binomial Theorem','Sequence and Series','Straight Lines','Conic Sections','Introduction to Three-dimensional Geometry','Limits and Derivatives','Statistics','Probability'
+    ]],
+    ['english','ENGLISH CORE',[
+      'The Portrait of a Lady','A Photograph',"We’re Not Afraid to Die... if We Can Be Together",'Discovering Tut: The Saga Continues','The Laburnum Top','The Voice of the Rain','Childhood','The Adventure','Silk Road','Father to Son','The Summer of the Beautiful White Horse','The Address',"Mother's Day",'Birth','The Tale of Melon City','Reading Skills','Grammar & Creative Writing Skills','Listening, Speaking & Project Work'
+    ]],
+    ['pe','PHYSICAL EDUCATION',[
+      'Changing Trends & Career in Physical Education','Olympic Value Education','Yoga','Physical Education & Sports for CWSN','Physical Fitness, Wellness','Test, Measurements & Evaluation','Fundamentals of Anatomy and Physiology in Sports','Fundamentals of Kinesiology and Biomechanics in Sports','Psychology and Sports','Training & Doping in Sports'
+    ]],
+    ['cs','COMPUTER SCIENCE',[]]
+  ];
+  SYLLABUS.find(x=>x[0]==='cs')[2] = [
+    {unit:'UNIT 1 — Computer Systems and Organisation', chapters:['Computer Organisation','Types of Software','Operating System','Boolean Logic','Number System']},
+    {unit:'UNIT 2 — Computational Thinking and Programming–1', chapters:['Introduction to Problem Solving','Familiarization with the Basics of Python Programming','Data Types, Variables and Operators','Expressions, Statements and Input/Output','Flow of Control','Strings','Lists','Tuples','Dictionaries','Introduction to Python Modules']},
+    {unit:'UNIT 3 — Society, Law and Ethics', chapters:['Digital Footprints','Digital Society and Netizen','Cyber Safety','Cyber Crime','Cyber Laws','Ethical Issues']}
+  ];
+  const MATH_UNITS = {
+    sets:'SETS AND FUNCTIONS', algebra:'ALGEBRA', coordinate:'COORDINATE GEOMETRY', calculus:'CALCULUS', stats:'STATISTICS AND PROBABILITY'
+  };
+  const MATH_UNIT_MAP = {
+    'Sets':'sets','Relations & Functions':'sets','Trigonometric Functions':'sets','Complex Numbers and Quadratic Equations':'algebra','Linear Inequalities':'algebra','Permutations and Combinations':'algebra','Binomial Theorem':'algebra','Sequence and Series':'algebra','Straight Lines':'coordinate','Conic Sections':'coordinate','Introduction to Three-dimensional Geometry':'coordinate','Limits and Derivatives':'calculus','Statistics':'stats','Probability':'stats'
+  };
+  const MATH_MARKER = 'Preserve Mathematics unit structure; unit marks are not chapter-wise guarantees.';
+
+  const HOURS = {
+    physics:[2,3,3,4,4,6,4,2,3,3,4,2,3,3],
+    chemistry:[3,3,3,4,4,5,3,5,4],
+    biology:[1.5,3,3,3,2.5,2.5,2.5,3.5,2.5,3,4,3,3,3,3.5,3,3,4,3.5,2.5],
+    mathematics:[2,3,4,5,2,4,3,4,3,5,2.5,4,3,2.5],
+    english:[2,1.5,3,2.5,1.5,1.5,1.5,2.5,3,2,3,2,2,2,2,2,3,2],
+    pe:[3,2.5,2.5,2.5,3,3.5,3.5,3.5,3,4],
+    cs:[3,2,3,2.5,4,3,4,4,3,2.5,2.5,2.5,2.25,2.5,2.25,1.5,1.5,2,1.5,1.5,1.5]
+  };
+  const DEFAULT_LABELS = {
+    physics:['DPP / Test','Question Bank','NCERT Read','Notes / Short Notes','Revision'],
+    chemistry:['DPP / Test','Question Bank','NCERT Read','Notes / Short Notes','Revision'],
+    biology:['DPP / Test','Question Bank','NCERT Read','Notes / Short Notes','Revision'],
+    mathematics:['Practice','Exercise','PYQ','Notes','Revision'],
+    english:['Reading','Questions','Writing','Notes','Revision'],
+    pe:['Theory','Question Bank','NCERT Read','Notes','Revision'],
+    cs:['Theory','Coding Practice','Questions','Programs','Revision']
+  };
+
+  function makeChapterDefaults() {
+    const list = [];
+    for (const [sid, unit, data] of SYLLABUS) {
+      if (sid === 'cs') {
+        let n = 0;
+        for (const u of data) for (const name of u.chapters) {
+          const id = `ch_${sid}_${String(++n).padStart(3,'0')}`;
+          list.push(chapter(id, sid, name, HOURS[sid][n-1] || 2, u.unit, false));
+        }
+      } else {
+        data.forEach((name,i)=>{
+          const id = `ch_${sid}_${String(i+1).padStart(3,'0')}`;
+          const chapterUnit = sid==='mathematics' ? (MATH_UNITS[MATH_UNIT_MAP[name]] || unit) : unit;
+          list.push(chapter(id, sid, name, HOURS[sid][i] || 2, chapterUnit, sid==='biology' && name==='Digestion and Absorption'));
+        });
+      }
+    }
+    return list;
+  }
+  function chapter(id,subjectId,name,estimatedHours,unit,formativeOnly=false){
+    return {
+      id,subjectId,name,estimatedHours:Number(estimatedHours)||2,priority:'medium',notes:'',removed:false,custom:false,formativeOnly,
+      videoHours:0,videoConfigured:false,
+      checklist:[false,false,false,false,false],
+      createdAt:nowISO(),updatedAt:nowISO(),unit:unit||''
+    };
+  }
+
+  // =========================================================
+  // STATE
+  // =========================================================
+  let state = null;
+  let activePage = 'dashboard';
+  let calendarCursor = new Date(CONFIG.TODAY().getFullYear(), CONFIG.TODAY().getMonth(), 1);
+  let toastTimer = null;
+  let lastModalFocus = null;
+
+  function blankState(){
+    return {
+      version:CONFIG.VERSION,
+      firstRun:true,
+      theme:'system',
+      setup:{done:false},
+      subjects:SUBJECT_DEFS.map(s=>({id:s.id,name:s.name,teacher:s.teacher,enabled:true})),
+      chapters:makeChapterDefaults(),
+      personalTasks:[],
+      calendarEvents:[],
+      academicTasks:[],
+      academicHistory:[],
+      completedDates:{},
+      planner:{targetDate:'',dailyHours:CONFIG.DEFAULT_DAILY_HOURS,playbackSpeed:CONFIG.DEFAULT_SPEED,strategy:CONFIG.DEFAULT_STRATEGY,videoShare:CONFIG.DEFAULT_VIDEO_SHARE},
+      pomodoro:{work:25,shortBreak:5,longBreak:15,longBreakEvery:4,mode:'work',remaining:1500,running:false,endsAt:null,sessions:0},
+      streak:0,
+      lastOpenedDate:todayKey(),
+      checklistLabels:JSON.parse(JSON.stringify(DEFAULT_LABELS)),
+      settings:{ lastSave:null }
+    };
+  }
+
+  // =========================================================
+  // STORAGE / MIGRATION
+  // =========================================================
+  function safeParse(raw){try{return JSON.parse(raw)}catch{return null}}
+  function deepMerge(base, incoming){
+    if(!incoming || typeof incoming!=='object') return base;
+    for(const k of Object.keys(incoming)){
+      if(Array.isArray(incoming[k])) base[k]=incoming[k];
+      else if(incoming[k] && typeof incoming[k]==='object' && base[k] && typeof base[k]==='object' && !Array.isArray(base[k])) deepMerge(base[k],incoming[k]);
+      else base[k]=incoming[k];
+    }
+    return base;
+  }
+  function sanitizeChapter(ch,i){
+    const c = ch && typeof ch==='object' ? {...ch} : {};
+    c.id = String(c.id||`custom_migrated_${Date.now()}_${i}`);
+    c.subjectId = String(c.subjectId||'physics');
+    c.name = String(c.name||`Chapter ${i+1}`).slice(0,180);
+    c.estimatedHours = clampNum(c.estimatedHours,0.25,100,2);
+    c.priority = ['high','medium','low'].includes(c.priority)?c.priority:'medium';
+    c.notes = typeof c.notes==='string'?c.notes:'';
+    c.removed=!!c.removed;c.custom=!!c.custom;c.formativeOnly=!!c.formativeOnly;
+    c.videoConfigured=typeof c.videoConfigured==='boolean'?c.videoConfigured:false;
+    c.videoHours=clampNum(c.videoHours,0,c.estimatedHours,0);
+    c.checklist=Array.isArray(c.checklist)?Array.from({length:CONFIG.CHECKLIST_COUNT},(_,j)=>!!c.checklist[j]):[false,false,false,false,false];
+    c.updatedAt=c.updatedAt||nowISO();c.createdAt=c.createdAt||nowISO();c.unit=c.unit||'';
+    return c;
+  }
+  function sanitizeState(obj){
+    const base=blankState();
+    const s=deepMerge(base,obj||{});
+    s.version=CONFIG.VERSION;
+    s.subjects=Array.isArray(s.subjects)?s.subjects.map((x,i)=>({id:String(x.id||SUBJECT_DEFS[i]?.id||`subject_${i}`),name:String(x.name||SUBJECT_DEFS[i]?.name||`Subject ${i+1}`),teacher:typeof x.teacher==='string'?x.teacher:'',enabled:x.enabled!==false})):base.subjects;
+    const ids=new Set(s.subjects.map(x=>x.id));
+    for(const d of SUBJECT_DEFS) if(!ids.has(d.id)) s.subjects.push({id:d.id,name:d.name,teacher:d.teacher,enabled:true});
+    s.chapters=Array.isArray(s.chapters)?s.chapters.map(sanitizeChapter):base.chapters;
+    const chids=new Set(s.chapters.map(c=>c.id));
+    for(const c of base.chapters) if(!chids.has(c.id)) s.chapters.push(c);
+    s.personalTasks=Array.isArray(s.personalTasks)?s.personalTasks.map(sanitizePersonalTask).filter(Boolean):[];
+    s.calendarEvents=Array.isArray(s.calendarEvents)?s.calendarEvents.map(sanitizeCalendarEvent).filter(Boolean):[];
+    s.academicTasks=Array.isArray(s.academicTasks)?s.academicTasks.map(sanitizeAcademicTask).filter(Boolean):[];
+    s.academicHistory=Array.isArray(s.academicHistory)?s.academicHistory:[];
+    s.completedDates=(s.completedDates&&typeof s.completedDates==='object')?s.completedDates:{};
+    if(!Object.keys(s.completedDates).length){for(const h of s.academicHistory){const d=h.date||((h.completedAt||'').slice(0,10)||null);if(d)s.completedDates[d]=(s.completedDates[d]||0)+(Number(h.duration)||0)}for(const t of s.academicTasks){if(t.completed){const d=t.completedOnDate||((t.completedAt||'').slice(0,10)||null);if(d)s.completedDates[d]=(s.completedDates[d]||0)+(Number(t.duration)||0)}}for(const t of s.personalTasks){if(t.completed&&t.completedOnDate)s.completedDates[t.completedOnDate]=(s.completedDates[t.completedOnDate]||0)+(Number(t.duration)||0)}}
+    s.streak=Number(s.streak)||0;
+    s.planner={...base.planner,...(s.planner||{})};
+    s.planner.dailyHours=clampNum(s.planner.dailyHours,.25,16,3);s.planner.playbackSpeed=[1,1.25,1.5,2].includes(Number(s.planner.playbackSpeed))?Number(s.planner.playbackSpeed):1;s.planner.strategy=['balanced','priority','deadline'].includes(s.planner.strategy)?s.planner.strategy:'balanced';s.planner.videoShare=clampNum(s.planner.videoShare,0,1,CONFIG.DEFAULT_VIDEO_SHARE);
+    s.pomodoro={...blankState().pomodoro,...(s.pomodoro||{})};
+    s.pomodoro.work=clampNum(s.pomodoro.work,1,180,25);s.pomodoro.shortBreak=clampNum(s.pomodoro.shortBreak,1,60,5);s.pomodoro.longBreak=clampNum(s.pomodoro.longBreak,1,120,15);s.pomodoro.longBreakEvery=clampNum(s.pomodoro.longBreakEvery,1,12,4);s.pomodoro.mode=['work','short','long'].includes(s.pomodoro.mode)?s.pomodoro.mode:'work';s.pomodoro.remaining=Math.max(0,Number(s.pomodoro.remaining)||s.pomodoro.work*60);s.pomodoro.running=!!s.pomodoro.running;s.pomodoro.endsAt=Number(s.pomodoro.endsAt)||null;s.pomodoro.sessions=Math.max(0,Number(s.pomodoro.sessions)||0);
+    s.theme=['light','dark','system'].includes(s.theme)?s.theme:'system';
+    s.checklistLabels={...base.checklistLabels,...(s.checklistLabels||{})};
+    for(const sub of s.subjects) if(!Array.isArray(s.checklistLabels[sub.id])) s.checklistLabels[sub.id]=[...(DEFAULT_LABELS[sub.id]||DEFAULT_LABELS.physics)];
+    s.firstRun=typeof s.firstRun==='boolean'?s.firstRun:!s.setup?.done;s.setup=s.setup&&typeof s.setup==='object'?s.setup:{};
+    s.setup.done=!!s.setup.done;s.lastOpenedDate=s.lastOpenedDate||todayKey();s.streak=Number(s.streak)||0;
+    return s;
+  }
+  function migrateLegacy(){
+    let found=null;
+    for(const key of CONFIG.LEGACY_KEYS){const raw=localStorage.getItem(key);if(raw){const parsed=safeParse(raw);if(parsed){found=parsed;break}}}
+    if(!found) return blankState();
+    const migrated=sanitizeState(found);
+    migrated.firstRun = migrated.setup?.done===true ? false : true;
+    return migrated;
+  }
+  function loadState(){
+    try{
+      const raw=localStorage.getItem(CONFIG.STORAGE_KEY);
+      if(raw){const p=safeParse(raw);if(p) return sanitizeState(p)}
+      return migrateLegacy();
+    }catch(e){return blankState()}
+  }
+  function saveState(){
+    try{state.settings.lastSave=nowISO();localStorage.setItem(CONFIG.STORAGE_KEY,JSON.stringify(state));}
+    catch(e){showToast('Could not save locally. Browser storage may be full.')} 
+  }
+
+  function sanitizePersonalTask(t){
+    if(!t||typeof t!=='object') return null;
+    return {id:String(t.id||uid('pt')),title:String(t.title||'Untitled task'),date:String(t.date||todayKey()),time:typeof t.time==='string'?t.time:'',duration:clampNum(t.duration,.25,24,1),priority:['high','medium','low'].includes(t.priority)?t.priority:'medium',notes:typeof t.notes==='string'?t.notes:'',completed:!!t.completed,completedOnDate:t.completedOnDate||((t.completedAt||'').slice(0,10)||null),completedAt:t.completedAt||null,createdAt:t.createdAt||nowISO(),updatedAt:t.updatedAt||nowISO()};
+  }
+  function sanitizeCalendarEvent(e){
+    if(!e||typeof e!=='object') return null;
+    return {id:String(e.id||uid('ev')),title:String(e.title||'Untitled event').slice(0,180),date:String(e.date||todayKey()),time:typeof e.time==='string'?e.time:'',notes:typeof e.notes==='string'?e.notes:'',createdAt:e.createdAt||nowISO(),updatedAt:e.updatedAt||nowISO()};
+  }
+
+  function sanitizeAcademicTask(t){
+    if(!t||typeof t!=='object') return null;
+    return {id:String(t.id||uid('at')),date:String(t.date||todayKey()),subjectId:String(t.subjectId||''),chapterId:String(t.chapterId||''),chapterPart:Number(t.chapterPart)||1,chapterPartsTotal:Number(t.chapterPartsTotal)||1,type:String(t.type||'Study'),duration:clampNum(t.duration,.05,24,1),completed:!!t.completed,generated:true,createdAt:t.createdAt||nowISO(),completedAt:t.completedAt||null,completedOnDate:t.completedOnDate||((t.completedAt||'').slice(0,10)||null),source:String(t.source||'planner'),priority:t.priority||'medium',label:String(t.label||''),historyId:t.historyId||null};
+  }
+
+  // =========================================================
+  // MIGRATION HELPERS / UTILITIES
+  // =========================================================
+  function uid(prefix='id'){return `${prefix}_${(crypto?.randomUUID?.()||`${Date.now()}_${Math.random().toString(36).slice(2)}`).replace(/-/g,'')}`}
+  function nowISO(){return new Date().toISOString()}
+  function todayKey(){return localDateKey(new Date())}
+  function localDateKey(d){const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');return `${y}-${m}-${day}`}
+  function parseKey(k){const [y,m,d]=String(k).split('-').map(Number);return new Date(y,m-1,d)}
+  function addDays(date,n){const d=new Date(date);d.setDate(d.getDate()+n);return d}
+  function daysBetweenInclusive(a,b){if(!a||!b)return 0;const x=parseKey(a),y=parseKey(b);return Math.floor((y-x)/86400000)+1}
+  function clampNum(v,min,max,fallback){const n=Number(v);return Number.isFinite(n)?Math.min(max,Math.max(min,n)):fallback}
+  function fmtDate(k,opts={month:'short',day:'numeric',year:'numeric'}){try{return new Intl.DateTimeFormat(undefined,opts).format(parseKey(k))}catch{return k}}
+  function fmtDateLong(k){return fmtDate(k,{weekday:'short',month:'short',day:'numeric'})}
+  function fmtHours(h){const n=Math.round((Number(h)||0)*100)/100;return `${n.toFixed(n%1===0?0:2)}h`}
+  function pct(x){return Math.max(0,Math.min(100,Math.round((Number(x)||0)*100)))}
+  function currentSubject(id){return state.subjects.find(s=>s.id===id)||{id,name:'Unknown subject',teacher:'',enabled:true}}
+  function currentChapter(id){return state.chapters.find(c=>c.id===id)||null}
+  function activeSubjects(){return state.subjects.filter(s=>s.enabled)}
+  function activeChapters(){return state.chapters.filter(c=>!c.removed && activeSubjects().some(s=>s.id===c.subjectId))}
+  function chapterCompletion(c){return c.checklist.reduce((a,x)=>a+(x?1:0),0)/CONFIG.CHECKLIST_COUNT}
+  function chapterBaseRemaining(c){return Math.max(0,c.estimatedHours*(1-chapterCompletion(c)))}
+  function completedAcademicHoursForChapter(c){return state.academicHistory.filter(h=>h.chapterId===c.id).reduce((a,h)=>a+(Number(h.duration)||0),0)}
+  function completedAcademicByType(c,type){return state.academicHistory.filter(h=>h.chapterId===c.id&&h.type===type).reduce((a,h)=>a+(Number(h.duration)||0),0)}
+  function chapterVideoHours(c){
+    const base=Number(c.videoHours)||0;
+    return Math.min(c.estimatedHours,c.videoConfigured?base:c.estimatedHours*state.planner.videoShare);
+  }
+  function effectiveVideoRemaining(c,speed=1){
+    const raw=chapterVideoHours(c)*Math.max(0,1-chapterCompletion(c));
+    return Math.max(0,raw/speed-completedAcademicByType(c,'Lecture / Video'));
+  }
+  function effectiveNonVideoRemaining(c){
+    const raw=Math.max(0,c.estimatedHours-chapterVideoHours(c))*Math.max(0,1-chapterCompletion(c));
+    return Math.max(0,raw-completedAcademicByType(c,'Study / Practice'));
+  }
+  function effectiveRemaining(c,speed=1){return effectiveVideoRemaining(c,speed)+effectiveNonVideoRemaining(c)}
+  function overallProgress(){const ch=activeChapters();if(!ch.length)return 0;return ch.reduce((a,c)=>a+chapterCompletion(c),0)/ch.length}
+  function completedTopics(){return activeChapters().filter(c=>chapterCompletion(c)>=1).length}
+  function remainingTopics(){return activeChapters().filter(c=>chapterCompletion(c)<1).length}
+  function remainingHours(){return activeChapters().reduce((a,c)=>a+effectiveRemaining(c,state.planner.playbackSpeed),0)}
+  function todayAcademicTasks(){return state.academicTasks.filter(t=>t.date===todayKey())}
+  function todayPersonalTasks(){return state.personalTasks.filter(t=>t.date===todayKey())}
+  function plannedHoursOnDate(date){return state.academicTasks.filter(t=>t.date===date).reduce((a,t)=>a+Number(t.duration||0),0)}
+  function completedHoursOnDate(date){
+    const a=state.academicTasks.filter(t=>t.date===date&&t.completed).reduce((x,t)=>x+Number(t.duration||0),0);
+    const p=state.personalTasks.filter(t=>t.date===date&&t.completed).reduce((x,t)=>x+Number(t.duration||0),0);
+    return a+p;
+  }
+  function personalPlannedHoursOnDate(date){return state.personalTasks.filter(t=>t.date===date).reduce((a,t)=>a+Number(t.duration||0),0)}
+  function meaningfulCompletedOnDate(date){return completedHoursOnDate(date)>0}
+  function recalcStreak(){
+    let count=0;let d=parseKey(todayKey());
+    while((state.completedDates[localDateKey(d)]||0)>0.001){count++;d=addDays(d,-1)}
+    return count;
+  }
+  function markMeaningfulChange(){state.streak=recalcStreak();state.lastOpenedDate=todayKey()}
+  function updateDerivedMeta(){markMeaningfulChange();saveState();}
+  function escapeHtml(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+  function optionHtml(items,current){return items.map(x=>`<option value="${escapeHtml(x.value)}" ${x.value===current?'selected':''}>${escapeHtml(x.label)}</option>`).join('')}
+  function showToast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2200)}
+
+  // =========================================================
+  // NAVIGATION / THEME
+  // =========================================================
+  const PAGE_META={
+    dashboard:['Dashboard','A calm view of what matters next.'],today:['Today','Academic and personal tasks for today.'],syllabus:['Syllabus','Your active, editable Class 11 syllabus.'],planner:['Smart Planner','Generate and rebalance academic work without losing history.'],daily:['My Daily Plan','Your independent personal study tasks.'],progress:['Progress','See completion, history, streak and calendar.'],settings:['Settings','Shape the app around your workflow.']
+  };
+  function navigate(page){
+    activePage=page;
+    document.querySelectorAll('[data-page-view]').forEach(p=>p.classList.toggle('hidden',p.dataset.pageView!==page));
+    document.querySelectorAll('.nav button[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+    const m=PAGE_META[page]||PAGE_META.dashboard;document.getElementById('pageTitle').textContent=m[0];document.getElementById('pageSubtitle').textContent=m[1];
+    closeDrawer();renderCurrent();window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function preferredTheme(){
+    if(state.theme==='dark')return'dark';if(state.theme==='light')return'light';return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+  }
+  function applyTheme(){document.documentElement.dataset.theme=preferredTheme();document.getElementById('themeQuickBtn').textContent=preferredTheme()==='dark'?'☀':'☾'}
+  function setTheme(v){state.theme=v;applyTheme();saveState();renderSettings();}
+  function openDrawer(){document.getElementById('sidebar').classList.add('open');document.getElementById('drawerOverlay').classList.add('open')}
+  function closeDrawer(){document.getElementById('sidebar').classList.remove('open');document.getElementById('drawerOverlay').classList.remove('open')}
+
+  // =========================================================
+  // RENDERING
+  // =========================================================
+  function renderCurrent(){
+    updateSidebar();
+    if(activePage==='dashboard')renderDashboard();
+    if(activePage==='today')renderToday();
+    if(activePage==='syllabus')renderSyllabus();
+    if(activePage==='planner')renderPlanner();
+    if(activePage==='daily')renderDaily();
+    if(activePage==='progress')renderProgress();
+    if(activePage==='settings')renderSettings();
+    applyTheme();
+  }
+  function updateSidebar(){
+    const p=overallProgress();document.getElementById('miniTargetDate').textContent=state.planner.targetDate?fmtDate(state.planner.targetDate,{month:'short',day:'numeric',year:'numeric'}):'Not set';
+    const days=state.planner.targetDate?Math.max(0,daysBetweenInclusive(todayKey(),state.planner.targetDate)-1):0;document.getElementById('miniTargetDays').textContent=state.planner.targetDate?(days===0?'Today':`${days}d`):'—';
+    document.getElementById('miniTargetBar').style.width=`${p*100}%`;document.getElementById('miniTargetMeta').textContent=state.planner.targetDate?`${pct(p/1)}% syllabus complete`:'Set a target date in Planner.';
+    document.getElementById('heroStreak').textContent=`${state.streak||0} day ${(state.streak||0)===1?'streak':'streak'}`;document.getElementById('heroTargetBadge').textContent=state.planner.targetDate?`Target · ${fmtDate(state.planner.targetDate,{month:'short',day:'numeric'})}`:'Target not set';
+  }
+  function renderDashboard(){
+    const p=overallProgress(), remH=remainingHours(), target=state.planner.targetDate;const todayPlan=state.academicTasks.filter(t=>t.date===todayKey());const todayDone=todayPlan.filter(t=>t.completed).reduce((a,t)=>a+t.duration,0)+todayPersonalTasks().filter(t=>t.completed).reduce((a,t)=>a+t.duration,0);
+    const metrics=[
+      ['Overall syllabus',`${pct(p)}%`,'Across active chapters','◒'],['Completed topics',`${completedTopics()}`,'Checklist fully complete','✓'],['Remaining topics',`${remainingTopics()}`,'Still open','⌁'],["Today's planned",fmtHours(todayPlan.reduce((a,t)=>a+t.duration,0)+todayPersonalTasks().reduce((a,t)=>a+t.duration,0)),`${fmtHours(todayDone)} completed`,'◷']
+    ];
+    document.getElementById('dashboardMetrics').innerHTML=metrics.map(([l,v,s,i])=>metricHtml(l,v,s,i)).join('');
+    const active=activeSubjects();document.getElementById('subjectCountBadge').textContent=`${active.length} active`;
+    document.getElementById('subjectProgressList').innerHTML=active.map(s=>{
+      const ch=activeChapters().filter(c=>c.subjectId===s.id);const cp=ch.length?ch.reduce((a,c)=>a+chapterCompletion(c),0)/ch.length:0;return `<div class="subject-card soft-box mt8"><div class="subject-head"><div class="subject-name"><span class="subject-dot"></span><div><strong>${escapeHtml(s.name)}</strong><div class="teacher">${escapeHtml(s.teacher||'Teacher not set')}</div></div></div><span class="strong small">${pct(cp)}%</span></div><div class="progress-track"><div class="progress-fill" style="width:${pct(cp)}%"></div></div><div class="subject-stats"><span>${ch.filter(c=>chapterCompletion(c)>=1).length}/${ch.length} chapters</span><strong>${fmtHours(ch.reduce((a,c)=>a+effectiveRemaining(c,state.planner.playbackSpeed),0))} left</strong></div></div>`
+    }).join('')||`<div class="empty"><strong>No active subjects</strong>Enable a subject from Settings.</div>`;
+    const td=[...todayAcademicTasks().map(task=>taskCompactHtml(task,'academic')),...todayPersonalTasks().map(task=>personalCompactHtml(task))];document.getElementById('dashboardTodayList').innerHTML=td.length?`<div class="task-list">${td.slice(0,7).join('')}</div>${td.length>7?`<div class="small muted mt8">+ ${td.length-7} more task(s)</div>`:''}`:`<div class="empty"><strong>Your day is clear.</strong>Generate an academic plan or add a personal task.</div>`;
+    const days=target?daysBetweenInclusive(todayKey(),target):0;const capacity=target?Math.max(0,days)*state.planner.dailyHours:0;const shortage=Math.max(0,remH-capacity);
+    document.getElementById('dashboardPulse').innerHTML=target?`<div class="stat-line"><span>Remaining workload</span><strong>${fmtHours(remH)}</strong></div><div class="progress-track"><div class="progress-fill" style="width:${capacity?Math.min(100,remH/capacity*100):100}%"></div></div><div class="stat-line"><span>Available capacity</span><strong>${fmtHours(capacity)}</strong></div><div class="stat-line"><span>Target</span><strong>${fmtDate(target,{month:'short',day:'numeric',year:'numeric'})}</strong></div>${shortage?`<div class="warn mt12">Shortage: ${fmtHours(shortage)} cannot fit before the target at ${fmtHours(state.planner.dailyHours)}/day.</div>`:`<div class="success mt12">Current workload fits the available capacity.</div>`}`:`<div class="empty"><strong>No target date yet.</strong>Set one in Smart Planner to see capacity.</div>`;
+    const hist=historySummary().slice(0,6);document.getElementById('dashboardHistory').innerHTML=hist.length?`<div class="history-list">${hist.map(h=>`<div class="history-item"><div><div class="history-date">${fmtDate(h.date,{month:'short',day:'numeric',year:'numeric'})}<small>${h.tasks} completed task${h.tasks===1?'':'s'}</small></div></div><strong>${fmtHours(h.hours)}</strong></div>`).join('')}</div>`:`<div class="empty"><strong>No completed study history yet.</strong>Complete meaningful work to build your streak.</div>`;
+  }
+  function metricHtml(label,value,sub,icon){return `<div class="card metric"><div class="metric-top"><div><div class="metric-label">${escapeHtml(label)}</div><div class="metric-value">${escapeHtml(value)}</div><div class="metric-sub">${escapeHtml(sub)}</div></div><div class="metric-icon">${icon}</div></div></div>`}
+  function renderToday(){
+    const a=todayAcademicTasks(),p=todayPersonalTasks(), planned=a.reduce((x,t)=>x+t.duration,0)+p.reduce((x,t)=>x+t.duration,0),done=a.filter(t=>t.completed).reduce((x,t)=>x+t.duration,0)+p.filter(t=>t.completed).reduce((x,t)=>x+t.duration,0);const rem=Math.max(0,planned-done);document.getElementById('todayDateText').textContent=fmtDateLong(todayKey());
+    document.getElementById('todayMetrics').innerHTML=[['Planned hours',fmtHours(planned),'Academic + personal','◷'],['Completed hours',fmtHours(done),'Meaningful study today','✓'],['Remaining hours',fmtHours(rem),'Open today','⌁'],['Completion',`${pct(planned?done/planned:0)}%`,'Today only','◒']].map(([l,v,s,i])=>metricHtml(l,v,s,i)).join('');
+    document.getElementById('todayAcademic').innerHTML=a.length?`<div class="task-list">${a.map(t=>taskCompactHtml(t,'academic')).join('')}</div>`:`<div class="empty"><strong>No academic tasks.</strong>Generate a plan in Smart Planner.</div>`;
+    document.getElementById('todayPersonal').innerHTML=p.length?`<div class="task-list">${p.map(t=>personalCompactHtml(t)).join('')}</div>`:`<div class="empty"><strong>No personal tasks today.</strong>Add homework, revision, lectures or anything else.</div>`;
+  }
+  function taskCompactHtml(t,type){const s=currentSubject(t.subjectId);const c=currentChapter(t.chapterId);const name=c?c.name:(t.label||'Academic task');return `<div class="task-row ${t.completed?'done':''}"><input class="task-check" type="checkbox" ${t.completed?'checked':''} data-task-id="${escapeHtml(t.id)}" data-task-type="academic" aria-label="Complete ${escapeHtml(name)}"><div class="task-main"><strong>${escapeHtml(name)}</strong><small>${escapeHtml(s.name)} · ${escapeHtml(t.type)}${t.chapterPartsTotal>1?` · Part ${t.chapterPart}/${t.chapterPartsTotal}`:''}</small></div><div class="task-pill">${fmtHours(t.duration)}</div><div class="task-meta">${escapeHtml(t.priority||'medium')}</div></div>`}
+  function personalCompactHtml(t){return `<div class="task-row ${t.completed?'done':''}"><input class="task-check" type="checkbox" ${t.completed?'checked':''} data-task-id="${escapeHtml(t.id)}" data-task-type="personal" aria-label="Complete ${escapeHtml(t.title)}"><div class="task-main"><strong>${escapeHtml(t.title)}</strong><small>${t.time?escapeHtml(t.time)+' · ':''}${escapeHtml(t.priority)} priority${t.notes?' · '+escapeHtml(t.notes):''}</small></div><span class="task-pill personal">${fmtHours(t.duration)}</span><button class="btn small ghost" data-action="edit-personal" data-id="${escapeHtml(t.id)}" title="Edit task">Edit</button></div>`}
+
+  function matchesSyllabus(c,q){const s=currentSubject(c.subjectId);const hay=`${c.name} ${s.name} ${s.teacher} ${c.notes} ${c.custom?'custom topic':''}`.toLowerCase();return hay.includes(q)}
+  function syllabusFilterPass(c,filter){const cp=chapterCompletion(c);if(filter==='all')return true;if(filter==='active')return !c.removed;if(filter==='completed')return cp>=1;if(filter==='incomplete')return cp<1;if(filter==='high'||filter==='medium'||filter==='low')return c.priority===filter;if(filter==='custom')return c.custom;if(filter==='formative')return c.formativeOnly;return true}
+  function renderSyllabus(){
+    const search=(document.getElementById('syllabusSearch').value||'').trim().toLowerCase();const filter=document.getElementById('syllabusFilter').value;const sf=document.getElementById('syllabusSubjectFilter');
+    const prev=sf.value;sf.innerHTML='<option value="all">All subjects</option>'+state.subjects.map(s=>`<option value="${escapeHtml(s.id)}">${escapeHtml(s.name)}</option>`).join('');sf.value=state.subjects.some(s=>s.id===prev)?prev:'all';
+    const subjectFilter=sf.value;
+    const rows=state.chapters.filter(c=>!c.removed).filter(c=>subjectFilter==='all'||c.subjectId===subjectFilter).filter(c=>matchesSyllabus(c,search)).filter(c=>syllabusFilterPass(c,filter));
+    const grouped={};for(const c of rows){const key=`${c.subjectId}||${c.unit||''}`;(grouped[key]??=[]).push(c)}
+    if(!rows.length){document.getElementById('syllabusTable').innerHTML='<div class="empty"><strong>No matching chapters.</strong>Try a different search or filter.</div>';return}
+    let html='<div class="table-wrap"><table class="table"><thead><tr><th>Chapter</th><th>Subject / unit</th><th>Progress</th><th>Activities</th><th>Hours left</th><th>Priority</th><th>Teacher</th><th></th></tr></thead><tbody>';
+    for(const c of rows){const s=currentSubject(c.subjectId),cp=chapterCompletion(c), labels=state.checklistLabels[c.subjectId]||DEFAULT_LABELS.physics;html+=`<tr><td><strong>${escapeHtml(c.name)}</strong>${c.formativeOnly?'<div class="formative-note">Formative-only assessment</div>':''}${c.custom?'<div class="mt8"><span class="badge custom">Custom</span></div>':''}</td><td><span class="strong small">${escapeHtml(s.name)}</span><div class="small muted mt8">${escapeHtml(c.unit||'')}</div></td><td style="min-width:110px"><div class="small strong">${pct(cp)}%</div><div class="progress-track tiny mt8"><div class="progress-fill" style="width:${pct(cp)}%"></div></div></td><td><div class="check-row">${Array.from({length:5},(_,i)=>`<input class="check-icon" type="checkbox" ${c.checklist[i]?'checked':''} data-chapter-id="${escapeHtml(c.id)}" data-check-index="${i}" aria-label="${escapeHtml(labels[i]||`Activity ${i+1}`)} for ${escapeHtml(c.name)}" title="${escapeHtml(labels[i]||`Activity ${i+1}`)}">`).join('')}</div><div class="small muted mt8">${escapeHtml(labels.join(' · '))}</div></td><td class="strong">${fmtHours(effectiveRemaining(c,state.planner.playbackSpeed))}<div class="small muted mt8">${fmtHours(chapterVideoHours(c))} video</div></td><td><span class="priority ${c.priority}">${escapeHtml(c.priority)}</span></td><td>${escapeHtml(s.teacher||'—')}</td><td><button class="btn small ghost" data-action="edit-chapter" data-id="${escapeHtml(c.id)}">Edit</button></td></tr>`}
+    html+='</tbody></table></div>';document.getElementById('syllabusTable').innerHTML=html;
+  }
+
+  function plannerData(){
+    const target=state.planner.targetDate;const today=todayKey();const days=target&&target>=today?daysBetweenInclusive(today,target):0;const speed=state.planner.playbackSpeed;
+    const chapters=activeChapters().filter(c=>chapterCompletion(c)<1).map(c=>({c,total:effectiveRemaining(c,speed),video:effectiveVideoRemaining(c,speed),nonVideo:effectiveNonVideoRemaining(c),priority:c.priority})).filter(x=>x.total>0.009);
+    const total=chapters.reduce((a,x)=>a+x.total,0),cap=days*state.planner.dailyHours,short=Math.max(0,total-cap);return {target,today,days,chapters,total,cap,short,speed};
+  }
+  function taskKey(t){return `${t.date}|${t.chapterId}|${t.type}|${Number(t.duration).toFixed(2)}|${t.chapterPart}`}
+  function generatePlan({rebalance=false}={}){
+    const data=plannerData();if(!data.target){showToast('Set a target date first.');return false}
+    if(data.days<=0){showToast('Target date must be today or later.');return false}
+    const selected=activeSubjects();
+    if(!selected.length){showToast('Select at least one subject in Settings.');return false}
+    // Preserve completed history and personal tasks. Only future unfinished generated academic work is rebuilt.
+    state.academicTasks=state.academicTasks.filter(t=>t.completed || t.date<todayKey() || !t.generated);
+    const dailyCapacity=state.planner.dailyHours;
+    const scheduleDays=Array.from({length:data.days},(_,i)=>localDateKey(addDays(parseKey(todayKey()),i)));
+    const subjectIds=selected.map(s=>s.id);
+    const bySubject=Object.fromEntries(subjectIds.map(id=>[id,[]]));
+    for(const x of data.chapters){
+      if(!bySubject[x.c.subjectId]) continue;
+      if(x.video>0.01)bySubject[x.c.subjectId].push({c:x.c,type:'Lecture / Video',remaining:x.video,priority:x.priority});
+      if(x.nonVideo>0.01)bySubject[x.c.subjectId].push({c:x.c,type:'Study / Practice',remaining:x.nonVideo,priority:x.priority});
+    }
+    const weight={high:3,medium:2,low:1};
+    for(const sid of subjectIds){bySubject[sid].sort((a,b)=>{
+      if(state.planner.strategy==='priority'||state.planner.strategy==='deadline') return (weight[b.priority]-weight[a.priority]) || (b.remaining-a.remaining);
+      return (a.c.name||'').localeCompare(b.c.name||'');
+    })}
+    const scheduledBySubject=Object.fromEntries(subjectIds.map(id=>[id,0]));
+    const tasks=[];
+    for(const date of scheduleDays){
+      let dayUsed=scheduleDayUsed(date);let guard=0;let rotationIndex=0;const touched=new Set();
+      while(dayUsed<dailyCapacity-0.009 && guard++<1000){
+        const available=subjectIds.filter(sid=>(bySubject[sid]||[]).some(x=>x.remaining>0.009));
+        if(!available.length)break;
+        // First pass each day: one chunk from each selected subject with remaining work.
+        const untouched=available.filter(sid=>!touched.has(sid));
+        let pool=untouched.length?untouched:available;
+        pool=pool.slice().sort((a,b)=>{
+          const load=(scheduledBySubject[a]||0)-(scheduledBySubject[b]||0);
+          if(Math.abs(load)>0.001)return load;
+          return subjectIds.indexOf(a)-subjectIds.indexOf(b);
+        });
+        const chosenSid=pool[rotationIndex%pool.length];rotationIndex++;
+        const queue=bySubject[chosenSid];
+        let item=queue.find(x=>x.remaining>0.009);
+        if(!item){touched.add(chosenSid);continue}
+        const room=Math.max(0,dailyCapacity-dayUsed);if(room<=0.009)break;
+        // Never let one subject/chapter consume the whole day.
+        const chunkCap=Math.min(1.5,Math.max(.5,dailyCapacity/Math.max(1,Math.min(3,available.length))));
+        const duration=round2(Math.min(item.remaining,room,chunkCap));if(duration<=0)break;
+        const priorParts=tasks.filter(t=>t.chapterId===item.c.id).length;
+        const totalParts=Math.max(1,Math.ceil(effectiveRemaining(item.c,state.planner.playbackSpeed)/chunkCap));
+        tasks.push({id:uid('at'),date,subjectId:item.c.subjectId,chapterId:item.c.id,chapterPart:priorParts+1,chapterPartsTotal:totalParts,type:item.type,duration,completed:false,generated:true,createdAt:nowISO(),completedAt:null,source:rebalance?'rebalance':'planner',priority:item.priority,label:item.c.name});
+        item.remaining=round2(item.remaining-duration);dayUsed=round2(dayUsed+duration);scheduledBySubject[chosenSid]+=duration;touched.add(chosenSid);
+        if(item.remaining<=0.009)queue.splice(queue.indexOf(item),1);
+      }
+    }
+    const seen=new Set(),unique=[];for(const t of tasks){const k=taskKey(t);if(!seen.has(k)){seen.add(k);unique.push(t)}}
+    state.academicTasks.push(...unique);markMeaningfulChange();saveState();renderCurrent();showToast(unique.length?`${rebalance?'Rebalanced':'Generated'} ${unique.length} academic task${unique.length===1?'':'s'}.`:'No new work could be scheduled.');return true;
+  }
+  function scheduleDayUsed(date){return state.academicTasks.filter(t=>t.date===date&&!t.completed).reduce((a,t)=>a+t.duration,0)}
+  function round2(n){return Math.round(n*100)/100}
+
+  function renderPlanner(){
+    const targetEl=document.getElementById('plannerTarget'),hoursEl=document.getElementById('plannerHours'),speedEl=document.getElementById('plannerSpeed'),strategyEl=document.getElementById('plannerStrategy');targetEl.value=state.planner.targetDate;hoursEl.value=state.planner.dailyHours;speedEl.value=state.planner.playbackSpeed;strategyEl.value=state.planner.strategy;
+    const d=plannerData();document.getElementById('plannerSummary').innerHTML=[['Remaining workload',fmtHours(d.total),'After checklist progress + completed academic history'],['Available capacity',fmtHours(d.cap),'Target window × daily limit'],['Daily ceiling',fmtHours(state.planner.dailyHours),'Never exceeded by generated tasks'],['Projected shortage',fmtHours(d.short),'Unfit work before target']].map(([k,v,s])=>`<div class="sum-box"><div class="k">${escapeHtml(k)}</div><div class="v">${v}</div><div class="small muted mt8">${escapeHtml(s)}</div></div>`).join('');
+    document.getElementById('plannerWarning').innerHTML=d.short>0.009?`<div class="warn"><strong>Capacity warning.</strong> ${fmtHours(d.total)} remains, but only ${fmtHours(d.cap)} fits before ${fmtDate(d.target)}. Shortage: ${fmtHours(d.short)}. The planner will not overload any day.</div>`:(d.target?`<div class="success">The remaining ${fmtHours(d.total)} fits inside the available ${fmtHours(d.cap)} capacity at ${fmtHours(state.planner.dailyHours)}/day.</div>`:'<div class="note">Set a target date to calculate your schedule.</div>');
+    const future=state.academicTasks.filter(t=>t.date>=todayKey());const byDay={};future.forEach(t=>(byDay[t.date]??=[]).push(t));const dates=Object.keys(byDay).sort();
+    document.getElementById('plannerSchedule').innerHTML=dates.length?`<div class="grid g-2">${dates.map(date=>`<div class="plan-day"><div class="plan-day-head"><div><strong>${fmtDateLong(date)}</strong><small>${date===todayKey()?'Today · ':''}${fmtHours(byDay[date].reduce((a,t)=>a+t.duration,0))} planned</small></div><span class="badge">${byDay[date].filter(t=>t.completed).length}/${byDay[date].length} done</span></div><div class="plan-day-body">${byDay[date].map(t=>{const c=currentChapter(t.chapterId),s=currentSubject(t.subjectId);return `<div class="plan-row"><input class="task-check" type="checkbox" ${t.completed?'checked':''} data-task-id="${escapeHtml(t.id)}" data-task-type="academic" aria-label="Complete ${escapeHtml(c?.name||t.label)}"><div><div class="name">${escapeHtml(c?.name||t.label)}</div><span class="sub">${escapeHtml(s.name)} · ${escapeHtml(t.type)}${t.chapterPartsTotal>1?` · Part ${t.chapterPart}/${t.chapterPartsTotal}`:''}</span></div><div class="dur">${fmtHours(t.duration)}</div></div>`}).join('')}</div></div>`).join('')}</div>`:`<div class="empty"><strong>No generated tasks yet.</strong>Generate a plan to see your future schedule here.</div>`;
+    const speed=state.planner.playbackSpeed;document.getElementById('plannerSidebarInfo').innerHTML=`<div class="stat-line"><span>Playback</span><strong>${speed}x</strong></div><div class="stat-line"><span>Video time left</span><strong>${fmtHours(activeChapters().reduce((a,c)=>a+effectiveVideoRemaining(c,speed),0))}</strong></div><div class="stat-line"><span>Non-video time left</span><strong>${fmtHours(activeChapters().reduce((a,c)=>a+effectiveNonVideoRemaining(c),0)-state.academicHistory.reduce((a,h)=>a+h.duration,0))}</strong></div><div class="stat-line"><span>Strategy</span><strong>${strategyLabel(state.planner.strategy)}</strong></div><div class="small muted mt12">Playback speed divides only video/lecture time. Practice, notes, tests and revision stay at full duration. If a chapter has no custom video duration, the assumed video share above is used.</div>`;
+  }
+  function strategyLabel(v){return {balanced:'Balanced',priority:'High-Priority First',deadline:'Exam / Deadline Focused'}[v]||v}
+
+  function openEventModal(eventId=null, dateOverride=null){
+    const ev=eventId?state.calendarEvents.find(x=>x.id===eventId):null;lastModalFocus=document.activeElement;
+    openModal(ev?'Edit calendar event':'Add calendar event',`<div class="form-grid"><div class="field full"><label for="evTitle">Event title</label><input class="input" id="evTitle" value="${escapeHtml(ev?.title||'')}" placeholder="e.g. School test, birthday, practical, deadline"></div><div class="field"><label for="evDate">Date</label><input class="input" type="date" id="evDate" value="${escapeHtml(ev?.date||dateOverride||todayKey())}"></div><div class="field"><label for="evTime">Time (optional)</label><input class="input" type="time" id="evTime" value="${escapeHtml(ev?.time||'')}"></div><div class="field full"><label for="evNotes">Notes (optional)</label><textarea class="textarea" id="evNotes" placeholder="Optional details">${escapeHtml(ev?.notes||'')}</textarea></div></div><div class="modal-actions"><button class="btn ghost" data-modal-close>Cancel</button>${ev?`<button class="btn danger" data-delete-event="${escapeHtml(ev.id)}">Delete</button>`:''}<button class="btn primary" data-save-event data-id="${escapeHtml(ev?.id||'')}">Save event</button></div>`);
+  }
+  function saveEventFromModal(id){
+    const title=document.getElementById('evTitle').value.trim();if(!title){showToast('Event title is required.');return}
+    const date=document.getElementById('evDate').value||todayKey();const obj={title,date,time:document.getElementById('evTime').value||'',notes:document.getElementById('evNotes').value.trim(),updatedAt:nowISO()};
+    if(id){const ev=state.calendarEvents.find(x=>x.id===id);if(ev)Object.assign(ev,obj)}else state.calendarEvents.push({...obj,id:uid('ev'),createdAt:nowISO()});
+    saveState();closeModal();renderCurrent();showToast(id?'Event updated.':'Event added to calendar.');
+  }
+  function deleteEvent(id){if(!confirm('Delete this calendar event?'))return;state.calendarEvents=state.calendarEvents.filter(e=>e.id!==id);saveState();closeModal();renderCurrent();showToast('Calendar event deleted.')}
+
+  // =========================================================
+  // PERSONAL TASKS
+  // =========================================================
+  function openPersonalModal(taskId=null){
+    const t=taskId?state.personalTasks.find(x=>x.id===taskId):null;lastModalFocus=document.activeElement;
+    openModal(t?'Edit personal task':'Add personal task',`<div class="form-grid"><div class="field full"><label for="ptTitle">Title</label><input class="input" id="ptTitle" value="${escapeHtml(t?.title||'')}" placeholder="e.g. Finish Biology diagrams" /></div><div class="field"><label for="ptDate">Date</label><input class="input" type="date" id="ptDate" value="${escapeHtml(t?.date||todayKey())}" /></div><div class="field"><label for="ptTime">Time (optional)</label><input class="input" type="time" id="ptTime" value="${escapeHtml(t?.time||'')}" /></div><div class="field"><label for="ptDuration">Duration (hours)</label><input class="input" type="number" step="0.25" min="0.25" max="24" id="ptDuration" value="${t?.duration??1}" /></div><div class="field"><label for="ptPriority">Priority</label><select class="select" id="ptPriority">${optionHtml([{value:'high',label:'High'},{value:'medium',label:'Medium'},{value:'low',label:'Low'}],t?.priority||'medium')}</select></div><div class="field full"><label for="ptNotes">Notes</label><textarea class="textarea" id="ptNotes" placeholder="Optional notes">${escapeHtml(t?.notes||'')}</textarea></div></div><div class="modal-actions"><button class="btn ghost" data-modal-close>Cancel</button>${t?`<button class="btn danger" data-delete-personal="${escapeHtml(t.id)}">Delete</button>`:''}<button class="btn primary" data-save-personal data-id="${escapeHtml(t?.id||'')}">Save task</button></div>`);
+  }
+  function savePersonalFromModal(id){
+    const title=document.getElementById('ptTitle').value.trim();const date=document.getElementById('ptDate').value||todayKey();if(!title){showToast('Give the task a title.');return}
+    const obj={title,date,time:document.getElementById('ptTime').value,duration:clampNum(document.getElementById('ptDuration').value,.25,24,1),priority:document.getElementById('ptPriority').value,notes:document.getElementById('ptNotes').value.trim(),completed:false,updatedAt:nowISO()};
+    if(id){const t=state.personalTasks.find(x=>x.id===id);if(t){const wasDone=t.completed;const oldDur=t.duration;const oldDoneDate=t.completedOnDate;if(wasDone&&oldDoneDate)shiftCompletedDate(oldDoneDate,-oldDur);Object.assign(t,obj,{completed:wasDone,completedOnDate:wasDone?(t.completedOnDate||todayKey()):null,completedAt:wasDone?(t.completedAt||nowISO()):null,createdAt:t.createdAt||nowISO()});if(wasDone&&t.completedOnDate)shiftCompletedDate(t.completedOnDate,t.duration)}}
+    else state.personalTasks.push({...obj,id:uid('pt'),createdAt:nowISO()});
+    markMeaningfulChange();saveState();closeModal();renderCurrent();showToast(id?'Task updated.':'Personal task added.');
+  }
+  function deletePersonal(id){if(!confirm('Delete this personal task?'))return;const t=state.personalTasks.find(x=>x.id===id);if(t?.completed&&t.completedOnDate)shiftCompletedDate(t.completedOnDate,-t.duration);state.personalTasks=state.personalTasks.filter(t=>t.id!==id);markMeaningfulChange();saveState();closeModal();renderCurrent();showToast('Personal task deleted.');}
+
+  function renderDaily(){
+    const q=(document.getElementById('dailySearch').value||'').toLowerCase();const f=document.getElementById('dailyFilter').value;const df=document.getElementById('dailyDateFilter').value;const tasks=state.personalTasks.filter(t=>!q||`${t.title} ${t.notes}`.toLowerCase().includes(q)).filter(t=>f==='all'||(f==='done'?t.completed:!t.completed)).filter(t=>!df||t.date===df).sort((a,b)=>a.date.localeCompare(b.date)||String(a.time).localeCompare(String(b.time)));
+    const total=tasks.reduce((a,t)=>a+t.duration,0),done=tasks.filter(t=>t.completed).reduce((a,t)=>a+t.duration,0);document.getElementById('dailyStats').innerHTML=[['Tasks',`${tasks.length}`,'Matching filter','☰'],['Planned',fmtHours(total),'Personal time','◷'],['Completed',fmtHours(done),'Meaningful work','✓']].map(([l,v,s,i])=>metricHtml(l,v,s,i)).join('');
+    document.getElementById('dailyTable').innerHTML=tasks.length?`<div class="table-wrap"><table class="table"><thead><tr><th>Done</th><th>Task</th><th>Date</th><th>Time</th><th>Duration</th><th>Priority</th><th></th></tr></thead><tbody>${tasks.map(t=>`<tr><td><input class="check-icon" type="checkbox" ${t.completed?'checked':''} data-task-id="${escapeHtml(t.id)}" data-task-type="personal" aria-label="Complete ${escapeHtml(t.title)}"></td><td><strong>${escapeHtml(t.title)}</strong>${t.notes?`<div class="small muted mt8">${escapeHtml(t.notes)}</div>`:''}</td><td>${fmtDate(t.date,{month:'short',day:'numeric',year:'numeric'})}</td><td>${escapeHtml(t.time||'—')}</td><td>${fmtHours(t.duration)}</td><td><span class="priority ${t.priority}">${escapeHtml(t.priority)}</span></td><td><button class="btn small ghost" data-action="edit-personal" data-id="${escapeHtml(t.id)}">Edit</button></td></tr>`).join('')}</tbody></table></div>`:`<div class="empty"><strong>No matching personal tasks.</strong>Add a task for homework, assignments, practicals, lectures, revision or anything else.</div>`;
+  }
+
+  // =========================================================
+  // PROGRESS / HISTORY / CALENDAR
+  // =========================================================
+  function historySummary(){const map={};for(const h of state.academicHistory){const d=h.date||todayKey();map[d]??={date:d,hours:0,tasks:0};map[d].hours+=Number(h.duration)||0;map[d].tasks++}for(const t of state.personalTasks.filter(t=>t.completed)){const d=t.date||todayKey();map[d]??={date:d,hours:0,tasks:0};map[d].hours+=Number(t.duration)||0;map[d].tasks++}return Object.values(map).sort((a,b)=>b.date.localeCompare(a.date))}
+  function renderProgress(){
+    const p=overallProgress(),active=activeChapters(),completed=completedTopics(),rem=remainingTopics(),remH=remainingHours(),completedEst=active.reduce((a,c)=>a+c.estimatedHours*chapterCompletion(c),0);document.getElementById('progressMetrics').innerHTML=[['Overall completion',`${pct(p)}%`,`${completed}/${active.length} completed chapters`,'◒'],['Completed estimated hours',fmtHours(completedEst),'Checklist-weighted','✓'],['Remaining estimated hours',fmtHours(remH),'Playback-adjusted where video exists','⌁'],['Current streak',`${state.streak}d`,`${state.streak?'Active':'Complete work today to start'}`,'🔥']].map(([l,v,s,i])=>metricHtml(l,v,s,i)).join('');
+    document.getElementById('progressSubjects').innerHTML=activeSubjects().map(s=>{const ch=active.filter(c=>c.subjectId===s.id);const cp=ch.length?ch.reduce((a,c)=>a+chapterCompletion(c),0)/ch.length:0;const done=ch.filter(c=>chapterCompletion(c)>=1).length;return `<div class="soft-box mt8"><div class="between flex center"><span class="strong small">${escapeHtml(s.name)}</span><span class="small strong">${pct(cp)}%</span></div><div class="progress-track mt8"><div class="progress-fill" style="width:${pct(cp)}%"></div></div><div class="stat-line"><span>${done}/${ch.length} chapters complete</span><strong>${fmtHours(ch.reduce((a,c)=>a+effectiveRemaining(c,state.planner.playbackSpeed),0))} left</strong></div></div>`}).join('');
+    let totalChecks=0,doneChecks=0;for(const c of active){for(const v of c.checklist){totalChecks++;if(v)doneChecks++}}document.getElementById('progressChecklist').innerHTML=`<div class="soft-box"><div class="between flex center"><span class="strong small">${doneChecks}/${totalChecks} activities complete</span><span class="strong">${pct(totalChecks?doneChecks/totalChecks:0)}%</span></div><div class="progress-track mt12"><div class="progress-fill" style="width:${pct(totalChecks?doneChecks/totalChecks:0)}%"></div></div></div><div class="mt12">${activeSubjects().map(s=>{const ch=active.filter(c=>c.subjectId===s.id),tot=ch.length*5,done=ch.reduce((a,c)=>a+c.checklist.filter(Boolean).length,0);return `<div class="stat-line"><span>${escapeHtml(s.name)}</span><strong>${done}/${tot}</strong></div>`}).join('')}</div>`;
+    const h=historySummary();document.getElementById('progressHistory').innerHTML=h.length?`<div class="history-list">${h.map(x=>`<div class="history-item"><div><div class="history-date">${fmtDateLong(x.date)}<small>${x.tasks} meaningful task${x.tasks===1?'':'s'}</small></div></div><strong>${fmtHours(x.hours)}</strong></div>`).join('')}</div>`:`<div class="empty"><strong>No study history yet.</strong>Complete academic or personal study work.</div>`;
+    renderCalendar();
+  }
+  function renderCalendar(){
+    const y=calendarCursor.getFullYear(),m=calendarCursor.getMonth();
+    document.getElementById('calendarTitle').textContent=new Intl.DateTimeFormat(undefined,{month:'long',year:'numeric'}).format(calendarCursor);
+    const first=new Date(y,m,1),start=(first.getDay()+6)%7,days=new Date(y,m+1,0).getDate();let cells=[];
+    for(let i=0;i<42;i++){
+      const n=i-start+1;if(n<1||n>days){cells.push('<div class="cal-cell dim"></div>');continue}
+      const d=new Date(y,m,n),k=localDateKey(d),academic=state.academicTasks.filter(t=>t.date===k),personal=state.personalTasks.filter(t=>t.date===k),events=state.calendarEvents.filter(e=>e.date===k),done=completedHoursOnDate(k),planned=plannedHoursOnDate(k)+personalPlannedHoursOnDate(k);
+      const cls=['cal-cell'];if(k===todayKey())cls.push('today');if(planned>0&&done>=planned-0.009)cls.push('complete');else if(done>0)cls.push('partial');
+      const dots=`${academic.length?'<span class="cal-dot" title="Academic tasks"></span>':''}${personal.length?'<span class="cal-dot personal-dot" title="Personal tasks"></span>':''}${events.length?'<span class="cal-dot event-dot" title="Events"></span>':''}`;
+      const aria=`${fmtDateLong(k)} · ${academic.length+personal.length} task${academic.length+personal.length===1?'':'s'} · ${events.length} event${events.length===1?'':'s'}`;
+      cells.push(`<button class="${cls.join(' ')}" data-cal-date="${k}" aria-label="${escapeHtml(aria)}" title="${escapeHtml(aria)}"><div class="cal-date">${n}</div><div class="cal-indicators">${dots}</div></button>`);
+    }
+    document.getElementById('calendar').innerHTML=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d=>`<div class="cal-head">${d}</div>`).join('')+cells.join('');
+    const selected=document.getElementById('calendarDetails').dataset.date||'';const selectedDate=selected?parseKey(selected):null;const selectedInMonth=selectedDate&&selectedDate.getFullYear()===y&&selectedDate.getMonth()===m;const detailsDate=selectedInMonth?selected:localDateKey(new Date(y,m,Math.min(new Date().getDate(),days)));renderCalendarDetails(detailsDate);
+  }
+  function renderCalendarDetails(date){
+    document.getElementById('calendarDetails').dataset.date=date;
+    const tasks=[...state.academicTasks.filter(t=>t.date===date).map(t=>({...t,_type:'Academic'})),...state.personalTasks.filter(t=>t.date===date).map(t=>({...t,_type:'Personal'}))].sort((a,b)=>a.completed-b.completed);
+    const events=state.calendarEvents.filter(e=>e.date===date).sort((a,b)=>String(a.time).localeCompare(String(b.time)));
+    const eventHtml=events.length?`<div class="soft-box mt12"><div class="between flex center"><div class="strong small">Events</div><button class="btn small ghost" data-action="add-event" data-date="${escapeHtml(date)}">＋ Add</button></div><div class="task-list mt8">${events.map(e=>`<div class="task-row"><div class="task-main"><strong>${escapeHtml(e.title)}</strong><small>${e.time?escapeHtml(e.time)+' · ':''}${escapeHtml(e.notes||'Calendar event')}</small></div><button class="btn small ghost" data-action="edit-event" data-id="${escapeHtml(e.id)}">Edit</button><button class="btn small danger" data-action="delete-event" data-id="${escapeHtml(e.id)}">Delete</button></div>`).join('')}</div></div>`:`<div class="soft-box mt12"><div class="between flex center"><div><div class="strong small">Events</div><div class="small muted mt8">Nothing scheduled.</div></div><button class="btn small ghost" data-action="add-event" data-date="${escapeHtml(date)}">＋ Add event</button></div></div>`;
+    const taskHtml=tasks.length?`<div class="soft-box"><div class="between flex center"><div><div class="strong small">${fmtDateLong(date)}</div><div class="small muted mt8">${tasks.length} task${tasks.length===1?'':'s'} · ${fmtHours(tasks.reduce((a,t)=>a+t.duration,0))}</div></div><button class="btn small ghost" data-cal-open-today="${escapeHtml(date)}">Open Today</button></div><div class="task-list mt12">${tasks.map(t=>t._type==='Academic'?taskCompactHtml(t,'academic'):personalCompactHtml(t)).join('')}</div></div>`:`<div class="soft-box"><div class="between flex center"><div><div class="strong small">${fmtDateLong(date)}</div><div class="small muted mt8">No study tasks scheduled.</div></div><button class="btn small ghost" data-cal-open-today="${escapeHtml(date)}">Open Today</button></div></div>`;
+    document.getElementById('calendarDetails').innerHTML=taskHtml+eventHtml;
+  }
+
+  // =========================================================
+  // SETTINGS
+  // =========================================================
+  function renderSettings(){
+    document.getElementById('themeSetting').value=state.theme;document.getElementById('settingDailyHours').value=state.planner.dailyHours;document.getElementById('settingSpeed').value=state.planner.playbackSpeed;document.getElementById('settingVideoShare').value=Math.round(state.planner.videoShare*100);document.getElementById('settingStrategy').value=state.planner.strategy;
+    document.getElementById('subjectsSettings').innerHTML=`<div class="subject-choice-list">${state.subjects.map(s=>`<label class="subject-choice"><input type="checkbox" ${s.enabled?'checked':''} data-subject-enable="${escapeHtml(s.id)}" aria-label="Use ${escapeHtml(s.name)} in planner"><span><strong>${escapeHtml(s.name)}</strong><small>${escapeHtml(s.teacher||'Teacher not set')}</small></span></label>`).join('')}</div><div class="small muted mt12">${activeSubjects().length} selected. Only selected subjects are eligible for Smart Planner schedules.</div><div class="task-list mt12">${state.subjects.map(s=>`<div class="subject-setting"><div><strong class="small">${escapeHtml(s.name)}</strong></div><div class="teacher-field"><input class="input" value="${escapeHtml(s.teacher)}" data-teacher-subject="${escapeHtml(s.id)}" aria-label="Teacher for ${escapeHtml(s.name)}" placeholder="Teacher"></div><button class="btn small ghost" data-action="reset-teacher" data-id="${escapeHtml(s.id)}">Reset</button></div>`).join('')}</div>`;
+    renderPomodoroSettings();
+    const removed=state.chapters.filter(c=>c.removed);document.getElementById('removedChapters').innerHTML=removed.length?`<div class="task-list">${removed.map(c=>`<div class="history-item"><div><div class="history-date">${escapeHtml(c.name)}<small>${escapeHtml(currentSubject(c.subjectId).name)} · ${c.custom?'Custom chapter':'Syllabus chapter'}</small></div></div><button class="btn small" data-action="restore-chapter" data-id="${escapeHtml(c.id)}">Restore</button></div>`).join('')}</div>`:`<div class="empty"><strong>No removed chapters.</strong>Removed chapters will appear here for restoration.</div>`;
+  }
+
+  function pomodoroLabel(){return state.pomodoro.mode==='work'?'Focus':state.pomodoro.mode==='short'?'Short break':'Long break'}
+  function pomodoroDuration(){return (state.pomodoro.mode==='work'?state.pomodoro.work:state.pomodoro.mode==='short'?state.pomodoro.shortBreak:state.pomodoro.longBreak)*60}
+  function pomodoroTime(){if(state.pomodoro.running&&state.pomodoro.endsAt){return Math.max(0,Math.ceil((state.pomodoro.endsAt-Date.now())/1000))}return Math.max(0,Math.round(state.pomodoro.remaining))}
+  function renderPomodoroSettings(){
+    const p=state.pomodoro;const secs=pomodoroTime();const mm=String(Math.floor(secs/60)).padStart(2,'0'),ss=String(secs%60).padStart(2,'0');
+    document.getElementById('pomodoroSettings').innerHTML=`<div class="pomo-wrap"><div class="pomo-display"><div class="pomo-mode">${pomodoroLabel()}</div><div class="pomo-time" id="pomoClock">${mm}:${ss}</div><div class="pomo-controls"><button class="btn primary" data-action="pomo-toggle">${p.running?'Pause':'Start'}</button><button class="btn ghost" data-action="pomo-reset">Reset</button><button class="btn ghost" data-action="pomo-skip">Skip</button></div><div class="pomo-sessions">${p.sessions} focus session${p.sessions===1?'':'s'} completed</div></div><div class="pomo-settings"><div class="pomo-presets"><button class="btn small ghost" data-action="pomo-preset" data-work="25" data-short="5" data-long="15">25 / 5</button><button class="btn small ghost" data-action="pomo-preset" data-work="50" data-short="10" data-long="20">50 / 10</button><button class="btn small ghost" data-action="pomo-preset" data-work="90" data-short="15" data-long="30">90 / 15</button></div><div class="form-grid"><div class="field"><label for="pomoWork">Focus minutes</label><input class="input" id="pomoWork" type="number" min="1" max="180" value="${p.work}"></div><div class="field"><label for="pomoShort">Short break</label><input class="input" id="pomoShort" type="number" min="1" max="60" value="${p.shortBreak}"></div><div class="field"><label for="pomoLong">Long break</label><input class="input" id="pomoLong" type="number" min="1" max="120" value="${p.longBreak}"></div><div class="field"><label for="pomoEvery">Long break after</label><input class="input" id="pomoEvery" type="number" min="1" max="12" value="${p.longBreakEvery}"></div></div><button class="btn" data-action="pomo-apply">Apply timer settings</button><div class="small muted">Timer continues accurately across page changes and browser refreshes while running.</div></div></div>`;
+  }
+  function pomodoroStart(){if(state.pomodoro.remaining<=0)state.pomodoro.remaining=pomodoroDuration();state.pomodoro.running=true;state.pomodoro.endsAt=Date.now()+state.pomodoro.remaining*1000;saveState();renderSettings()}
+  function pomodoroPause(){state.pomodoro.remaining=pomodoroTime();state.pomodoro.running=false;state.pomodoro.endsAt=null;saveState();renderSettings()}
+  function pomodoroReset(){state.pomodoro.running=false;state.pomodoro.endsAt=null;state.pomodoro.remaining=pomodoroDuration();saveState();renderSettings()}
+  function pomodoroSkip(){state.pomodoro.remaining=0;pomodoroFinish();}
+  function pomodoroFinish(){const wasWork=state.pomodoro.mode==='work';if(wasWork)state.pomodoro.sessions++;const completed=state.pomodoro.sessions;state.pomodoro.mode=wasWork?(completed>0&&completed%state.pomodoro.longBreakEvery===0?'long':'short'):'work';state.pomodoro.running=false;state.pomodoro.endsAt=null;state.pomodoro.remaining=pomodoroDuration();saveState();if(navigator.vibrate)navigator.vibrate([100,80,100]);if(activePage==='settings')renderSettings();showToast(`${wasWork?'Focus complete':'Break complete'} · ${pomodoroLabel()} ready.`)}
+  function pomodoroTick(){if(!state?.pomodoro?.running)return;if(pomodoroTime()<=0){pomodoroFinish();return}const clock=document.getElementById('pomoClock');if(clock){const secs=pomodoroTime();clock.textContent=`${String(Math.floor(secs/60)).padStart(2,'0')}:${String(secs%60).padStart(2,'0')}`}}
+
+  // =========================================================
+  // CHAPTER MODAL
+  // =========================================================
+  function openChapterModal(id=null){
+    const c=id?currentChapter(id):null;lastModalFocus=document.activeElement;
+    const subjectOptions=state.subjects.map(s=>({value:s.id,label:s.name}));
+    openModal(c?'Edit chapter':'Add custom chapter',`<div class="form-grid"><div class="field full"><label for="chName">Chapter name</label><input class="input" id="chName" value="${escapeHtml(c?.name||'')}" placeholder="Chapter / topic name"></div><div class="field"><label for="chSubject">Subject</label><select class="select" id="chSubject">${optionHtml(subjectOptions,c?.subjectId||state.subjects[0].id)}</select></div><div class="field"><label for="chUnit">Unit / section</label><input class="input" id="chUnit" value="${escapeHtml(c?.unit||'')}" placeholder="Optional unit"></div><div class="field"><label for="chHours">Estimated hours</label><input class="input" id="chHours" type="number" min="0.25" max="100" step="0.25" value="${c?.estimatedHours??2}"></div><div class="field"><label for="chVideo">Video / lecture hours</label><input class="input" id="chVideo" type="number" min="0" max="100" step="0.25" value="${c?.videoHours??0}"><div class="small muted mt8">Leave blank to use the global assumed video share. Enter 0 to make this chapter fully non-video.</div></div><div class="field"><label for="chPriority">Priority</label><select class="select" id="chPriority">${optionHtml([{value:'high',label:'High'},{value:'medium',label:'Medium'},{value:'low',label:'Low'}],c?.priority||'medium')}</select></div><div class="field full"><label for="chNotes">Notes</label><textarea class="textarea" id="chNotes" placeholder="Optional chapter notes">${escapeHtml(c?.notes||'')}</textarea></div></div><div class="modal-actions"><button class="btn ghost" data-modal-close>Cancel</button>${c?`<button class="btn danger" data-remove-chapter="${escapeHtml(c.id)}">${c.removed?'Restore':'Remove'}</button>`:''}<button class="btn primary" data-save-chapter data-id="${escapeHtml(c?.id||'')}">Save chapter</button></div>`);
+  }
+  function saveChapterFromModal(id){
+    const name=document.getElementById('chName').value.trim();if(!name){showToast('Chapter name is required.');return}const subjectId=document.getElementById('chSubject').value;const hours=clampNum(document.getElementById('chHours').value,.25,100,2);const videoField=document.getElementById('chVideo').value.trim();const video=clampNum(videoField,0,hours,0);const obj={name,subjectId,unit:document.getElementById('chUnit').value.trim(),estimatedHours:hours,videoHours:video,videoConfigured:videoField!=='',priority:document.getElementById('chPriority').value,notes:document.getElementById('chNotes').value.trim(),updatedAt:nowISO()};
+    if(id){const c=currentChapter(id);if(c){Object.assign(c,obj);c.updatedAt=nowISO()}}
+    else {const n=chapter(uid('ch'),subjectId,name,hours,obj.unit,false);Object.assign(n,obj,{id:uid('ch'),custom:true,removed:false});state.chapters.push(n)}
+    saveState();closeModal();renderCurrent();showToast(id?'Chapter updated.':'Custom chapter added.');
+  }
+  function removeOrRestoreChapter(id){const c=currentChapter(id);if(!c)return;if(c.removed){c.removed=false;saveState();closeModal();renderCurrent();showToast('Chapter restored.');return}if(!confirm(`Remove “${c.name}”? Its data will stay in Settings and can be restored.`))return;c.removed=true;state.academicTasks=state.academicTasks.filter(t=>t.chapterId!==id || t.completed || t.date<todayKey());saveState();closeModal();renderCurrent();showToast('Chapter removed from active planning.');}
+  function restoreChapter(id){const c=currentChapter(id);if(c){c.removed=false;c.updatedAt=nowISO();saveState();renderCurrent();showToast('Chapter restored.')}}
+
+  // =========================================================
+  // MODALS
+  // =========================================================
+  function openModal(title,body){const mb=document.getElementById('modalBackdrop');document.getElementById('modalTitle').textContent=title;document.getElementById('modalBody').innerHTML=body;mb.classList.add('open');mb.setAttribute('aria-hidden','false');setTimeout(()=>{const first=mb.querySelector('input,select,textarea,button');first?.focus()},30)}
+  function closeModal(){const mb=document.getElementById('modalBackdrop');mb.classList.remove('open');mb.setAttribute('aria-hidden','true');if(lastModalFocus&&document.contains(lastModalFocus))lastModalFocus.focus();lastModalFocus=null}
+
+  // =========================================================
+  // IMPORT / EXPORT / RESET
+  // =========================================================
+  function exportBackup(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`studyos2-backup-${todayKey()}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);showToast('Backup exported.');}
+  function importBackup(file){const reader=new FileReader();reader.onload=()=>{const incoming=safeParse(reader.result);if(!incoming||typeof incoming!=='object'||!Array.isArray(incoming.subjects)||!Array.isArray(incoming.chapters)){showToast('Invalid StudyOS backup.');return}if(!confirm('Import this backup and replace current StudyOS data? A fresh backup is recommended first.'))return;state=sanitizeState(incoming);state.firstRun=false;state.setup.done=true;saveState();renderCurrent();showToast('Backup imported successfully.');};reader.onerror=()=>showToast('Could not read the backup file.');reader.readAsText(file)}
+  function resetAll(){if(!confirm('Reset StudyOS? This permanently deletes local StudyOS data in this browser.'))return;if(!confirm('Are you absolutely sure? All chapters, progress, plans, personal tasks, calendar events and history will be deleted.'))return;localStorage.removeItem(CONFIG.STORAGE_KEY);state=blankState();applyTheme();saveState();showOnboarding();}
+
+  // =========================================================
+  // ONBOARDING
+  // =========================================================
+  function showOnboarding(){
+    const checkedSubjects=state.subjects.filter(s=>s.enabled).map(s=>s.id);
+    openModal('Welcome to StudyOS 2',`<div class="small muted">Set the basics once. You can change everything later in Settings.</div><div class="form-grid mt16"><div class="field full"><label>Active subjects</label><div class="two-col-mobile" id="setupSubjects">${state.subjects.map(s=>`<label class="soft-box" style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" data-setup-subject="${escapeHtml(s.id)}" ${checkedSubjects.includes(s.id)?'checked':''}> <span class="small strong">${escapeHtml(s.name)}</span></label>`).join('')}</div></div><div class="field full"><label>Teachers</label><div>${state.subjects.map(s=>`<div class="subject-setting"><span class="small strong">${escapeHtml(s.name)}</span><input class="input" data-setup-teacher="${escapeHtml(s.id)}" value="${escapeHtml(s.teacher)}" placeholder="Teacher"></div>`).join('')}</div></div><div class="field"><label for="setupHours">Daily study hours</label><input class="input" id="setupHours" type="number" min="0.25" max="16" step="0.25" value="${state.planner.dailyHours}"></div><div class="field"><label for="setupTarget">Target date</label><input class="input" id="setupTarget" type="date"></div><div class="field"><label for="setupSpeed">Playback speed</label><select class="select" id="setupSpeed"><option value="1">1x</option><option value="1.25">1.25x</option><option value="1.5">1.5x</option><option value="2">2x</option></select></div><div class="field"><label for="setupStrategy">Strategy</label><select class="select" id="setupStrategy"><option value="balanced">Balanced</option><option value="priority">High-Priority First</option><option value="deadline">Exam / Deadline Focused</option></select></div></div><div class="modal-actions"><button class="btn primary" data-finish-setup>Open Dashboard</button></div>`);
+  }
+  function finishSetup(){
+    state.subjects.forEach(s=>{const cb=document.querySelector(`[data-setup-subject="${CSS.escape(s.id)}"]`);const inp=document.querySelector(`[data-setup-teacher="${CSS.escape(s.id)}"]`);s.enabled=!!cb?.checked;if(inp)s.teacher=inp.value.trim()});state.planner.dailyHours=clampNum(document.getElementById('setupHours').value,.25,16,3);state.planner.targetDate=document.getElementById('setupTarget').value;state.planner.playbackSpeed=Number(document.getElementById('setupSpeed').value)||1;state.planner.strategy=document.getElementById('setupStrategy').value;state.setup.done=true;state.firstRun=false;saveState();closeModal();navigate('dashboard');showToast('StudyOS 2 is ready.');
+  }
+
+  // =========================================================
+  // EVENT HANDLERS / EVENT DELEGATION
+  // =========================================================
+  function bindEvents(){
+    document.querySelectorAll('.nav button[data-page]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.page)));
+    document.getElementById('menuBtn').addEventListener('click',openDrawer);document.getElementById('drawerOverlay').addEventListener('click',closeDrawer);document.getElementById('modalClose').addEventListener('click',closeModal);document.getElementById('modalBackdrop').addEventListener('click',e=>{if(e.target.id==='modalBackdrop')closeModal()});
+    document.getElementById('quickAddBtn').addEventListener('click',()=>openPersonalModal());document.getElementById('themeQuickBtn').addEventListener('click',()=>setTheme(preferredTheme()==='dark'?'light':'dark'));
+    document.addEventListener('click',onDocumentClick);document.addEventListener('change',onDocumentChange);document.addEventListener('input',onDocumentInput);
+    document.getElementById('calPrev').addEventListener('click',()=>{calendarCursor=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()-1,1);renderCalendar()});document.getElementById('calNext').addEventListener('click',()=>{calendarCursor=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()+1,1);renderCalendar()});document.getElementById('calToday').addEventListener('click',()=>{const d=CONFIG.TODAY();calendarCursor=new Date(d.getFullYear(),d.getMonth(),1);renderCalendar()});
+    const mq=matchMedia('(prefers-color-scheme: dark)');mq.addEventListener?.('change',()=>{if(state.theme==='system')applyTheme()});
+  }
+  function onDocumentClick(e){
+    const actionEl=e.target.closest('[data-action]');if(actionEl){const a=actionEl.dataset.action,id=actionEl.dataset.id;if(a==='go-planner'||a==='open-planner')navigate('planner');if(a==='rebalance'){generatePlan({rebalance:true})}if(a==='generate-plan'){generatePlan()}if(a==='open-today')navigate('today');if(a==='open-daily')navigate('daily');if(a==='open-progress')navigate('progress');if(a==='add-personal')openPersonalModal();if(a==='edit-personal')openPersonalModal(id);if(a==='add-event')openEventModal(null,actionEl.dataset.date||null);if(a==='edit-event')openEventModal(id);if(a==='delete-event')deleteEvent(id);if(a==='add-chapter')openChapterModal();if(a==='edit-chapter')openChapterModal(id);if(a==='restore-chapter')restoreChapter(id);if(a==='export')exportBackup();if(a==='import')document.getElementById('importFile').click();if(a==='reset')resetAll();if(a==='reset-teacher'){const s=currentSubject(id);if(s){s.teacher='';saveState();renderSettings()}}if(a==='pomo-toggle'){state.pomodoro.running?pomodoroPause():pomodoroStart();return}if(a==='pomo-reset'){pomodoroReset();return}if(a==='pomo-skip'){pomodoroSkip();return}if(a==='pomo-apply'){state.pomodoro.work=clampNum(document.getElementById('pomoWork').value,1,180,25);state.pomodoro.shortBreak=clampNum(document.getElementById('pomoShort').value,1,60,5);state.pomodoro.longBreak=clampNum(document.getElementById('pomoLong').value,1,120,15);state.pomodoro.longBreakEvery=clampNum(document.getElementById('pomoEvery').value,1,12,4);state.pomodoro.running=false;state.pomodoro.endsAt=null;state.pomodoro.remaining=pomodoroDuration();saveState();renderSettings();showToast('Pomodoro settings applied.');return}if(a==='pomo-preset'){state.pomodoro.work=Number(actionEl.dataset.work);state.pomodoro.shortBreak=Number(actionEl.dataset.short);state.pomodoro.longBreak=Number(actionEl.dataset.long);state.pomodoro.running=false;state.pomodoro.endsAt=null;state.pomodoro.remaining=pomodoroDuration();saveState();renderSettings();return}return}
+    const dateBtn=e.target.closest('[data-cal-date]');if(dateBtn){renderCalendarDetails(dateBtn.dataset.calDate);return}const openToday=e.target.closest('[data-cal-open-today]');if(openToday){navigate('today');return}const saveEvent=e.target.closest('[data-save-event]');if(saveEvent){saveEventFromModal(saveEvent.dataset.id);return}const deleteEventBtn=e.target.closest('[data-delete-event]');if(deleteEventBtn){deleteEvent(deleteEventBtn.dataset.deleteEvent);return}
+    const savePersonal=e.target.closest('[data-save-personal]');if(savePersonal){savePersonalFromModal(savePersonal.dataset.id);return}const delPersonal=e.target.closest('[data-delete-personal]');if(delPersonal){deletePersonal(delPersonal.dataset.deletePersonal);return}const close=e.target.closest('[data-modal-close]');if(close){closeModal();return}const saveCh=e.target.closest('[data-save-chapter]');if(saveCh){saveChapterFromModal(saveCh.dataset.id);return}const rem=e.target.closest('[data-remove-chapter]');if(rem){removeOrRestoreChapter(rem.dataset.removeChapter);return}const finish=e.target.closest('[data-finish-setup]');if(finish){finishSetup();return}
+  }
+  function onDocumentChange(e){
+    const el=e.target;
+    if(el.matches('[data-task-id]')){toggleTask(el.dataset.taskId,el.dataset.taskType,el.checked);return}
+    if(el.matches('[data-chapter-id][data-check-index]')){toggleChapterChecklist(el.dataset.chapterId,Number(el.dataset.checkIndex),el.checked);return}
+    if(el.matches('[data-check-label]')){const sid=el.dataset.checkLabel,i=Number(el.dataset.index);state.checklistLabels[sid]??=[...(DEFAULT_LABELS[sid]||DEFAULT_LABELS.physics)];state.checklistLabels[sid][i]=el.value.trim()||`Activity ${i+1}`;saveState();return}
+    if(el.matches('[data-subject-enable]')){const s=currentSubject(el.dataset.subjectEnable);if(s){s.enabled=el.checked;if(!s.enabled)state.academicTasks=state.academicTasks.filter(t=>t.completed||t.subjectId!==s.id||t.date<todayKey()||!t.generated);saveState();renderCurrent()}return}
+    if(el.matches('[data-teacher-subject]')){const s=currentSubject(el.dataset.teacherSubject);if(s){s.teacher=el.value.trim();saveState();renderCurrent()}return}
+    if(el.id==='themeSetting'){setTheme(el.value);return}
+    if(el.id==='settingDailyHours'){state.planner.dailyHours=clampNum(el.value,.25,16,3);saveState();renderCurrent();return}
+    if(el.id==='settingSpeed'){state.planner.playbackSpeed=Number(el.value)||1;saveState();if(state.planner.targetDate)generatePlan({rebalance:true});else renderCurrent();return}
+    if(el.id==='settingVideoShare'){state.planner.videoShare=clampNum(Number(el.value)/100,0,1,CONFIG.DEFAULT_VIDEO_SHARE);saveState();renderCurrent();return}
+    if(el.id==='settingStrategy'){state.planner.strategy=el.value;saveState();renderCurrent();return}
+    if(el.id==='plannerTarget'){state.planner.targetDate=el.value;saveState();renderPlanner();updateSidebar();return}
+    if(el.id==='plannerHours'){state.planner.dailyHours=clampNum(el.value,.25,16,3);saveState();renderPlanner();return}
+    if(el.id==='plannerSpeed'){state.planner.playbackSpeed=Number(el.value)||1;saveState();if(state.planner.targetDate)generatePlan({rebalance:true});else{renderPlanner();renderDashboard();updateSidebar()}return}
+    if(el.id==='plannerStrategy'){state.planner.strategy=el.value;saveState();renderPlanner();return}
+    if(el.id==='syllabusFilter'||el.id==='syllabusSubjectFilter'||el.id==='dailyFilter'||el.id==='dailyDateFilter'){if(activePage==='syllabus')renderSyllabus();if(activePage==='daily')renderDaily();return}
+    if(el.id==='importFile'&&el.files?.[0]){importBackup(el.files[0]);el.value='';return}
+    if(el.matches('[data-setup-subject],[data-setup-teacher]'))return;
+  }
+  function onDocumentInput(e){const el=e.target;if(el.id==='syllabusSearch')renderSyllabus();if(el.id==='dailySearch')renderDaily();if(el.matches('[data-check-label]')){const sid=el.dataset.checkLabel,i=Number(el.dataset.index);state.checklistLabels[sid]??=[...(DEFAULT_LABELS[sid]||DEFAULT_LABELS.physics)];state.checklistLabels[sid][i]=el.value;saveState()}}
+  function shiftCompletedDate(date,delta){if(!date)return;state.completedDates[date]=round2((state.completedDates[date]||0)+delta);if(state.completedDates[date]<=0.001)delete state.completedDates[date]}
+  function toggleTask(id,type,checked){
+    if(type==='personal'){const t=state.personalTasks.find(x=>x.id===id);if(!t)return;if(t.completed && t.completedOnDate)shiftCompletedDate(t.completedOnDate,-t.duration);t.completed=checked;t.updatedAt=nowISO();t.completedAt=checked?nowISO():null;t.completedOnDate=checked?todayKey():null;if(checked)shiftCompletedDate(todayKey(),t.duration)}
+    else {const t=state.academicTasks.find(x=>x.id===id);if(!t)return;if(t.completed && t.completedOnDate)shiftCompletedDate(t.completedOnDate,-t.duration);t.completed=checked;t.completedAt=checked?nowISO():null;t.completedOnDate=checked?todayKey():null;if(checked){shiftCompletedDate(todayKey(),t.duration);state.academicHistory=state.academicHistory.filter(h=>h.taskId!==t.id);state.academicHistory.push({id:uid('hist'),taskId:t.id,chapterId:t.chapterId,subjectId:t.subjectId,date:todayKey(),duration:t.duration,type:t.type,createdAt:nowISO()})}else{state.academicHistory=state.academicHistory.filter(h=>h.taskId!==t.id)}}
+    markMeaningfulChange();saveState();renderCurrent();
+  }
+  function toggleChapterChecklist(chId,index,checked){const c=currentChapter(chId);if(!c)return;c.checklist[index]=checked;c.updatedAt=nowISO();saveState();renderCurrent()}
+
+  // =========================================================
+  // INITIALIZATION
+  // =========================================================
+  function init(){
+    state=loadState();applyTheme();bindEvents();updateDerivedMeta();
+    if(!state.setup?.done){showOnboarding()}else{navigate('dashboard')}
+  }
+  init();
+  setInterval(pomodoroTick,1000);
+})();
+</script>
+</body>
+</html>
