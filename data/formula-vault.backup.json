@@ -1,0 +1,593 @@
+{
+  "version": "1.0",
+  "curriculum": "CBSE Class 11 2026-27",
+  "description": "StudyOS 2 academic quick-reference data",
+  "subjects": {
+    "physics": {
+      "name": "Physics",
+      "chapters": [
+        {
+          "id": "physics_1",
+          "name": "Units and Measurements",
+          "items": []
+        },
+        {
+          "id": "physics_2",
+          "name": "Motion in a Straight Line",
+          "items": []
+        },
+        {
+          "id": "physics_3",
+          "name": "Motion in a Plane",
+          "items": []
+        },
+        {
+          "id": "physics_4",
+          "name": "Laws of Motion",
+          "items": []
+        },
+        {
+          "id": "physics_5",
+          "name": "Work, Energy and Power",
+          "items": []
+        },
+        {
+          "id": "physics_6",
+          "name": "System of Particles and Rotational Motion",
+          "items": []
+        },
+        {
+          "id": "physics_7",
+          "name": "Gravitation",
+          "items": []
+        },
+        {
+          "id": "physics_8",
+          "name": "Mechanical Properties of Solids",
+          "items": []
+        },
+        {
+          "id": "physics_9",
+          "name": "Mechanical Properties of Fluids",
+          "items": []
+        },
+        {
+          "id": "physics_10",
+          "name": "Thermal Properties of Matter",
+          "items": []
+        },
+        {
+          "id": "physics_11",
+          "name": "Thermodynamics",
+          "items": []
+        },
+        {
+          "id": "physics_12",
+          "name": "Kinetic Theory",
+          "items": []
+        },
+        {
+          "id": "physics_13",
+          "name": "Oscillations",
+          "items": []
+        },
+        {
+          "id": "physics_14",
+          "name": "Waves",
+          "items": []
+        }
+      ]
+    },
+    "chemistry": {
+      "name": "Chemistry",
+      "chapters": [
+        {
+          "id": "chemistry_1",
+          "name": "Some Basic Concepts of Chemistry",
+          "items": []
+        },
+        {
+          "id": "chemistry_2",
+          "name": "Structure of Atom",
+          "items": []
+        },
+        {
+          "id": "chemistry_3",
+          "name": "Classification of Elements and Periodicity in Properties",
+          "items": []
+        },
+        {
+          "id": "chemistry_4",
+          "name": "Chemical Bonding and Molecular Structure",
+          "items": []
+        },
+        {
+          "id": "chemistry_5",
+          "name": "Chemical Thermodynamics",
+          "items": []
+        },
+        {
+          "id": "chemistry_6",
+          "name": "Equilibrium",
+          "items": []
+        },
+        {
+          "id": "chemistry_7",
+          "name": "Redox Reactions",
+          "items": []
+        },
+        {
+          "id": "chemistry_8",
+          "name": "Organic Chemistry: Some Basic Principles and Techniques",
+          "items": []
+        },
+        {
+          "id": "chemistry_9",
+          "name": "Hydrocarbons",
+          "items": []
+        }
+      ]
+    },
+    "biology": {
+      "name": "Biology",
+      "chapters": [
+        {
+          "id": "biology_1",
+          "name": "The Living World",
+          "items": []
+        },
+        {
+          "id": "biology_2",
+          "name": "Biological Classification",
+          "items": []
+        },
+        {
+          "id": "biology_3",
+          "name": "Plant Kingdom",
+          "items": []
+        },
+        {
+          "id": "biology_4",
+          "name": "Animal Kingdom",
+          "items": []
+        },
+        {
+          "id": "biology_5",
+          "name": "Morphology of Flowering Plants",
+          "items": []
+        },
+        {
+          "id": "biology_6",
+          "name": "Anatomy of Flowering Plants",
+          "items": []
+        },
+        {
+          "id": "biology_7",
+          "name": "Structural Organisation in Animals",
+          "items": []
+        },
+        {
+          "id": "biology_8",
+          "name": "Cell: The Unit of Life",
+          "items": []
+        },
+        {
+          "id": "biology_9",
+          "name": "Biomolecules",
+          "items": []
+        },
+        {
+          "id": "biology_10",
+          "name": "Cell Cycle and Cell Division",
+          "items": []
+        },
+        {
+          "id": "biology_11",
+          "name": "Photosynthesis in Higher Plants",
+          "items": []
+        },
+        {
+          "id": "biology_12",
+          "name": "Respiration in Plants",
+          "items": []
+        },
+        {
+          "id": "biology_13",
+          "name": "Plant Growth and Development",
+          "items": []
+        },
+        {
+          "id": "biology_14",
+          "name": "Breathing and Exchange of Gases",
+          "items": []
+        },
+        {
+          "id": "biology_15",
+          "name": "Body Fluids and Circulation",
+          "items": []
+        },
+        {
+          "id": "biology_16",
+          "name": "Excretory Products and their Elimination",
+          "items": []
+        },
+        {
+          "id": "biology_17",
+          "name": "Locomotion and Movement",
+          "items": []
+        },
+        {
+          "id": "biology_18",
+          "name": "Neural Control and Coordination",
+          "items": []
+        },
+        {
+          "id": "biology_19",
+          "name": "Chemical Coordination and Integration",
+          "items": []
+        },
+        {
+          "id": "biology_20",
+          "name": "Digestion and Absorption",
+          "items": []
+        }
+      ]
+    },
+    "mathematics": {
+      "name": "Mathematics",
+      "chapters": [
+        {
+          "id": "mathematics_1",
+          "name": "Sets",
+          "items": []
+        },
+        {
+          "id": "mathematics_2",
+          "name": "Relations & Functions",
+          "items": []
+        },
+        {
+          "id": "mathematics_3",
+          "name": "Trigonometric Functions",
+          "items": []
+        },
+        {
+          "id": "mathematics_4",
+          "name": "Complex Numbers and Quadratic Equations",
+          "items": []
+        },
+        {
+          "id": "mathematics_5",
+          "name": "Linear Inequalities",
+          "items": []
+        },
+        {
+          "id": "mathematics_6",
+          "name": "Permutations and Combinations",
+          "items": []
+        },
+        {
+          "id": "mathematics_7",
+          "name": "Binomial Theorem",
+          "items": []
+        },
+        {
+          "id": "mathematics_8",
+          "name": "Sequence and Series",
+          "items": []
+        },
+        {
+          "id": "mathematics_9",
+          "name": "Straight Lines",
+          "items": []
+        },
+        {
+          "id": "mathematics_10",
+          "name": "Conic Sections",
+          "items": []
+        },
+        {
+          "id": "mathematics_11",
+          "name": "Introduction to Three-dimensional Geometry",
+          "items": []
+        },
+        {
+          "id": "mathematics_12",
+          "name": "Limits and Derivatives",
+          "items": []
+        },
+        {
+          "id": "mathematics_13",
+          "name": "Statistics",
+          "items": []
+        },
+        {
+          "id": "mathematics_14",
+          "name": "Probability",
+          "items": []
+        }
+      ]
+    },
+    "english": {
+      "name": "English Core",
+      "chapters": [
+        {
+          "id": "english_1",
+          "name": "The Portrait of a Lady",
+          "items": []
+        },
+        {
+          "id": "english_2",
+          "name": "A Photograph",
+          "items": []
+        },
+        {
+          "id": "english_3",
+          "name": "We're Not Afraid to Die... if We Can Be Together",
+          "items": []
+        },
+        {
+          "id": "english_4",
+          "name": "Discovering Tut: The Saga Continues",
+          "items": []
+        },
+        {
+          "id": "english_5",
+          "name": "The Laburnum Top",
+          "items": []
+        },
+        {
+          "id": "english_6",
+          "name": "The Voice of the Rain",
+          "items": []
+        },
+        {
+          "id": "english_7",
+          "name": "Childhood",
+          "items": []
+        },
+        {
+          "id": "english_8",
+          "name": "The Adventure",
+          "items": []
+        },
+        {
+          "id": "english_9",
+          "name": "Silk Road",
+          "items": []
+        },
+        {
+          "id": "english_10",
+          "name": "Father to Son",
+          "items": []
+        },
+        {
+          "id": "english_11",
+          "name": "The Summer of the Beautiful White Horse",
+          "items": []
+        },
+        {
+          "id": "english_12",
+          "name": "The Address",
+          "items": []
+        },
+        {
+          "id": "english_13",
+          "name": "Mother's Day",
+          "items": []
+        },
+        {
+          "id": "english_14",
+          "name": "Birth",
+          "items": []
+        },
+        {
+          "id": "english_15",
+          "name": "The Tale of Melon City",
+          "items": []
+        },
+        {
+          "id": "english_16",
+          "name": "Reading Skills",
+          "items": []
+        },
+        {
+          "id": "english_17",
+          "name": "Grammar & Creative Writing Skills",
+          "items": []
+        },
+        {
+          "id": "english_18",
+          "name": "Listening, Speaking & Project Work",
+          "items": []
+        }
+      ]
+    },
+    "physical_education": {
+      "name": "Physical Education",
+      "chapters": [
+        {
+          "id": "physical_education_1",
+          "name": "Changing Trends & Career in Physical Education",
+          "items": []
+        },
+        {
+          "id": "physical_education_2",
+          "name": "Olympic Value Education",
+          "items": []
+        },
+        {
+          "id": "physical_education_3",
+          "name": "Yoga",
+          "items": []
+        },
+        {
+          "id": "physical_education_4",
+          "name": "Physical Education & Sports for CWSN",
+          "items": []
+        },
+        {
+          "id": "physical_education_5",
+          "name": "Physical Fitness, Wellness",
+          "items": []
+        },
+        {
+          "id": "physical_education_6",
+          "name": "Test, Measurements & Evaluation",
+          "items": []
+        },
+        {
+          "id": "physical_education_7",
+          "name": "Fundamentals of Anatomy and Physiology in Sports",
+          "items": []
+        },
+        {
+          "id": "physical_education_8",
+          "name": "Fundamentals of Kinesiology and Biomechanics in Sports",
+          "items": []
+        },
+        {
+          "id": "physical_education_9",
+          "name": "Psychology and Sports",
+          "items": []
+        },
+        {
+          "id": "physical_education_10",
+          "name": "Training & Doping in Sports",
+          "items": []
+        }
+      ]
+    },
+    "computer_science": {
+      "name": "Computer Science",
+      "chapters": [
+        {
+          "id": "computer_science_1_1",
+          "name": "Computer Organisation",
+          "unit": "Computer Systems and Organisation",
+          "items": []
+        },
+        {
+          "id": "computer_science_1_2",
+          "name": "Types of Software",
+          "unit": "Computer Systems and Organisation",
+          "items": []
+        },
+        {
+          "id": "computer_science_1_3",
+          "name": "Operating System",
+          "unit": "Computer Systems and Organisation",
+          "items": []
+        },
+        {
+          "id": "computer_science_1_4",
+          "name": "Boolean Logic",
+          "unit": "Computer Systems and Organisation",
+          "items": []
+        },
+        {
+          "id": "computer_science_1_5",
+          "name": "Number System",
+          "unit": "Computer Systems and Organisation",
+          "items": []
+        },
+        {
+          "id": "computer_science_2_1",
+          "name": "Introduction to Problem Solving",
+          "unit": "Computational Thinking and Programming–1",
+          "items": []
+        },
+        {
+          "id": "computer_science_2_2",
+          "name": "Familiarization with Basics of Python Programming",
+          "unit": "Computational Thinking and Programming–1",
+          "items": []
+        },
+        {
+          "id": "computer_science_2_3",
+          "name": "Data Types, Variables and Operators",
+          "unit": "Computational Thinking and Programming–1",
+          "items": []
+        },
+        {
+          "id": "computer_science_2_4",
+          "name": "Expressions, Statements and Input/Output",
+          "unit": "Computational Thinking and Programming–1",
+          "items": []
+        },
+        {
+          "id": "computer_science_2_5",
+          "name": "Flow of Control",
+          "unit": "Computational Thinking and Programming–1",
+          "items": []
+        },
+        {
+          "id": "computer_science_2_6",
+          "name": "Strings",
+          "unit": "Computational Thinking and Programming–1",
+          "items": []
+        },
+        {
+          "id": "computer_science_2_7",
+          "name": "Lists",
+          "unit": "Computational Thinking and Programming–1",
+          "items": []
+        },
+        {
+          "id": "computer_science_2_8",
+          "name": "Tuples",
+          "unit": "Computational Thinking and Programming–1",
+          "items": []
+        },
+        {
+          "id": "computer_science_2_9",
+          "name": "Dictionaries",
+          "unit": "Computational Thinking and Programming–1",
+          "items": []
+        },
+        {
+          "id": "computer_science_2_10",
+          "name": "Introduction to Python Modules",
+          "unit": "Computational Thinking and Programming–1",
+          "items": []
+        },
+        {
+          "id": "computer_science_3_1",
+          "name": "Digital Footprints",
+          "unit": "Society, Law and Ethics",
+          "items": []
+        },
+        {
+          "id": "computer_science_3_2",
+          "name": "Digital Society and Netizen",
+          "unit": "Society, Law and Ethics",
+          "items": []
+        },
+        {
+          "id": "computer_science_3_3",
+          "name": "Cyber Safety",
+          "unit": "Society, Law and Ethics",
+          "items": []
+        },
+        {
+          "id": "computer_science_3_4",
+          "name": "Cyber Crime",
+          "unit": "Society, Law and Ethics",
+          "items": []
+        },
+        {
+          "id": "computer_science_3_5",
+          "name": "Cyber Laws",
+          "unit": "Society, Law and Ethics",
+          "items": []
+        },
+        {
+          "id": "computer_science_3_6",
+          "name": "Ethical Issues",
+          "unit": "Society, Law and Ethics",
+          "items": []
+        }
+      ]
+    }
+  }
+}

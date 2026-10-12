@@ -58,6 +58,7 @@
       --danger:#d88984;
       --danger-soft:rgba(181,100,96,.18);
       --shadow:0 20px 50px rgba(0,0,0,.24);
+
       --shadow-sm:0 10px 26px rgba(0,0,0,.20);
     }
     *{box-sizing:border-box}
@@ -170,9 +171,581 @@
     .subject-choice{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025);cursor:pointer}
     .subject-choice input{width:18px;height:18px;accent-color:var(--accent)}
     @media(max-width:800px){.pomo-wrap{grid-template-columns:1fr}.subject-choice-list{grid-template-columns:1fr}}
-  </style>
+  
+/* STUDYOS WEEKLY REVIEW UI */
+
+.weekly-range{
+  font-size:.82rem;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.weekly-metrics{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin-top:14px;
+}
+
+.weekly-metric{
+  padding:14px;
+  border-radius:16px;
+  background:rgba(255,255,255,.45);
+  border:1px solid rgba(80,100,110,.08);
+}
+
+.weekly-metric-label{
+  font-size:.74rem;
+  color:var(--muted);
+}
+
+.weekly-metric-value{
+  font-size:1.15rem;
+  font-weight:800;
+  margin-top:4px;
+}
+
+.weekly-review-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);
+  gap:12px;
+}
+
+.weekly-day{
+  display:grid;
+  grid-template-columns:58px 1fr 54px;
+  align-items:center;
+  gap:8px;
+  padding:8px 0;
+  border-bottom:1px solid rgba(80,100,110,.07);
+}
+
+.weekly-day:last-child{
+  border-bottom:0;
+}
+
+.weekly-day-name{
+  font-size:.76rem;
+  font-weight:700;
+}
+
+.weekly-day-hours{
+  text-align:right;
+  font-size:.75rem;
+  font-weight:700;
+}
+
+.weekly-bar{
+  height:7px;
+  border-radius:99px;
+  background:rgba(100,120,130,.12);
+  overflow:hidden;
+  position:relative;
+}
+
+.weekly-bar-planned{
+  position:absolute;
+  inset:0;
+  opacity:.28;
+}
+
+.weekly-bar-actual{
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  border-radius:99px;
+  background:currentColor;
+}
+
+.weekly-subject{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:8px;
+  align-items:center;
+  padding:9px 0;
+  border-bottom:1px solid rgba(80,100,110,.07);
+}
+
+.weekly-subject:last-child{
+  border-bottom:0;
+}
+
+.weekly-rating{
+  display:inline-flex;
+  align-items:center;
+  padding:5px 9px;
+  border-radius:999px;
+  background:rgba(100,120,130,.10);
+  font-size:.76rem;
+  font-weight:800;
+}
+
+@media(max-width:800px){
+  .weekly-metrics{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .weekly-review-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+
+/* STUDYOS CALENDAR DATE ANIMATION */
+#calendarDetails.calendar-date-animate{
+  animation: studyOSCalendarDateIn .24s ease-out;
+}
+
+@keyframes studyOSCalendarDateIn{
+  0%{
+    opacity:0;
+    transform:translateY(7px) scale(.985);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  #calendarDetails.calendar-date-animate{
+    animation:none;
+  }
+}
+
+
+/* STUDYOS CALENDAR DAILY SUMMARY */
+.calendar-daily-summary{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
+  margin-top:10px;
+}
+
+.calendar-summary-stat{
+  padding:10px;
+  border-radius:12px;
+  background:rgba(255,255,255,.42);
+  border:1px solid rgba(80,100,110,.07);
+}
+
+.calendar-summary-stat span{
+  display:block;
+  font-size:.68rem;
+  color:var(--muted);
+}
+
+.calendar-summary-stat strong{
+  display:block;
+  margin-top:3px;
+  font-size:.9rem;
+}
+
+@media(max-width:580px){
+  .calendar-daily-summary{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+
+/* STUDYOS PERSONAL RECORDS */
+.personal-record-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:8px;
+}
+
+.personal-record{
+  padding:11px;
+  border-radius:13px;
+  background:rgba(255,255,255,.42);
+  border:1px solid rgba(80,100,110,.07);
+}
+
+.personal-record-label{
+  font-size:.68rem;
+  color:var(--muted);
+}
+
+.personal-record-value{
+  margin-top:4px;
+  font-size:.92rem;
+  font-weight:800;
+}
+
+.personal-record-sub{
+  margin-top:3px;
+  font-size:.66rem;
+  color:var(--muted);
+}
+
+@media(max-width:800px){
+  .personal-record-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+
+/* ==========================================
+   ACHIEVEMENTS
+   ========================================== */
+
+.achievement-overview{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  padding:22px;
+}
+
+.achievement-overview-main{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  min-width:190px;
+}
+
+.achievement-trophy{
+  width:58px;
+  height:58px;
+  border-radius:16px;
+  display:grid;
+  place-items:center;
+  font-size:28px;
+  background:linear-gradient(145deg,rgba(230,195,79,.22),rgba(230,195,79,.07));
+  border:1px solid rgba(230,195,79,.35);
+  color:#e6c34f;
+}
+
+.achievement-count{
+  font-size:25px;
+  line-height:1.15;
+  font-weight:800;
+  margin-top:3px;
+}
+
+.achievement-progress-wrap{
+  flex:1;
+  max-width:520px;
+}
+
+.achievement-section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:12px;
+}
+
+.achievement-section-title h3{
+  margin:0;
+  font-size:20px;
+}
+
+.achievement-section-title p{
+  margin:3px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.common-title h3{
+  color:#e6c34f;
+}
+
+.special-title h3{
+  color:#e08a32;
+}
+
+.major-title h3{
+  color:#b06cff;
+}
+
+.hidden-title h3{
+  color:#63c77a;
+}
+
+.achievement-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+.achievement-card{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  min-height:108px;
+  padding:15px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:var(--card);
+  overflow:hidden;
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease,
+    opacity .18s ease;
+}
+
+.achievement-card:hover{
+  transform:translateY(-2px);
+}
+
+.achievement-card.unlocked{
+  border-color:var(--achievement-color);
+  box-shadow:0 8px 26px color-mix(in srgb,var(--achievement-color) 13%,transparent);
+}
+
+.achievement-card.locked{
+  opacity:.62;
+}
+
+.achievement-icon{
+  width:64px;
+  height:64px;
+  flex:0 0 64px;
+  object-fit:contain;
+  image-rendering:auto;
+}
+
+.achievement-card.locked .achievement-icon{
+  filter:grayscale(1);
+  opacity:.42;
+}
+
+.achievement-card-body{
+  min-width:0;
+  flex:1;
+}
+
+.achievement-card-category{
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--achievement-color);
+  margin-bottom:4px;
+}
+
+.achievement-card-title{
+  font-size:16px;
+  line-height:1.2;
+  font-weight:800;
+  color:var(--text);
+}
+
+.achievement-card-description{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.4;
+}
+
+.achievement-card.locked .achievement-card-title{
+  color:var(--muted);
+}
+
+.achievement-secret{
+  font-style:italic;
+  letter-spacing:.01em;
+}
+
+.achievement-unlocked-mark{
+  position:absolute;
+  right:10px;
+  top:9px;
+  font-size:13px;
+  color:var(--achievement-color);
+  opacity:.9;
+}
+
+@media (max-width:760px){
+  .achievement-overview{
+    align-items:stretch;
+    flex-direction:column;
+  }
+
+  .achievement-progress-wrap{
+    max-width:none;
+  }
+
+  .achievement-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .achievement-card{
+    transition:none;
+  }
+}
+
+</style>
+
+<style id="studyos2-fv-flip-css">
+.formula-vault-card{
+  perspective:1200px;
+  background:transparent!important;
+  border:0!important;
+  padding:0!important;
+  min-height:300px;
+  cursor:pointer;
+}
+.formula-vault-card-inner{
+  position:relative;
+  width:100%;
+  min-height:300px;
+  transform-style:preserve-3d;
+  transition:transform .55s cubic-bezier(.2,.7,.2,1);
+}
+.formula-vault-card.is-flipped .formula-vault-card-inner{
+  transform:rotateY(180deg);
+}
+.formula-vault-face{
+  position:absolute;
+  inset:0;
+  min-height:300px;
+  box-sizing:border-box;
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:var(--panel);
+  box-shadow:var(--shadow);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  overflow:auto;
+}
+.formula-vault-face-back{
+  transform:rotateY(180deg);
+}
+.formula-vault-flip-hint{
+  margin-top:12px;
+  font-size:10px;
+  font-weight:700;
+  color:var(--muted);
+  text-align:center;
+  letter-spacing:.03em;
+}
+.formula-vault-card button,
+.formula-vault-card details,
+.formula-vault-card summary{
+  cursor:pointer;
+}
+</style>
 </head>
 <body>
+
+
+
+
+
+<!-- StudyOS 2 Intro Animation -->
+<style id="studyos-intro-style">
+#studyos-intro {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, #f7f3ea 0%, #e8f4f1 48%, #d9eee9 100%);
+    opacity: 1;
+    visibility: visible;
+    transition: opacity .65s ease, visibility .65s ease;
+}
+#studyos-intro.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+.studyos-intro-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    animation: studyosIntroContent 1.5s cubic-bezier(.2,.8,.2,1) both;
+}
+.studyos-intro-logo {
+    width: min(145px, 32vw);
+    height: min(145px, 32vw);
+    object-fit: contain;
+    border-radius: 30px;
+    filter: drop-shadow(0 12px 28px rgba(80,110,100,.20));
+    animation: studyosIntroLogo 1.35s cubic-bezier(.2,.8,.2,1) both;
+}
+.studyos-intro-title {
+    margin-top: 22px;
+    font-size: clamp(28px, 6vw, 42px);
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: #263832;
+    animation: studyosIntroText .9s .35s ease both;
+}
+.studyos-intro-tagline {
+    margin-top: 7px;
+    font-size: clamp(13px, 2.8vw, 17px);
+    letter-spacing: 2px;
+    color: #6c8279;
+    animation: studyosIntroText .9s .55s ease both;
+}
+@keyframes studyosIntroLogo {
+    0% { opacity: 0; transform: scale(.72) translateY(12px); }
+    55% { opacity: 1; transform: scale(1.04) translateY(0); }
+    100% { opacity: 1; transform: scale(1); }
+}
+@keyframes studyosIntroText {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes studyosIntroContent {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+    #studyos-intro,
+    .studyos-intro-content,
+    .studyos-intro-logo,
+    .studyos-intro-title,
+    .studyos-intro-tagline {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+</style>
+
+<div id="studyos-intro">
+    <div class="studyos-intro-content">
+        <img class="studyos-intro-logo"
+             src="icons/icon-512.png"
+             alt="StudyOS 2">
+        <div class="studyos-intro-title">StudyOS 2</div>
+        <div class="studyos-intro-tagline">PLAN. FOCUS. PROGRESS.</div>
+    </div>
+</div>
+
+<script id="studyos-intro-script">
+(function () {
+    function hideStudyOSIntro() {
+        var intro = document.getElementById("studyos-intro");
+        if (!intro) return;
+        intro.classList.add("hide");
+        setTimeout(function () {
+            if (intro && intro.parentNode) {
+                intro.parentNode.removeChild(intro);
+            }
+        }, 700);
+    }
+
+    window.addEventListener("load", function () {
+        setTimeout(hideStudyOSIntro, 1800);
+    });
+})();
+</script>
+
+
 <div class="app-shell">
   <aside class="sidebar" id="sidebar">
     <div class="brand">
@@ -186,7 +759,11 @@
       <button data-page="planner"><span class="nav-icon">✦</span><span class="nav-label">Smart Planner</span></button>
       <button data-page="daily"><span class="nav-icon">✓</span><span class="nav-label">My Daily Plan</span></button>
       <button data-page="progress"><span class="nav-icon">◒</span><span class="nav-label">Progress</span></button>
-      <button data-page="settings"><span class="nav-icon">⚙</span><span class="nav-label">Settings</span></button>
+      <button data-page="achievements"><span class="nav-icon">★</span><span class="nav-label">Achievements</span></button>
+      <button data-page="revision"><span class="nav-icon">↻</span><span class="nav-label">Revision Replanner</span></button>
+                  <button data-page="formulaVault"><span class="nav-icon">📖</span><span class="nav-label">Formula Vault</span></button>
+            <button data-page="settings"><span class="nav-icon">⚙</span><span class="nav-label">Settings</span></button>
+            <button data-page="about"><span class="nav-icon">ⓘ</span><span class="nav-label">About</span></button>
     </nav>
     <div class="sidebar-bottom">
       <div class="mini-target">
@@ -263,10 +840,263 @@
       <div class="grid g-4" id="progressMetrics"></div>
       <div class="grid g-2 mt16"><div class="card"><div class="card-title"><div><h3>Subject breakdown</h3><p>Completion is based on chapter checklist progress.</p></div></div><div id="progressSubjects"></div></div><div class="card"><div class="card-title"><div><h3>Checklist completion</h3><p>All configured activities across active chapters.</p></div></div><div id="progressChecklist"></div></div></div>
       <div class="card mt16"><div class="card-title"><div><h3>Study history</h3><p>Meaningful completed study activity by date.</p></div></div><div id="progressHistory"></div></div>
-      <div class="card mt16"><div class="card-title"><div><h3>Calendar</h3><p>Click a date to inspect tasks and events.</p></div><div class="toolbar"><button class="btn small primary" data-action="add-event">＋ Event</button><button class="btn small ghost" id="calPrev">←</button><button class="btn small ghost" id="calToday">Today</button><button class="btn small ghost" id="calNext">→</button></div></div><div class="small strong" id="calendarTitle"></div><div class="calendar mt12" id="calendar"></div><div id="calendarDetails" class="mt12"></div></div>
+      
+<div class="card mt16" id="weeklyReviewCard">
+  <div class="card-title">
+    <div>
+      <h3>Weekly Review</h3>
+      <p>Your study performance for the current week.</p>
+    </div>
+    <div class="toolbar">
+      <button class="btn small ghost" id="weeklyPrev">‹</button>
+      <button class="btn small ghost" id="weeklyToday">This Week</button>
+      <button class="btn small ghost" id="weeklyNext">›</button>
+    </div>
+  </div>
+
+  <div class="weekly-range" id="weeklyRange"></div>
+
+  <div class="weekly-metrics" id="weeklyMetrics"></div>
+
+  <div class="weekly-review-grid mt12">
+
+    <div class="soft-box">
+      <div class="between flex center">
+        <div>
+          <div class="strong small">Daily Study</div>
+          <div class="small muted">Actual vs planned</div>
+        </div>
+      </div>
+      <div id="weeklyDaily"></div>
+    </div>
+
+    <div class="soft-box">
+      <div class="strong small">Subjects</div>
+      <div class="small muted mt4">What you studied this week</div>
+      <div id="weeklySubjects" class="mt8"></div>
+    </div>
+
+  </div>
+
+  <div class="soft-box mt12" id="weeklySummary"></div>
+
+  <div class="soft-box mt12" id="personalRecords">
+    <div class="strong small">Personal Records</div>
+    <div class="small muted mt4">
+      Your strongest study moments recorded by StudyOS 2.
+    </div>
+
+    <div class="personal-record-grid mt10" id="personalRecordsGrid"></div>
+  </div>
+
+</div>
+
+<div class="card mt16"><div class="card-title"><div><h3>Calendar</h3><p>Click a date to inspect tasks and events.</p></div><div class="toolbar"><button class="btn small primary" data-action="add-event">＋ Event</button><button class="btn small ghost" id="calPrev">←</button><button class="btn small ghost" id="calToday">Today</button><button class="btn small ghost" id="calNext">→</button></div></div><div class="small strong" id="calendarTitle"></div><div class="calendar mt12" id="calendar"></div><div id="calendarDetails" class="mt12"></div></div>
     </section>
 
-    <section class="page hidden" data-page-view="settings">
+    
+<section class="page hidden" data-page-view="achievements">
+  <div class="section-head">
+    <h2>Achievements</h2>
+    <p>Milestones earned through your study journey.</p>
+  </div>
+
+  <div class="achievement-overview card">
+    <div class="achievement-overview-main">
+      <div class="achievement-trophy">★</div>
+      <div>
+        <div class="small muted">StudyOS achievements</div>
+        <div class="achievement-count" id="achievementCount">0 / 25</div>
+        <div class="small muted">Achievements unlocked</div>
+      </div>
+    </div>
+    <div class="achievement-progress-wrap">
+      <div class="between">
+        <span class="small strong">Overall progress</span>
+        <span class="small strong" id="achievementPercent">0%</span>
+      </div>
+      <div class="progress-track mt8">
+        <div class="progress-fill" id="achievementProgressBar" style="width:0%"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="achievement-section mt16">
+    <div class="achievement-section-title common-title">
+      <div>
+        <h3>Common</h3>
+        <p>Every journey starts somewhere.</p>
+      </div>
+      <span class="badge" id="achievementCommonCount">0 / 5</span>
+    </div>
+    <div class="achievement-grid" id="achievementCommonGrid"></div>
+  </div>
+
+  <div class="achievement-section mt16">
+    <div class="achievement-section-title special-title">
+      <div>
+        <h3>Special</h3>
+        <p>Milestones that require extra dedication.</p>
+      </div>
+      <span class="badge" id="achievementSpecialCount">0 / 6</span>
+    </div>
+    <div class="achievement-grid" id="achievementSpecialGrid"></div>
+  </div>
+
+  <div class="achievement-section mt16">
+    <div class="achievement-section-title major-title">
+      <div>
+        <h3>Major</h3>
+        <p>Major milestones in your StudyOS journey.</p>
+      </div>
+      <span class="badge" id="achievementMajorCount">0 / 8</span>
+    </div>
+    <div class="achievement-grid" id="achievementMajorGrid"></div>
+  </div>
+
+  <div class="achievement-section mt16">
+    <div class="achievement-section-title hidden-title">
+      <div>
+        <h3>Hidden</h3>
+        <p>Some things are better discovered.</p>
+      </div>
+      <span class="badge" id="achievementHiddenCount">0 / 6</span>
+    </div>
+    <div class="achievement-grid" id="achievementHiddenGrid"></div>
+  </div>
+</section>
+
+<section class="page hidden" data-page-view="revision">
+
+      <div class="page-head">
+        <div>
+          <h1>Revision Replanner</h1>
+          <p>Keep completed chapters fresh with spaced revision.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <div>
+            <h3>Due Today</h3>
+            <p>Revisions ready to complete today.</p>
+          </div>
+          <span class="badge" id="revisionDueCount">0</span>
+        </div>
+        <div id="revisionDueToday">
+          <div class="empty">No revisions due today.</div>
+        </div>
+      </div>
+
+      <div class="card mt16">
+        <div class="card-title">
+          <div>
+            <h3>Upcoming</h3>
+            <p>Your next scheduled revisions.</p>
+          </div>
+        </div>
+        <div id="revisionUpcoming">
+          <div class="empty">No upcoming revisions.</div>
+        </div>
+      </div>
+
+      <div class="card mt16">
+        <div class="card-title">
+          <div>
+            <h3>Missed</h3>
+            <p>Revisions that passed their scheduled date.</p>
+          </div>
+          <span class="badge" id="revisionMissedCount">0</span>
+        </div>
+        <div id="revisionMissed">
+          <div class="empty">No missed revisions.</div>
+        </div>
+      </div>
+
+      <div class="card mt16">
+        <div class="card-title">
+          <div>
+            <h3>Revision History</h3>
+            <p>Your completed revision sessions.</p>
+          </div>
+        </div>
+        <div id="revisionHistory">
+          <div class="empty">No revision history yet.</div>
+        </div>
+      </div>
+
+    </section>
+
+<section class="page hidden" data-page-view="formulaVault">
+  <div class="section-head">
+    <div>
+      <h2>Formula Vault</h2>
+      <p>Your fast Class 11 CBSE 2026–27 academic reference.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">
+      <div>
+        <h3>Formula Vault</h3>
+        <p>Academic reference content will appear here.</p>
+      </div>
+    </div>
+    <div class="empty">Loading Formula Vault…</div>
+  </div>
+</section>
+
+
+<section class="page hidden" data-page-view="about">
+  <div class="section-head">
+    <h2>About StudyOS 2</h2>
+    <p>A calmer way to organise your academic life.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">
+      <div><h3>StudyOS 2</h3><p>Your study workspace, built around your workflow.</p></div>
+      <span class="badge">Class 11</span>
+    </div>
+    <p style="line-height:1.8">StudyOS 2 brings syllabus management, study planning, daily tasks, progress tracking, revision and academic quick references together in one place. Its goal is to make a busy academic workload easier to understand and manage.</p>
+    <div class="stat-line"><span>App version</span><strong id="aboutAppVersion">1.0</strong></div>
+    <div class="stat-line"><span>Build</span><strong id="aboutBuildType">Android</strong></div>
+  </div>
+
+  <div class="card mt16">
+    <div class="card-title"><div><h3>Discover StudyOS 2</h3><p>Learn what each feature does and how to use it.</p></div></div>
+    <div class="task-list">
+      <div class="setting-row"><div><strong>Dashboard</strong><p>Your overview of study activity and what needs attention.</p></div></div>
+      <div class="setting-row"><div><strong>Syllabus</strong><p>Track chapters, priorities and completion.</p></div></div>
+      <div class="setting-row"><div><strong>Smart Planner</strong><p>Generate and rebalance academic work around your target and available time.</p></div></div>
+      <div class="setting-row"><div><strong>My Daily Plan</strong><p>Keep personal tasks organised alongside academic work.</p></div></div>
+      <div class="setting-row"><div><strong>Progress & Achievements</strong><p>Review completed work, history and study milestones.</p></div></div>
+      <div class="setting-row"><div><strong>Revision Replanner</strong><p>Keep track of revision that is due or coming up.</p></div></div>
+      <div class="setting-row"><div><strong>Formula Vault</strong><p>Access subject-wise academic quick references.</p></div></div>
+      <div class="setting-row"><div><strong>Settings & Data Safety</strong><p>Customise your workflow and manage your saved data.</p></div></div>
+    </div>
+  </div>
+
+  <div class="card mt16">
+    <div class="card-title"><div><h3>Feedback & Support</h3><p>Suggestions, feedback and bug reports help improve the project.</p></div></div>
+    <p class="small muted">The contact link will be added when the creator's WhatsApp Business details are available.</p>
+    <div class="task-list">
+      <button class="btn ghost" data-action="about-feedback" data-feedback="Suggestion">Share a suggestion</button>
+      <button class="btn ghost" data-action="about-feedback" data-feedback="Feedback">Send feedback</button>
+      <button class="btn ghost" data-action="about-feedback" data-feedback="Bug report">Report a bug</button>
+    </div>
+    <div class="small muted mt12">Website: <span>Link coming soon</span></div>
+  </div>
+
+  <div class="card mt16">
+    <div class="card-title"><div><h3>A note from the creator</h3></div></div>
+    <p style="line-height:1.8">StudyOS 2 started with a simple thought: studying shouldn't feel like trying to manage a hundred things at once. I wanted to build something that helps students organise their workload, understand their progress, and make study days a little less overwhelming.</p>
+    <p style="line-height:1.8">This is a personal project, built with the hope that it makes someone's academic journey easier. It's still growing, and your feedback can help make it better.</p>
+    <p class="small muted">Thanks for being part of the journey.</p>
+  </div>
+</section>
+
+<section class="page hidden" data-page-view="settings">
       <div class="section-head"><div><h2>Settings</h2><p>Control appearance, your subjects, planner defaults, focus timer and data safety.</p></div></div>
       <div class="grid g-2">
         <div class="card"><div class="card-title"><div><h3>Appearance</h3><p>Light, dark or follow the system.</p></div></div><div class="setting-row"><div><strong>Theme</strong><p>Dark keeps the same teal, sky and warm-gold identity.</p></div><div class="setting-control"><select class="select" style="max-width:180px" id="themeSetting"><option value="light">Light</option><option value="dark">Dark</option><option value="system">System</option></select></div></div></div>
@@ -275,7 +1105,48 @@
       <div class="card mt16"><div class="card-title"><div><h3>Your subjects</h3><p>Tick only the subjects you actually study. Smart Planner uses only these subjects.</p></div></div><div id="subjectsSettings"></div></div>
       <div class="card mt16"><div class="card-title"><div><h3>Pomodoro focus timer</h3><p>A persistent, adjustable timer for focused study sessions.</p></div></div><div id="pomodoroSettings"></div></div>
       <div class="card mt16"><div class="card-title"><div><h3>Removed chapters</h3><p>Deleted from active planning, but always restorable.</p></div></div><div id="removedChapters"></div></div>
-      <div class="card mt16"><div class="card-title"><div><h3>Data safety</h3><p>Export JSON backups before major changes. Reset only affects StudyOS local data.</p></div></div><div class="toolbar"><button class="btn" data-action="export">Export backup</button><button class="btn" data-action="import">Import backup</button><button class="btn danger" data-action="reset">Reset StudyOS data</button></div><div class="small muted mt12">Storage key: <code>studyos2_v3</code></div></div>
+      <div class="card mt16">
+  <div class="card-title">
+    <div>
+      <h3>Notifications</h3>
+      <p>Control StudyOS 2 notifications. Android permission is required for actual notifications.</p>
+    </div>
+  </div>
+
+  <div class="selling-row">
+    <div>
+      <strong>StudyOS notifications</strong>
+      <p>Allow StudyOS 2 to send scheduled study and app notifications.</p>
+    </div>
+    <div class="selling-control">
+      <div class="toolbar">
+        <button class="btn small" data-action="notifications-enable">YES</button>
+        <button class="btn small" data-action="notifications-disable">NO</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="selling-row">
+    <div>
+      <strong>Funny notifications</strong>
+      <p>Allow occasional funny study-related notifications. You can change this anytime.</p>
+    </div>
+    <div class="selling-control">
+      <div class="toolbar">
+        <button class="btn small" data-action="funny-yes">YES</button>
+        <button class="btn small" data-action="funny-no">NO</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="notificationPermissionStatus" class="small muted mt12"></div>
+
+  <div class="toolbar mt12">
+    <button class="btn ghost" data-action="notifications-permission">Check Android notification permission</button>
+  </div>
+</div>
+
+<div class="card mt16"><div class="card-title"><div><h3>Data safety</h3><p>Export JSON backups before major changes. Reset only affects StudyOS local data.</p></div></div><div class="toolbar"><button class="btn" data-action="export">Export backup</button><button class="btn" data-action="import">Import backup</button><button class="btn danger" data-action="reset">Reset StudyOS data</button></div><div class="small muted mt12">Storage key: <code>studyos2_v3</code></div></div>
       <div class="footer-note">StudyOS 2 stores everything locally in this browser. No account or server is required.</div>
     </section>
   </main>
@@ -311,10 +1182,10 @@
   const SUBJECT_DEFS = [
     { id:'physics', name:'Physics', teacher:'' },
     { id:'chemistry', name:'Chemistry', teacher:'' },
-    { id:'biology', name:'Biology', teacher:'Vipin Sir' },
+    { id:'biology', name:'Biology', teacher:'' },
     { id:'mathematics', name:'Mathematics', teacher:'' },
     { id:'english', name:'English Core', teacher:'' },
-    { id:'pe', name:'Physical Education', teacher:'Zaki Saudagar' },
+    { id:'pe', name:'Physical Education', teacher:'' },
     { id:'cs', name:'Computer Science', teacher:'' }
   ];
   const SYLLABUS = [
@@ -419,13 +1290,40 @@
       calendarEvents:[],
       academicTasks:[],
       academicHistory:[],
+
+        revisionReplanner:{
+          schedules:[],
+          history:[],
+          streak:{
+            activityDates:{},
+            current:0,
+            longest:0,
+            lastActivityDate:''
+          }
+        },
       completedDates:{},
+     streakStats:{
+       activityDates:{},
+       current:0,
+       longest:0,
+       lastActivityDate:''
+     },
+      streakSaver:{
+        available:true,
+        month:'',
+        used:false,
+        usedDate:'',
+      pendingMissedDate:'',
+      dismissedDate:'',
+      protectedDates:{},
+        history:[]
+      },
       planner:{targetDate:'',dailyHours:CONFIG.DEFAULT_DAILY_HOURS,playbackSpeed:CONFIG.DEFAULT_SPEED,strategy:CONFIG.DEFAULT_STRATEGY,videoShare:CONFIG.DEFAULT_VIDEO_SHARE},
       pomodoro:{work:25,shortBreak:5,longBreak:15,longBreakEvery:4,mode:'work',remaining:1500,running:false,endsAt:null,sessions:0},
       streak:0,
       lastOpenedDate:todayKey(),
       checklistLabels:JSON.parse(JSON.stringify(DEFAULT_LABELS)),
-      settings:{ lastSave:null }
+      settings:{ lastSave:null },notifications:{enabled:true,funnyEnabled:true}
     };
   }
 
@@ -461,6 +1359,7 @@
     const base=blankState();
     const s=deepMerge(base,obj||{});
     s.version=CONFIG.VERSION;
+  s.notifications=deepMerge({enabled:true,funnyEnabled:true},s.notifications||{});
     s.subjects=Array.isArray(s.subjects)?s.subjects.map((x,i)=>({id:String(x.id||SUBJECT_DEFS[i]?.id||`subject_${i}`),name:String(x.name||SUBJECT_DEFS[i]?.name||`Subject ${i+1}`),teacher:typeof x.teacher==='string'?x.teacher:'',enabled:x.enabled!==false})):base.subjects;
     const ids=new Set(s.subjects.map(x=>x.id));
     for(const d of SUBJECT_DEFS) if(!ids.has(d.id)) s.subjects.push({id:d.id,name:d.name,teacher:d.teacher,enabled:true});
@@ -472,7 +1371,53 @@
     s.academicTasks=Array.isArray(s.academicTasks)?s.academicTasks.map(sanitizeAcademicTask).filter(Boolean):[];
     s.academicHistory=Array.isArray(s.academicHistory)?s.academicHistory:[];
     s.completedDates=(s.completedDates&&typeof s.completedDates==='object')?s.completedDates:{};
+
+    s.revisionReplanner={
+      ...base.revisionReplanner,
+      ...(s.revisionReplanner||{}),
+      schedules:Array.isArray(s.revisionReplanner?.schedules)?s.revisionReplanner.schedules:[],
+      history:Array.isArray(s.revisionReplanner?.history)?s.revisionReplanner.history:[],
+      streak:{
+        ...base.revisionReplanner.streak,
+        ...(s.revisionReplanner?.streak||{}),
+        activityDates:{
+          ...base.revisionReplanner.streak.activityDates,
+          ...(s.revisionReplanner?.streak?.activityDates||{})
+        }
+      }
+    };
+
+
+      s.streakStats={
+        ...base.streakStats,
+        ...(s.streakStats||{}),
+        activityDates:{
+          ...((base.streakStats&&base.streakStats.activityDates)||{}),
+          ...((s.streakStats&&s.streakStats.activityDates)||{})
+        }
+      };
     if(!Object.keys(s.completedDates).length){for(const h of s.academicHistory){const d=h.date||((h.completedAt||'').slice(0,10)||null);if(d)s.completedDates[d]=(s.completedDates[d]||0)+(Number(h.duration)||0)}for(const t of s.academicTasks){if(t.completed){const d=t.completedOnDate||((t.completedAt||'').slice(0,10)||null);if(d)s.completedDates[d]=(s.completedDates[d]||0)+(Number(t.duration)||0)}}for(const t of s.personalTasks){if(t.completed&&t.completedOnDate)s.completedDates[t.completedOnDate]=(s.completedDates[t.completedOnDate]||0)+(Number(t.duration)||0)}}
+    s.streakSaver={
+
+      ...base.streakSaver,
+
+      ...(s.streakSaver||{}),
+
+      history:Array.isArray(s.streakSaver?.history)?s.streakSaver.history:[]
+
+    };
+
+    s.streakSaver.available=typeof s.streakSaver.available==='boolean'?s.streakSaver.available:true;
+
+    s.streakSaver.month=String(s.streakSaver.month||'');
+
+    s.streakSaver.pendingMissedDate=String(s.streakSaver.pendingMissedDate||'');
+    s.streakSaver.dismissedDate=String(s.streakSaver.dismissedDate||'');
+    s.streakSaver.protectedDates=(s.streakSaver.protectedDates&&typeof s.streakSaver.protectedDates==='object'&&!Array.isArray(s.streakSaver.protectedDates))?s.streakSaver.protectedDates:{};
+    s.streakSaver.used=!!s.streakSaver.used;
+
+    s.streakSaver.usedDate=String(s.streakSaver.usedDate||'');
+
     s.streak=Number(s.streak)||0;
     s.planner={...base.planner,...(s.planner||{})};
     s.planner.dailyHours=clampNum(s.planner.dailyHours,.25,16,3);s.planner.playbackSpeed=[1,1.25,1.5,2].includes(Number(s.planner.playbackSpeed))?Number(s.planner.playbackSpeed):1;s.planner.strategy=['balanced','priority','deadline'].includes(s.planner.strategy)?s.planner.strategy:'balanced';s.planner.videoShare=clampNum(s.planner.videoShare,0,1,CONFIG.DEFAULT_VIDEO_SHARE);
@@ -534,7 +1479,7 @@
   function fmtDateLong(k){return fmtDate(k,{weekday:'short',month:'short',day:'numeric'})}
   function fmtHours(h){const n=Math.round((Number(h)||0)*100)/100;return `${n.toFixed(n%1===0?0:2)}h`}
   function pct(x){return Math.max(0,Math.min(100,Math.round((Number(x)||0)*100)))}
-  function currentSubject(id){return state.subjects.find(s=>s.id===id)||{id,name:'Unknown subject',teacher:'',enabled:true}}
+  function currentSubject(id){return state.subjects.find(s=>s.id===id)||{id,name:"Unknown subject",teacher:"",enabled:true}}
   function currentChapter(id){return state.chapters.find(c=>c.id===id)||null}
   function activeSubjects(){return state.subjects.filter(s=>s.enabled)}
   function activeChapters(){return state.chapters.filter(c=>!c.removed && activeSubjects().some(s=>s.id===c.subjectId))}
@@ -569,13 +1514,301 @@
   }
   function personalPlannedHoursOnDate(date){return state.personalTasks.filter(t=>t.date===date).reduce((a,t)=>a+Number(t.duration||0),0)}
   function meaningfulCompletedOnDate(date){return completedHoursOnDate(date)>0}
-  function recalcStreak(){
-    let count=0;let d=parseKey(todayKey());
-    while((state.completedDates[localDateKey(d)]||0)>0.001){count++;d=addDays(d,-1)}
-    return count;
+  function ensureStreakState(){
+  if(!state.streakStats || typeof state.streakStats!=='object'){
+    state.streakStats={
+      activityDates:{},
+      current:0,
+      longest:0,
+      lastActivityDate:''
+    };
   }
-  function markMeaningfulChange(){state.streak=recalcStreak();state.lastOpenedDate=todayKey()}
-  function updateDerivedMeta(){markMeaningfulChange();saveState();}
+
+  if(!state.streakStats.activityDates ||
+     typeof state.streakStats.activityDates!=='object'){
+    state.streakStats.activityDates={};
+  }
+
+  return state.streakStats;
+}
+
+function rebuildStreakActivityDates(){
+  const ss=ensureStreakState();
+  const dates={...(ss.activityDates||{})};
+
+  for(const [date,hours] of Object.entries(state.completedDates||{})){
+    if(Number(hours)>0.001 && /^\d{4}-\d{2}-\d{2}$/.test(date)){
+      dates[date]=true;
+    }
+  }
+
+  for(const h of state.academicHistory||[]){
+    const date=String(h.date||'');
+    if(/^\d{4}-\d{2}-\d{2}$/.test(date)){
+      dates[date]=true;
+    }
+  }
+
+  ss.activityDates=dates;
+  return ss;
+}
+
+function calculateStreakStats(){
+  const ss=ensureStreakState();
+  const today=todayKey();
+
+  const actualDates=Object.keys(ss.activityDates||{})
+    .filter(d=>/^\d{4}-\d{2}-\d{2}$/.test(d) && d<=today)
+    .sort();
+
+  const protectedDates=Object.keys(state.streakSaver?.protectedDates||{})
+    .filter(d=>/^\d{4}-\d{2}-\d{2}$/.test(d) && d<=today);
+
+  const streakDates=[...new Set([...actualDates,...protectedDates])].sort();
+
+  if(!streakDates.length){
+    return {
+      current:0,
+      longest:0,
+      lastActivityDate:'',
+      activityDates:ss.activityDates
+    };
+  }
+
+  let longest=0;
+  let run=0;
+  let previous=null;
+
+  for(const date of streakDates){
+    if(previous){
+      const previousDate=parseKey(previous);
+      const currentDate=parseKey(date);
+      const gap=Math.round((currentDate-previousDate)/86400000);
+      run=gap===1 ? run+1 : 1;
+    }else{
+      run=1;
+    }
+
+    longest=Math.max(longest,run);
+    previous=date;
+  }
+
+  let current=0;
+  let cursor=parseKey(today);
+
+  // Opening the app never counts as studying today.
+  // The current streak can only continue once today has actual study activity.
+  if(ss.activityDates[today]){
+    while(
+      ss.activityDates[localDateKey(cursor)] ||
+      state.streakSaver?.protectedDates?.[localDateKey(cursor)]
+    ){
+      current++;
+      cursor=addDays(cursor,-1);
+    }
+  }
+
+  return {
+    current,
+    longest,
+    lastActivityDate:actualDates[actualDates.length-1]||'',
+    activityDates:ss.activityDates
+  };
+}
+
+function recalcStreak(){
+  rebuildStreakActivityDates();
+
+  const stats=calculateStreakStats();
+  const ss=ensureStreakState();
+
+  state.streak=stats.current;
+  ss.current=stats.current;
+  ss.longest=stats.longest;
+  ss.lastActivityDate=stats.lastActivityDate;
+
+  return stats.current;
+}
+
+function recordStudyActivity(date=todayKey()){
+  const ss=ensureStreakState();
+
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))return;
+  if(date>todayKey())return;
+
+  ss.activityDates[date]=true;
+
+  recalcStreak();
+  state.lastOpenedDate=todayKey();
+}
+
+
+function ensureStreakSaverMonth(){
+   const saver=state.streakSaver||{};
+   const month=todayKey().slice(0,7);
+
+   if(saver.month!==month){
+      saver.month=month;
+      saver.used=false;
+      saver.available=true;
+      saver.usedDate='';
+      saver.pendingMissedDate='';
+      saver.dismissedDate='';
+      saver.protectedDates=saver.protectedDates&&typeof saver.protectedDates==='object'
+         ? saver.protectedDates
+         : {};
+      saver.history=Array.isArray(saver.history)?saver.history:[];
+   }
+
+   return saver;
+}
+
+function getStreakSaverStatus(){
+    ensureStreakSaverMonth();
+    const ss=ensureStreakState();
+    const saver=state.streakSaver||{};
+    const today=todayKey();
+    const dates=Object.keys(ss.activityDates||{})
+      .filter(d=>/^\d{4}-\d{2}-\d{2}$/.test(d)&&d<today)
+      .sort();
+
+    if(!dates.length)return {eligible:false,missedDate:'',previousDate:'',streak:0};
+
+    const lastActivityDate=dates[dates.length-1];
+    const lastDate=parseKey(lastActivityDate);
+    const todayDate=parseKey(today);
+    const gap=Math.round((todayDate-lastDate)/86400000);
+
+    const missedDate=localDateKey(addDays(todayDate,-1));
+
+    if(gap!==2||lastActivityDate===missedDate){
+      return {eligible:false,missedDate:'',previousDate:lastActivityDate,streak:0};
+    }
+
+    const month=today.slice(0,7);
+
+    if(saver.month!==month){
+      return {eligible:true,missedDate,previousDate:lastActivityDate,streak:calculateStreakBeforeDate(lastActivityDate)};
+    }
+
+    if(saver.used||saver.protectedDates?.[missedDate]){
+      return {eligible:false,missedDate:'',previousDate:lastActivityDate,streak:0};
+    }
+
+    return {
+      eligible:true,
+      missedDate,
+      previousDate:lastActivityDate,
+      streak:calculateStreakBeforeDate(lastActivityDate)
+    };
+  }
+
+  function calculateStreakBeforeDate(endDate){
+    const dates=Object.keys(ensureStreakState().activityDates||{})
+      .filter(d=>/^\d{4}-\d{2}-\d{2}$/.test(d)&&d<=endDate)
+      .sort();
+
+    if(!dates.length)return 0;
+
+    let run=1;
+
+    for(let i=dates.length-1;i>0;i--){
+      const a=parseKey(dates[i-1]);
+      const b=parseKey(dates[i]);
+      if(Math.round((b-a)/86400000)!==1)break;
+      run++;
+    }
+
+    return run;
+  }
+
+  function useStreakSaver(){
+    const status=getStreakSaverStatus();
+    if(!status.eligible)return;
+
+    const ss=ensureStreakState();
+    const saver=state.streakSaver||{};
+    const month=todayKey().slice(0,7);
+
+    saver.month=month;
+    saver.used=true;
+    saver.available=false;
+    saver.usedDate=todayKey();
+    saver.pendingMissedDate='';
+    saver.dismissedDate='';
+    saver.protectedDates=status.missedDate
+      ? {...(saver.protectedDates||{}),[status.missedDate]:true}
+      : {...(saver.protectedDates||{})};
+
+    saver.history=Array.isArray(saver.history)?saver.history:[];
+    saver.history.unshift({
+      date:todayKey(),
+      missedDate:status.missedDate,
+      streak:status.streak,
+      type:'free'
+    });
+    saver.history=saver.history.slice(0,24);
+
+    state.streak=status.streak;
+    saveState();
+    closeModal();
+    renderCurrent();
+    showToast(`🛡️ Streak Saved! Your ${status.streak}-day streak continues.`);
+  }
+
+  function dismissStreakSaver(){
+    const status=getStreakSaverStatus();
+    if(!status.eligible)return;
+
+    const saver=state.streakSaver||{};
+    saver.pendingMissedDate='';
+    saver.dismissedDate=status.missedDate;
+    saveState();
+    closeModal();
+    renderCurrent();
+    showToast('Streak Saver skipped. Your streak has reset.');
+  }
+
+  function maybeOfferStreakSaver(){
+    const status=getStreakSaverStatus();
+    if(!status.eligible)return;
+
+    const saver=state.streakSaver||{};
+
+    if(saver.dismissedDate===status.missedDate)return;
+
+    if(saver.pendingMissedDate===status.missedDate)return;
+
+    saver.pendingMissedDate=status.missedDate;
+    saveState();
+
+    openModal(
+      '🛡️ Streak at risk!',
+      `<div class="soft-box">
+        <strong>You missed yesterday.</strong>
+        <div class="small muted mt8">Your ${status.streak}-day streak can be protected with your Streak Saver.</div>
+      </div>
+      <div class="between mt12">
+        <button class="btn primary" data-action="streak-saver-use">USE STREAK SAVER</button>
+        <button class="btn ghost" data-action="streak-saver-reset">LET IT RESET</button>
+      </div>`
+    );
+  }
+
+  function getStreakStats(){
+  recalcStreak();
+
+  const ss=ensureStreakState();
+
+  return {
+    current:Number(ss.current)||0,
+    longest:Number(ss.longest)||0,
+    lastActivityDate:ss.lastActivityDate||'',
+    activityDates:{...(ss.activityDates||{})}
+  };
+}
+
+function updateDerivedMeta(){recalcStreak();saveState();}
   function escapeHtml(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
   function optionHtml(items,current){return items.map(x=>`<option value="${escapeHtml(x.value)}" ${x.value===current?'selected':''}>${escapeHtml(x.label)}</option>`).join('')}
   function showToast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2200)}
@@ -584,14 +1817,133 @@
   // NAVIGATION / THEME
   // =========================================================
   const PAGE_META={
-    dashboard:['Dashboard','A calm view of what matters next.'],today:['Today','Academic and personal tasks for today.'],syllabus:['Syllabus','Your active, editable Class 11 syllabus.'],planner:['Smart Planner','Generate and rebalance academic work without losing history.'],daily:['My Daily Plan','Your independent personal study tasks.'],progress:['Progress','See completion, history, streak and calendar.'],settings:['Settings','Shape the app around your workflow.']
+    dashboard:['Dashboard','A calm view of what matters next.'],today:['Today','Academic and personal tasks for today.'],syllabus:['Syllabus','Your active, editable Class 11 syllabus.'],planner:['Smart Planner','Generate and rebalance academic work without losing history.'],daily:['My Daily Plan','Your independent personal study tasks.'],progress:['Progress','See completion, history, streak and calendar.'],achievements: ['Achievements', 'Your StudyOS milestones, advancements and hidden discoveries.'], revision:['Revision Replanner','Keep completed chapters fresh with spaced revision.'], formulaVault:['Formula Vault','Fast academic reference for Class 11 CBSE 2026–27.'], settings:['Settings','Shape the app around your workflow.'],about:['About StudyOS 2','The story, support links and guide to StudyOS 2.']
   };
-  function navigate(page){
+  
+// ==========================================
+// ACHIEVEMENT PAGE
+// ==========================================
+
+function renderAchievements(){
+    const source = window.studyOSAchievements || {};
+
+    const all = Object.entries(source).map(([id, a]) => ({
+        id,
+        title: a.title || "Achievement",
+        description: a.description || "",
+        xp: Number(a.xp) || 0,
+        category: a.rarity || "Common",
+        hidden: !!a.hidden
+    }));
+
+    const unlocked = typeof window.studyOSUnlockedAchievements === "function"
+        ? window.studyOSUnlockedAchievements()
+        : (window.studyOSUnlockedAchievements || {});
+
+    const groups = {
+        Common: [],
+        Special: [],
+        Major: [],
+        Hidden: []
+    };
+
+    all.forEach(a => {
+        if(groups[a.category]) groups[a.category].push(a);
+    });
+
+    const total = all.length;
+    const unlockedCount = all.filter(a => !!unlocked[a.id]).length;
+    const percent = total ? Math.round((unlockedCount / total) * 100) : 0;
+
+    const countEl = document.getElementById("achievementCount");
+    const percentEl = document.getElementById("achievementPercent");
+    const barEl = document.getElementById("achievementProgressBar");
+
+    if(countEl) countEl.textContent = `${unlockedCount} / ${total}`;
+    if(percentEl) percentEl.textContent = `${percent}%`;
+    if(barEl) barEl.style.width = `${percent}%`;
+
+    const categoryInfo = {
+        Common: {
+            grid: "achievementCommonGrid",
+            count: "achievementCommonCount",
+            color: "#e6c34f",
+            icon: "./achievement/common.png"
+        },
+        Special: {
+            grid: "achievementSpecialGrid",
+            count: "achievementSpecialCount",
+            color: "#e08a32",
+            icon: "./achievement/special.png"
+        },
+        Major: {
+            grid: "achievementMajorGrid",
+            count: "achievementMajorCount",
+            color: "#b06cff",
+            icon: "./achievement/major.png"
+        },
+        Hidden: {
+            grid: "achievementHiddenGrid",
+            count: "achievementHiddenCount",
+            color: "#63c77a",
+            icon: "./achievement/hidden.png"
+        }
+    };
+
+    Object.entries(groups).forEach(([category, items]) => {
+        const info = categoryInfo[category];
+        const grid = document.getElementById(info.grid);
+        const count = document.getElementById(info.count);
+
+        const earned = items.filter(a => !!unlocked[a.id]).length;
+
+        if(count) count.textContent = `${earned} / ${items.length}`;
+        if(!grid) return;
+
+        grid.innerHTML = items.map(a => {
+            const isUnlocked = !!unlocked[a.id];
+
+            let title = a.title;
+            let description = a.description;
+
+            if(category === "Hidden" && !isUnlocked){
+                title = "???";
+                description = "Hidden achievement";
+            }
+
+            return `
+                <div
+                    class="achievement-card ${isUnlocked ? "unlocked" : "locked"}"
+                    style="--achievement-color:${info.color}"
+                    data-achievement-id="${a.id}"
+                >
+                    <img
+                        class="achievement-icon"
+                        src="${info.icon}"
+                        alt=""
+                    >
+
+                    <div class="achievement-card-body">
+                        <div class="achievement-card-category">${category}</div>
+                        <div class="achievement-card-title">${escapeHtml(title)}</div>
+                        <div class="achievement-card-description ${category === "Hidden" && !isUnlocked ? "achievement-secret" : ""}">
+                            ${escapeHtml(description)}
+                        </div>
+                    </div>
+
+                    ${isUnlocked ? '<div class="achievement-unlocked-mark">✓</div>' : ''}
+                </div>
+            `;
+        }).join("");
+    });
+}
+
+function navigate(page){
     activePage=page;
     document.querySelectorAll('[data-page-view]').forEach(p=>p.classList.toggle('hidden',p.dataset.pageView!==page));
     document.querySelectorAll('.nav button[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
     const m=PAGE_META[page]||PAGE_META.dashboard;document.getElementById('pageTitle').textContent=m[0];document.getElementById('pageSubtitle').textContent=m[1];
-    closeDrawer();renderCurrent();window.scrollTo({top:0,behavior:'smooth'});
+    closeDrawer();renderCurrent();window.scrollTo({top:0,behavior:'smooth'});if(page==='dashboard')setTimeout(maybeOfferStreakSaver,120);
   }
   function preferredTheme(){
     if(state.theme==='dark')return'dark';if(state.theme==='light')return'light';return matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
@@ -612,6 +1964,9 @@
     if(activePage==='planner')renderPlanner();
     if(activePage==='daily')renderDaily();
     if(activePage==='progress')renderProgress();
+    if(activePage==='achievements')renderAchievements();
+  if(activePage==='revision')renderRevisionReplanner();
+    if(activePage==='formulaVault')renderFormulaVault();
     if(activePage==='settings')renderSettings();
     applyTheme();
   }
@@ -667,65 +2022,195 @@
   }
   function taskKey(t){return `${t.date}|${t.chapterId}|${t.type}|${Number(t.duration).toFixed(2)}|${t.chapterPart}`}
   function generatePlan({rebalance=false}={}){
-    const data=plannerData();if(!data.target){showToast('Set a target date first.');return false}
-    if(data.days<=0){showToast('Target date must be today or later.');return false}
-    const selected=activeSubjects();
-    if(!selected.length){showToast('Select at least one subject in Settings.');return false}
-    // Preserve completed history and personal tasks. Only future unfinished generated academic work is rebuilt.
-    state.academicTasks=state.academicTasks.filter(t=>t.completed || t.date<todayKey() || !t.generated);
-    const dailyCapacity=state.planner.dailyHours;
-    const scheduleDays=Array.from({length:data.days},(_,i)=>localDateKey(addDays(parseKey(todayKey()),i)));
-    const subjectIds=selected.map(s=>s.id);
-    const bySubject=Object.fromEntries(subjectIds.map(id=>[id,[]]));
-    for(const x of data.chapters){
-      if(!bySubject[x.c.subjectId]) continue;
-      if(x.video>0.01)bySubject[x.c.subjectId].push({c:x.c,type:'Lecture / Video',remaining:x.video,priority:x.priority});
-      if(x.nonVideo>0.01)bySubject[x.c.subjectId].push({c:x.c,type:'Study / Practice',remaining:x.nonVideo,priority:x.priority});
+  const data=plannerData();
+  if(!data.target){showToast('Set a target date first.');return false}
+  if(data.days<=0){showToast('Target date must be today or later.');return false}
+
+  const selected=activeSubjects();
+  if(!selected.length){showToast('Select at least one subject in Settings.');return false}
+
+  state.academicTasks=state.academicTasks.filter(t =>
+    t.completed || t.date<todayKey() || !t.generated
+  );
+
+  const dailyCapacity=Math.max(0.25,Number(state.planner.dailyHours)||3);
+  const speed=Number(state.planner.playbackSpeed)||1;
+
+  const scheduleDays=Array.from(
+    {length:data.days},
+    (_,i)=>localDateKey(addDays(parseKey(todayKey()),i))
+  );
+
+  const subjectIds=selected.map(s=>s.id);
+  const bySubject=Object.fromEntries(subjectIds.map(id=>[id,[]]));
+
+  for(const x of data.chapters){
+    if(!bySubject[x.c.subjectId]) continue;
+
+    if(x.video>0.01){
+      bySubject[x.c.subjectId].push({
+        c:x.c,type:'Lecture / Video',
+        remaining:round2(x.video),priority:x.priority
+      });
     }
-    const weight={high:3,medium:2,low:1};
-    for(const sid of subjectIds){bySubject[sid].sort((a,b)=>{
-      if(state.planner.strategy==='priority'||state.planner.strategy==='deadline') return (weight[b.priority]-weight[a.priority]) || (b.remaining-a.remaining);
+
+    if(x.nonVideo>0.01){
+      bySubject[x.c.subjectId].push({
+        c:x.c,type:'Study / Practice',
+        remaining:round2(x.nonVideo),priority:x.priority
+      });
+    }
+  }
+
+  const weight={high:3,medium:2,low:1};
+
+  for(const sid of subjectIds){
+    bySubject[sid].sort((a,b)=>{
+      if(state.planner.strategy==='priority'||state.planner.strategy==='deadline'){
+        return (weight[b.priority]||0)-(weight[a.priority]||0)
+          || (b.remaining-a.remaining)
+          || (a.c.name||'').localeCompare(b.c.name||'');
+      }
       return (a.c.name||'').localeCompare(b.c.name||'');
-    })}
-    const scheduledBySubject=Object.fromEntries(subjectIds.map(id=>[id,0]));
-    const tasks=[];
-    for(const date of scheduleDays){
-      let dayUsed=scheduleDayUsed(date);let guard=0;let rotationIndex=0;const touched=new Set();
-      while(dayUsed<dailyCapacity-0.009 && guard++<1000){
-        const available=subjectIds.filter(sid=>(bySubject[sid]||[]).some(x=>x.remaining>0.009));
-        if(!available.length)break;
-        // First pass each day: one chunk from each selected subject with remaining work.
-        const untouched=available.filter(sid=>!touched.has(sid));
-        let pool=untouched.length?untouched:available;
-        pool=pool.slice().sort((a,b)=>{
-          const load=(scheduledBySubject[a]||0)-(scheduledBySubject[b]||0);
-          if(Math.abs(load)>0.001)return load;
-          return subjectIds.indexOf(a)-subjectIds.indexOf(b);
-        });
-        const chosenSid=pool[rotationIndex%pool.length];rotationIndex++;
+    });
+  }
+
+  const scheduledBySubject=Object.fromEntries(
+    subjectIds.map(id=>[id,0])
+  );
+
+  const existingUsedByDay={};
+
+  for(const t of state.academicTasks){
+    if(!t.completed&&t.generated&&t.date>=todayKey()){
+      existingUsedByDay[t.date]=(existingUsedByDay[t.date]||0)+Number(t.duration||0);
+    }
+  }
+
+  const tasks=[];
+
+  function nextItem(sid){
+    return (bySubject[sid]||[]).find(x=>x.remaining>0.009)||null;
+  }
+
+  function chooseSubject(available){
+    return available.slice().sort((a,b)=>{
+      const loadA=scheduledBySubject[a]||0;
+      const loadB=scheduledBySubject[b]||0;
+
+      if(Math.abs(loadA-loadB)>0.001)return loadA-loadB;
+      return subjectIds.indexOf(a)-subjectIds.indexOf(b);
+    })[0];
+  }
+
+  for(const date of scheduleDays){
+    let dayUsed=Math.min(
+      existingUsedByDay[date]||0,
+      dailyCapacity
+    );
+
+    let guard=0;
+
+    while(dayUsed<dailyCapacity-0.009&&guard++<5000){
+      const available=subjectIds.filter(sid=>nextItem(sid));
+      if(!available.length)break;
+
+      const chosenSid=chooseSubject(available);
+      const item=nextItem(chosenSid);
+      if(!item)break;
+
+      const room=round2(dailyCapacity-dayUsed);
+      if(room<=0.009)break;
+
+      const chunkCap=Math.max(
+        0.5,
+        Math.min(2.5,dailyCapacity)
+      );
+
+      const duration=round2(
+        Math.min(item.remaining,room,chunkCap)
+      );
+
+      if(duration<=0.009){
+        item.remaining=0;
+        continue;
+      }
+
+      const previousParts=tasks.filter(
+        t=>t.chapterId===item.c.id
+      ).length;
+
+      const totalParts=Math.max(
+        1,
+        Math.ceil(
+          effectiveRemaining(item.c,speed)/chunkCap
+        )
+      );
+
+      tasks.push({
+        id:uid('at'),
+        date,
+        subjectId:item.c.subjectId,
+        chapterId:item.c.id,
+        chapterPart:previousParts+1,
+        chapterPartsTotal:totalParts,
+        type:item.type,
+        duration,
+        completed:false,
+        generated:true,
+        createdAt:nowISO(),
+        completedAt:null,
+        source:rebalance?'rebalance':'planner',
+        priority:item.priority,
+        label:item.c.name
+      });
+
+      item.remaining=round2(item.remaining-duration);
+      dayUsed=round2(dayUsed+duration);
+
+      scheduledBySubject[chosenSid]=round2(
+        (scheduledBySubject[chosenSid]||0)+duration
+      );
+
+      if(item.remaining<=0.009){
         const queue=bySubject[chosenSid];
-        let item=queue.find(x=>x.remaining>0.009);
-        if(!item){touched.add(chosenSid);continue}
-        const room=Math.max(0,dailyCapacity-dayUsed);if(room<=0.009)break;
-        // Never let one subject/chapter consume the whole day.
-        const chunkCap=Math.min(1.5,Math.max(.5,dailyCapacity/Math.max(1,Math.min(3,available.length))));
-        const duration=round2(Math.min(item.remaining,room,chunkCap));if(duration<=0)break;
-        const priorParts=tasks.filter(t=>t.chapterId===item.c.id).length;
-        const totalParts=Math.max(1,Math.ceil(effectiveRemaining(item.c,state.planner.playbackSpeed)/chunkCap));
-        tasks.push({id:uid('at'),date,subjectId:item.c.subjectId,chapterId:item.c.id,chapterPart:priorParts+1,chapterPartsTotal:totalParts,type:item.type,duration,completed:false,generated:true,createdAt:nowISO(),completedAt:null,source:rebalance?'rebalance':'planner',priority:item.priority,label:item.c.name});
-        item.remaining=round2(item.remaining-duration);dayUsed=round2(dayUsed+duration);scheduledBySubject[chosenSid]+=duration;touched.add(chosenSid);
-        if(item.remaining<=0.009)queue.splice(queue.indexOf(item),1);
+        const index=queue.indexOf(item);
+        if(index>=0)queue.splice(index,1);
       }
     }
-    const seen=new Set(),unique=[];for(const t of tasks){const k=taskKey(t);if(!seen.has(k)){seen.add(k);unique.push(t)}}
-    state.academicTasks.push(...unique);markMeaningfulChange();saveState();renderCurrent();showToast(unique.length?`${rebalance?'Rebalanced':'Generated'} ${unique.length} academic task${unique.length===1?'':'s'}.`:'No new work could be scheduled.');return true;
   }
-  function scheduleDayUsed(date){return state.academicTasks.filter(t=>t.date===date&&!t.completed).reduce((a,t)=>a+t.duration,0)}
+
+  const seen=new Set();
+  const unique=[];
+
+  for(const t of tasks){
+    const k=taskKey(t);
+    if(!seen.has(k)){
+      seen.add(k);
+      unique.push(t);
+    }
+  }
+
+  state.academicTasks.push(...unique);
+
+  saveState();
+  renderCurrent();
+
+  showToast(
+    unique.length
+      ? `${rebalance?'Rebalanced':'Generated'} ${unique.length} academic task${unique.length===1?'':'s'}.`
+      : 'No new work could be scheduled within the available daily capacity.'
+  );
+
+  return true;
+}
+
+function scheduleDayUsed(date){return state.academicTasks.filter(t=>t.date===date&&!t.completed).reduce((a,t)=>a+t.duration,0)}
   function round2(n){return Math.round(n*100)/100}
 
   function renderPlanner(){
     const targetEl=document.getElementById('plannerTarget'),hoursEl=document.getElementById('plannerHours'),speedEl=document.getElementById('plannerSpeed'),strategyEl=document.getElementById('plannerStrategy');targetEl.value=state.planner.targetDate;hoursEl.value=state.planner.dailyHours;speedEl.value=state.planner.playbackSpeed;strategyEl.value=state.planner.strategy;
-    const d=plannerData();document.getElementById('plannerSummary').innerHTML=[['Remaining workload',fmtHours(d.total),'After checklist progress + completed academic history'],['Available capacity',fmtHours(d.cap),'Target window × daily limit'],['Daily ceiling',fmtHours(state.planner.dailyHours),'Never exceeded by generated tasks'],['Projected shortage',fmtHours(d.short),'Unfit work before target']].map(([k,v,s])=>`<div class="sum-box"><div class="k">${escapeHtml(k)}</div><div class="v">${v}</div><div class="small muted mt8">${escapeHtml(s)}</div></div>`).join('');
+    const d=plannerData();document.getElementById('plannerSummary').innerHTML=[['Work Left',fmtHours(d.total),'Total unfinished study work'],['Time Available',fmtHours(d.cap),'Total study time before target date'],['Daily Limit',fmtHours(state.planner.dailyHours),'Maximum planned study time per day'],['Time Shortfall',fmtHours(d.short),'Work that won\'t fit before target date']].map(([k,v,s])=>`<div class="sum-box"><div class="k">${escapeHtml(k)}</div><div class="v">${v}</div><div class="small muted mt8">${escapeHtml(s)}</div></div>`).join('');
     document.getElementById('plannerWarning').innerHTML=d.short>0.009?`<div class="warn"><strong>Capacity warning.</strong> ${fmtHours(d.total)} remains, but only ${fmtHours(d.cap)} fits before ${fmtDate(d.target)}. Shortage: ${fmtHours(d.short)}. The planner will not overload any day.</div>`:(d.target?`<div class="success">The remaining ${fmtHours(d.total)} fits inside the available ${fmtHours(d.cap)} capacity at ${fmtHours(state.planner.dailyHours)}/day.</div>`:'<div class="note">Set a target date to calculate your schedule.</div>');
     const future=state.academicTasks.filter(t=>t.date>=todayKey());const byDay={};future.forEach(t=>(byDay[t.date]??=[]).push(t));const dates=Object.keys(byDay).sort();
     document.getElementById('plannerSchedule').innerHTML=dates.length?`<div class="grid g-2">${dates.map(date=>`<div class="plan-day"><div class="plan-day-head"><div><strong>${fmtDateLong(date)}</strong><small>${date===todayKey()?'Today · ':''}${fmtHours(byDay[date].reduce((a,t)=>a+t.duration,0))} planned</small></div><span class="badge">${byDay[date].filter(t=>t.completed).length}/${byDay[date].length} done</span></div><div class="plan-day-body">${byDay[date].map(t=>{const c=currentChapter(t.chapterId),s=currentSubject(t.subjectId);return `<div class="plan-row"><input class="task-check" type="checkbox" ${t.completed?'checked':''} data-task-id="${escapeHtml(t.id)}" data-task-type="academic" aria-label="Complete ${escapeHtml(c?.name||t.label)}"><div><div class="name">${escapeHtml(c?.name||t.label)}</div><span class="sub">${escapeHtml(s.name)} · ${escapeHtml(t.type)}${t.chapterPartsTotal>1?` · Part ${t.chapterPart}/${t.chapterPartsTotal}`:''}</span></div><div class="dur">${fmtHours(t.duration)}</div></div>`}).join('')}</div></div>`).join('')}</div>`:`<div class="empty"><strong>No generated tasks yet.</strong>Generate a plan to see your future schedule here.</div>`;
@@ -743,7 +2228,22 @@
     if(id){const ev=state.calendarEvents.find(x=>x.id===id);if(ev)Object.assign(ev,obj)}else state.calendarEvents.push({...obj,id:uid('ev'),createdAt:nowISO()});
     saveState();closeModal();renderCurrent();showToast(id?'Event updated.':'Event added to calendar.');
   }
-  function deleteEvent(id){if(!confirm('Delete this calendar event?'))return;state.calendarEvents=state.calendarEvents.filter(e=>e.id!==id);saveState();closeModal();renderCurrent();showToast('Calendar event deleted.')}
+  function deleteEvent(id){
+    const ev=state.calendarEvents.find(e=>e.id===id);
+    if(!ev)return;
+    showConfirm(
+      'Delete calendar event?',
+      `Delete "${escapeHtml(ev.title)}" permanently from your calendar?`,
+      ()=>{
+        state.calendarEvents=state.calendarEvents.filter(e=>e.id!==id);
+        saveState();
+        closeModal();
+        renderCurrent();
+        showToast('Calendar event deleted.');
+      },
+      {confirmLabel:'Delete'}
+    );
+  }
 
   // =========================================================
   // PERSONAL TASKS
@@ -757,14 +2257,24 @@
     const obj={title,date,time:document.getElementById('ptTime').value,duration:clampNum(document.getElementById('ptDuration').value,.25,24,1),priority:document.getElementById('ptPriority').value,notes:document.getElementById('ptNotes').value.trim(),completed:false,updatedAt:nowISO()};
     if(id){const t=state.personalTasks.find(x=>x.id===id);if(t){const wasDone=t.completed;const oldDur=t.duration;const oldDoneDate=t.completedOnDate;if(wasDone&&oldDoneDate)shiftCompletedDate(oldDoneDate,-oldDur);Object.assign(t,obj,{completed:wasDone,completedOnDate:wasDone?(t.completedOnDate||todayKey()):null,completedAt:wasDone?(t.completedAt||nowISO()):null,createdAt:t.createdAt||nowISO()});if(wasDone&&t.completedOnDate)shiftCompletedDate(t.completedOnDate,t.duration)}}
     else state.personalTasks.push({...obj,id:uid('pt'),createdAt:nowISO()});
-    markMeaningfulChange();saveState();closeModal();renderCurrent();showToast(id?'Task updated.':'Personal task added.');
+    saveState();closeModal();renderCurrent();showToast(id?'Task updated.':'Personal task added.');
   }
-  function deletePersonal(id){if(!confirm('Delete this personal task?'))return;const t=state.personalTasks.find(x=>x.id===id);if(t?.completed&&t.completedOnDate)shiftCompletedDate(t.completedOnDate,-t.duration);state.personalTasks=state.personalTasks.filter(t=>t.id!==id);markMeaningfulChange();saveState();closeModal();renderCurrent();showToast('Personal task deleted.');}
+  function deletePersonal(id){
+    const t=state.personalTasks.find(x=>x.id===id);
+    if(!t)return;
+    showConfirm('Delete personal task?','This task will be permanently removed from your Daily Plan.',()=>{
+      if(t.completed&&t.completedOnDate)shiftCompletedDate(t.completedOnDate,-t.duration);
+      state.personalTasks=state.personalTasks.filter(x=>x.id!==id);
+      saveState();
+      renderCurrent();
+      showToast('Personal task deleted.');
+    },{confirmLabel:'Delete'});
+  }
 
   function renderDaily(){
     const q=(document.getElementById('dailySearch').value||'').toLowerCase();const f=document.getElementById('dailyFilter').value;const df=document.getElementById('dailyDateFilter').value;const tasks=state.personalTasks.filter(t=>!q||`${t.title} ${t.notes}`.toLowerCase().includes(q)).filter(t=>f==='all'||(f==='done'?t.completed:!t.completed)).filter(t=>!df||t.date===df).sort((a,b)=>a.date.localeCompare(b.date)||String(a.time).localeCompare(String(b.time)));
     const total=tasks.reduce((a,t)=>a+t.duration,0),done=tasks.filter(t=>t.completed).reduce((a,t)=>a+t.duration,0);document.getElementById('dailyStats').innerHTML=[['Tasks',`${tasks.length}`,'Matching filter','☰'],['Planned',fmtHours(total),'Personal time','◷'],['Completed',fmtHours(done),'Meaningful work','✓']].map(([l,v,s,i])=>metricHtml(l,v,s,i)).join('');
-    document.getElementById('dailyTable').innerHTML=tasks.length?`<div class="table-wrap"><table class="table"><thead><tr><th>Done</th><th>Task</th><th>Date</th><th>Time</th><th>Duration</th><th>Priority</th><th></th></tr></thead><tbody>${tasks.map(t=>`<tr><td><input class="check-icon" type="checkbox" ${t.completed?'checked':''} data-task-id="${escapeHtml(t.id)}" data-task-type="personal" aria-label="Complete ${escapeHtml(t.title)}"></td><td><strong>${escapeHtml(t.title)}</strong>${t.notes?`<div class="small muted mt8">${escapeHtml(t.notes)}</div>`:''}</td><td>${fmtDate(t.date,{month:'short',day:'numeric',year:'numeric'})}</td><td>${escapeHtml(t.time||'—')}</td><td>${fmtHours(t.duration)}</td><td><span class="priority ${t.priority}">${escapeHtml(t.priority)}</span></td><td><button class="btn small ghost" data-action="edit-personal" data-id="${escapeHtml(t.id)}">Edit</button></td></tr>`).join('')}</tbody></table></div>`:`<div class="empty"><strong>No matching personal tasks.</strong>Add a task for homework, assignments, practicals, lectures, revision or anything else.</div>`;
+    document.getElementById('dailyTable').innerHTML=tasks.length?`<div class="table-wrap"><table class="table"><thead><tr><th>Done</th><th>Task</th><th>Date</th><th>Time</th><th>Duration</th><th>Priority</th><th></th></tr></thead><tbody>${tasks.map(t=>`<tr><td><input class="check-icon" type="checkbox" ${t.completed?'checked':''} data-task-id="${escapeHtml(t.id)}" data-task-type="personal" aria-label="Complete ${escapeHtml(t.title)}"></td><td><strong>${escapeHtml(t.title)}</strong>${t.notes?`<div class="small muted mt8">${escapeHtml(t.notes)}</div>`:''}</td><td>${fmtDate(t.date,{month:'short',day:'numeric',year:'numeric'})}</td><td>${escapeHtml(t.time||'—')}</td><td>${fmtHours(t.duration)}</td><td><span class="priority ${t.priority}">${escapeHtml(t.priority)}</span></td><td><button class="btn small ghost" data-action="edit-personal" data-id="${escapeHtml(t.id)}">Edit</button></td><td><button class="btn small danger" data-action="delete-personal" data-id="${escapeHtml(t.id)}">Delete</button></td></tr>`).join('')}</tbody></table></div>`:`<div class="empty"><strong>No matching personal tasks.</strong>Add a task for homework, assignments, practicals, lectures, revision or anything else.</div>`;
   }
 
   // =========================================================
@@ -776,8 +2286,360 @@
     document.getElementById('progressSubjects').innerHTML=activeSubjects().map(s=>{const ch=active.filter(c=>c.subjectId===s.id);const cp=ch.length?ch.reduce((a,c)=>a+chapterCompletion(c),0)/ch.length:0;const done=ch.filter(c=>chapterCompletion(c)>=1).length;return `<div class="soft-box mt8"><div class="between flex center"><span class="strong small">${escapeHtml(s.name)}</span><span class="small strong">${pct(cp)}%</span></div><div class="progress-track mt8"><div class="progress-fill" style="width:${pct(cp)}%"></div></div><div class="stat-line"><span>${done}/${ch.length} chapters complete</span><strong>${fmtHours(ch.reduce((a,c)=>a+effectiveRemaining(c,state.planner.playbackSpeed),0))} left</strong></div></div>`}).join('');
     let totalChecks=0,doneChecks=0;for(const c of active){for(const v of c.checklist){totalChecks++;if(v)doneChecks++}}document.getElementById('progressChecklist').innerHTML=`<div class="soft-box"><div class="between flex center"><span class="strong small">${doneChecks}/${totalChecks} activities complete</span><span class="strong">${pct(totalChecks?doneChecks/totalChecks:0)}%</span></div><div class="progress-track mt12"><div class="progress-fill" style="width:${pct(totalChecks?doneChecks/totalChecks:0)}%"></div></div></div><div class="mt12">${activeSubjects().map(s=>{const ch=active.filter(c=>c.subjectId===s.id),tot=ch.length*5,done=ch.reduce((a,c)=>a+c.checklist.filter(Boolean).length,0);return `<div class="stat-line"><span>${escapeHtml(s.name)}</span><strong>${done}/${tot}</strong></div>`}).join('')}</div>`;
     const h=historySummary();document.getElementById('progressHistory').innerHTML=h.length?`<div class="history-list">${h.map(x=>`<div class="history-item"><div><div class="history-date">${fmtDateLong(x.date)}<small>${x.tasks} meaningful task${x.tasks===1?'':'s'}</small></div></div><strong>${fmtHours(x.hours)}</strong></div>`).join('')}</div>`:`<div class="empty"><strong>No study history yet.</strong>Complete academic or personal study work.</div>`;
+    renderWeeklyReview();
+    bindWeeklyReview();
     renderCalendar();
   }
+
+
+  function studyOSWeekStart(anchorDate){
+    const d=parseKey(anchorDate);
+    const day=d.getDay();
+    const offset=day===0 ? -6 : 1-day;
+    return localDateKey(addDays(d,offset));
+  }
+
+  function studyOSWeeklyRating(actual,planned){
+    if(planned<=0){
+      return actual>0 ? "Active" : "No Data";
+    }
+    const ratio=actual/planned;
+    if(ratio>=1) return "Excellent";
+    if(ratio>=0.8) return "Strong";
+    if(ratio>=0.6) return "Good";
+    if(ratio>=0.4) return "Building";
+    return "Getting Started";
+  }
+
+  function studyOSPersonalRecords(){
+    const daily={};
+
+    for(const [date,hours] of Object.entries(state.completedDates||{})){
+      daily[date]??={hours:0,tasks:0};
+      daily[date].hours+=Number(hours)||0;
+    }
+
+    for(const h of state.academicHistory||[]){
+      const date=h.date||h.completedOnDate;
+      if(!date)continue;
+      daily[date]??={hours:0,tasks:0};
+      daily[date].tasks++;
+    }
+
+    for(const t of state.personalTasks||[]){
+      if(!t.completed)continue;
+      const date=t.completedOnDate||t.date;
+      if(!date)continue;
+      daily[date]??={hours:0,tasks:0};
+      daily[date].tasks++;
+    }
+
+    const dates=Object.keys(daily);
+
+    let bestDay={date:"",hours:0};
+    let bestTasks={date:"",count:0};
+
+    for(const date of dates){
+      const x=daily[date];
+
+      if(x.hours>bestDay.hours){
+        bestDay={date,hours:x.hours};
+      }
+
+      if(x.tasks>bestTasks.count){
+        bestTasks={date,count:x.tasks};
+      }
+    }
+
+    const chapters=new Set(
+      (state.academicHistory||[])
+        .map(h=>h.chapterId)
+        .filter(Boolean)
+    );
+
+    return {
+      bestDay,
+      bestTasks,
+      totalChapters:chapters.size,
+      longestStreak:streakLength()
+    };
+  }
+
+  window.studyOSWeeklyReview={
+    get(anchorDate=todayKey()){
+      const startDate=studyOSWeekStart(anchorDate);
+      const start=parseKey(startDate);
+
+      const daily=[];
+
+      let actual=0;
+      let planned=0;
+
+      for(let i=0;i<7;i++){
+        const date=localDateKey(addDays(start,i));
+
+        const dayActual=completedHoursOnDate(date);
+        const dayPlanned=
+          plannedHoursOnDate(date)+
+          personalPlannedHoursOnDate(date);
+
+        daily.push({
+          date,
+          actual:dayActual,
+          planned:dayPlanned
+        });
+
+        actual+=dayActual;
+        planned+=dayPlanned;
+      }
+
+      const endDate=daily[6].date;
+
+      const subjectMap={};
+
+      for(const h of state.academicHistory||[]){
+        const date=h.date||"";
+        if(date<startDate || date>endDate)continue;
+
+        const subject=currentSubject(h.subjectId);
+        const id=subject.id||h.subjectId||"unknown";
+
+        subjectMap[id]??={
+          id,
+          name:subject.name||"Unknown subject",
+          hours:0,
+          tasks:0,
+          chapters:new Set()
+        };
+
+        subjectMap[id].hours+=Number(h.duration)||0;
+        subjectMap[id].tasks++;
+
+        if(h.chapterId){
+          subjectMap[id].chapters.add(h.chapterId);
+        }
+      }
+
+      const subjects=Object.values(subjectMap).map(x=>({
+        name:x.name,
+        hours:x.hours,
+        tasks:x.tasks,
+        chapters:x.chapters.size
+      })).sort((a,b)=>b.hours-a.hours);
+
+      let bestDay={date:"",actual:0};
+
+      for(const x of daily){
+        if(x.actual>bestDay.actual){
+          bestDay={
+            date:x.date,
+            actual:x.actual
+          };
+        }
+      }
+
+      return {
+        startDate,
+        endDate,
+        actual,
+        planned,
+        completionRate:planned>0 ? Math.min(1,actual/planned) : 0,
+        rating:studyOSWeeklyRating(actual,planned),
+        daily,
+        subjects,
+        activeDays:daily.filter(x=>x.actual>0).length,
+        bestDay
+      };
+    }
+  };
+
+  function renderWeeklyReview(anchorDate=todayKey()){
+    const box=document.getElementById('weeklyReviewCard');
+    if(!box || !window.studyOSWeeklyReview)return;
+
+    const d=window.studyOSWeeklyReview.get(anchorDate);
+
+  console.log('STUDYOS WEEKLY DATA:', d);
+
+  if(!d){
+    const debug=document.getElementById('weeklySummary');
+    if(debug){
+      debug.textContent='DEBUG: Weekly Review returned no data.';
+    }
+    return;
+  }
+
+    const start=new Intl.DateTimeFormat(undefined,{
+      day:'numeric',
+      month:'short'
+    }).format(parseKey(d.startDate));
+
+    const end=new Intl.DateTimeFormat(undefined,{
+      day:'numeric',
+      month:'short',
+      year:'numeric'
+    }).format(parseKey(d.endDate));
+
+    document.getElementById('weeklyRange').textContent=`${start} – ${end}`;
+
+    const rate=Math.round(d.completionRate*100);
+
+    document.getElementById('weeklyMetrics').innerHTML=[
+      ['Study Hours',fmtHours(d.actual),'Actual study time'],
+      ['Planned',fmtHours(d.planned),'Planned study time'],
+      ['Completion',`${rate}%`,'Planned work completed'],
+      ['Rating',d.rating,'Weekly performance']
+    ].map(([label,value,sub])=>`
+      <div class="weekly-metric">
+        <div class="weekly-metric-label">${escapeHtml(label)}</div>
+        <div class="weekly-metric-value">${escapeHtml(value)}</div>
+        <div class="small muted mt4">${escapeHtml(sub)}</div>
+      </div>
+    `).join('');
+
+    const maxDaily=Math.max(
+      1,
+      ...d.daily.map(x=>Math.max(x.actual,x.planned))
+    );
+
+    document.getElementById('weeklyDaily').innerHTML=d.daily.map(x=>{
+      const day=new Intl.DateTimeFormat(undefined,{weekday:'short'})
+        .format(parseKey(x.date));
+
+      const actualWidth=Math.min(
+        100,
+        (x.actual/maxDaily)*100
+      );
+
+      const plannedWidth=Math.min(
+        100,
+        (x.planned/maxDaily)*100
+      );
+
+      return `
+        <div class="weekly-day">
+          <div class="weekly-day-name">${escapeHtml(day)}</div>
+          <div>
+            <div class="weekly-bar">
+              <div class="weekly-bar-planned"
+                   style="width:${plannedWidth}%"></div>
+              <div class="weekly-bar-actual"
+                   style="width:${actualWidth}%"></div>
+            </div>
+          </div>
+          <div class="weekly-day-hours">
+            ${fmtHours(x.actual)}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    const subjects=d.subjects;
+
+    document.getElementById('weeklySubjects').innerHTML=
+      subjects.length
+      ? subjects.map(x=>`
+          <div class="weekly-subject">
+            <div>
+              <strong>${escapeHtml(x.name)}</strong>
+              <div class="small muted">
+                ${x.tasks} task${x.tasks===1?'':'s'} ·
+                ${x.chapters} chapter${x.chapters===1?'':'s'}
+              </div>
+            </div>
+            <strong>${fmtHours(x.hours)}</strong>
+          </div>
+        `).join('')
+      : `<div class="small muted">No academic study recorded this week.</div>`;
+
+    const best=d.bestDay;
+
+    let bestText='No study day recorded yet.';
+
+    if(best.date && best.actual>0){
+      bestText=`Best study day: ${fmtDateLong(best.date)} with ${fmtHours(best.actual)} studied.`;
+    }
+
+    document.getElementById('weeklySummary').innerHTML=`
+      <div class="between flex center">
+        <div>
+          <div class="strong small">Weekly Summary</div>
+          <div class="small muted mt4">
+            ${d.activeDays} active study day${d.activeDays===1?'':'s'}
+          </div>
+        </div>
+        <div class="weekly-rating">${escapeHtml(d.rating)}</div>
+      </div>
+
+      <div class="small mt12">
+        ${escapeHtml(bestText)}
+      </div>
+
+      <div class="small muted mt8">
+        ${d.planned>0
+          ? `${fmtHours(Math.max(0,d.planned-d.actual))} of planned work remained unfinished this week.`
+          : 'No planned study workload was recorded this week.'
+        }
+      </div>
+    `;
+
+     const records=studyOSPersonalRecords();
+
+     const bestDayText=records.bestDay.date
+       ? `${fmtHours(records.bestDay.hours)} · ${fmtDateLong(records.bestDay.date)}`
+       : 'No record yet';
+
+     const bestTasksText=records.bestTasks.date
+       ? `${records.bestTasks.count} tasks · ${fmtDateLong(records.bestTasks.date)}`
+       : 'No record yet';
+
+     const recordsBox=document.getElementById('personalRecordsGrid');
+
+     if(recordsBox){
+       recordsBox.innerHTML=[
+         ['Best Study Day',bestDayText,'Highest recorded daily study time'],
+         ['Most Tasks',bestTasksText,'Most completed tasks in one day'],
+         ['Chapters Worked On',String(records.totalChapters),'Academic chapters recorded'],
+         ['Current Streak',`${records.longestStreak}d`,'Current recorded streak']
+       ].map(([label,value,sub])=>`
+         <div class="personal-record">
+           <div class="personal-record-label">${escapeHtml(label)}</div>
+           <div class="personal-record-value">${escapeHtml(value)}</div>
+           <div class="personal-record-sub">${escapeHtml(sub)}</div>
+         </div>
+       `).join('');
+     }
+
+  }
+
+
+
+  
+let weeklyReviewAnchor=todayKey();
+
+  function shiftWeeklyReview(days){
+    weeklyReviewAnchor=localDateKey(
+      addDays(parseKey(weeklyReviewAnchor),days)
+    );
+    renderWeeklyReview(weeklyReviewAnchor);
+  }
+
+  function bindWeeklyReview(){
+    const prev=document.getElementById('weeklyPrev');
+    const next=document.getElementById('weeklyNext');
+    const today=document.getElementById('weeklyToday');
+
+    if(prev)prev.onclick=()=>shiftWeeklyReview(-7);
+    if(next)next.onclick=()=>shiftWeeklyReview(7);
+
+    if(today){
+      today.onclick=()=>{
+        weeklyReviewAnchor=todayKey();
+        renderWeeklyReview(weeklyReviewAnchor);
+      };
+    }
+  }
+
   function renderCalendar(){
     const y=calendarCursor.getFullYear(),m=calendarCursor.getMonth();
     document.getElementById('calendarTitle').textContent=new Intl.DateTimeFormat(undefined,{month:'long',year:'numeric'}).format(calendarCursor);
@@ -787,19 +2649,69 @@
       const d=new Date(y,m,n),k=localDateKey(d),academic=state.academicTasks.filter(t=>t.date===k),personal=state.personalTasks.filter(t=>t.date===k),events=state.calendarEvents.filter(e=>e.date===k),done=completedHoursOnDate(k),planned=plannedHoursOnDate(k)+personalPlannedHoursOnDate(k);
       const cls=['cal-cell'];if(k===todayKey())cls.push('today');if(planned>0&&done>=planned-0.009)cls.push('complete');else if(done>0)cls.push('partial');
       const dots=`${academic.length?'<span class="cal-dot" title="Academic tasks"></span>':''}${personal.length?'<span class="cal-dot personal-dot" title="Personal tasks"></span>':''}${events.length?'<span class="cal-dot event-dot" title="Events"></span>':''}`;
+      const hoursLabel=done>0?`<div class="cal-hours">${fmtHours(done)}</div>`:'';
+
       const aria=`${fmtDateLong(k)} · ${academic.length+personal.length} task${academic.length+personal.length===1?'':'s'} · ${events.length} event${events.length===1?'':'s'}`;
-      cells.push(`<button class="${cls.join(' ')}" data-cal-date="${k}" aria-label="${escapeHtml(aria)}" title="${escapeHtml(aria)}"><div class="cal-date">${n}</div><div class="cal-indicators">${dots}</div></button>`);
+      cells.push(`<button class="${cls.join(' ')}" data-cal-date="${k}" aria-label="${escapeHtml(aria)}" title="${escapeHtml(aria)}"><div class="cal-date">${n}</div>${hoursLabel}<div class="cal-indicators">${dots}</div></button>`);
     }
     document.getElementById('calendar').innerHTML=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(d=>`<div class="cal-head">${d}</div>`).join('')+cells.join('');
     const selected=document.getElementById('calendarDetails').dataset.date||'';const selectedDate=selected?parseKey(selected):null;const selectedInMonth=selectedDate&&selectedDate.getFullYear()===y&&selectedDate.getMonth()===m;const detailsDate=selectedInMonth?selected:localDateKey(new Date(y,m,Math.min(new Date().getDate(),days)));renderCalendarDetails(detailsDate);
   }
+  function calendarDailySummaryHtml(date){
+    const studied=round2(completedHoursOnDate(date));
+    const planned=round2(
+      plannedHoursOnDate(date)+
+      personalPlannedHoursOnDate(date)
+    );
+
+    const tasks=[
+      ...state.academicTasks.filter(t=>t.date===date),
+      ...state.personalTasks.filter(t=>t.date===date)
+    ];
+
+    const completedTasks=tasks.filter(t=>t.completed).length;
+    const completion=planned>0
+      ? Math.min(100,Math.round((studied/planned)*100))
+      : (studied>0?100:0);
+
+    return `
+      <div class="calendar-daily-summary">
+        <div class="calendar-summary-stat">
+          <span>Studied</span>
+          <strong>${fmtHours(studied)}</strong>
+        </div>
+
+        <div class="calendar-summary-stat">
+          <span>Planned</span>
+          <strong>${fmtHours(planned)}</strong>
+        </div>
+
+        <div class="calendar-summary-stat">
+          <span>Progress</span>
+          <strong>${completion}%</strong>
+        </div>
+
+        <div class="calendar-summary-stat">
+          <span>Tasks</span>
+          <strong>${completedTasks}/${tasks.length}</strong>
+        </div>
+      </div>
+    `;
+  }
+
   function renderCalendarDetails(date){
     document.getElementById('calendarDetails').dataset.date=date;
     const tasks=[...state.academicTasks.filter(t=>t.date===date).map(t=>({...t,_type:'Academic'})),...state.personalTasks.filter(t=>t.date===date).map(t=>({...t,_type:'Personal'}))].sort((a,b)=>a.completed-b.completed);
     const events=state.calendarEvents.filter(e=>e.date===date).sort((a,b)=>String(a.time).localeCompare(String(b.time)));
     const eventHtml=events.length?`<div class="soft-box mt12"><div class="between flex center"><div class="strong small">Events</div><button class="btn small ghost" data-action="add-event" data-date="${escapeHtml(date)}">＋ Add</button></div><div class="task-list mt8">${events.map(e=>`<div class="task-row"><div class="task-main"><strong>${escapeHtml(e.title)}</strong><small>${e.time?escapeHtml(e.time)+' · ':''}${escapeHtml(e.notes||'Calendar event')}</small></div><button class="btn small ghost" data-action="edit-event" data-id="${escapeHtml(e.id)}">Edit</button><button class="btn small danger" data-action="delete-event" data-id="${escapeHtml(e.id)}">Delete</button></div>`).join('')}</div></div>`:`<div class="soft-box mt12"><div class="between flex center"><div><div class="strong small">Events</div><div class="small muted mt8">Nothing scheduled.</div></div><button class="btn small ghost" data-action="add-event" data-date="${escapeHtml(date)}">＋ Add event</button></div></div>`;
     const taskHtml=tasks.length?`<div class="soft-box"><div class="between flex center"><div><div class="strong small">${fmtDateLong(date)}</div><div class="small muted mt8">${tasks.length} task${tasks.length===1?'':'s'} · ${fmtHours(tasks.reduce((a,t)=>a+t.duration,0))}</div></div><button class="btn small ghost" data-cal-open-today="${escapeHtml(date)}">Open Today</button></div><div class="task-list mt12">${tasks.map(t=>t._type==='Academic'?taskCompactHtml(t,'academic'):personalCompactHtml(t)).join('')}</div></div>`:`<div class="soft-box"><div class="between flex center"><div><div class="strong small">${fmtDateLong(date)}</div><div class="small muted mt8">No study tasks scheduled.</div></div><button class="btn small ghost" data-cal-open-today="${escapeHtml(date)}">Open Today</button></div></div>`;
-    document.getElementById('calendarDetails').innerHTML=taskHtml+eventHtml;
+    document.getElementById('calendarDetails').innerHTML=
+      `<div class="soft-box">
+        <div class="strong small">${fmtDateLong(date)}</div>
+        ${calendarDailySummaryHtml(date)}
+      </div>`+
+      taskHtml+
+      eventHtml;
   }
 
   // =========================================================
@@ -808,14 +2720,128 @@
   function renderSettings(){
     document.getElementById('themeSetting').value=state.theme;document.getElementById('settingDailyHours').value=state.planner.dailyHours;document.getElementById('settingSpeed').value=state.planner.playbackSpeed;document.getElementById('settingVideoShare').value=Math.round(state.planner.videoShare*100);document.getElementById('settingStrategy').value=state.planner.strategy;
     document.getElementById('subjectsSettings').innerHTML=`<div class="subject-choice-list">${state.subjects.map(s=>`<label class="subject-choice"><input type="checkbox" ${s.enabled?'checked':''} data-subject-enable="${escapeHtml(s.id)}" aria-label="Use ${escapeHtml(s.name)} in planner"><span><strong>${escapeHtml(s.name)}</strong><small>${escapeHtml(s.teacher||'Teacher not set')}</small></span></label>`).join('')}</div><div class="small muted mt12">${activeSubjects().length} selected. Only selected subjects are eligible for Smart Planner schedules.</div><div class="task-list mt12">${state.subjects.map(s=>`<div class="subject-setting"><div><strong class="small">${escapeHtml(s.name)}</strong></div><div class="teacher-field"><input class="input" value="${escapeHtml(s.teacher)}" data-teacher-subject="${escapeHtml(s.id)}" aria-label="Teacher for ${escapeHtml(s.name)}" placeholder="Teacher"></div><button class="btn small ghost" data-action="reset-teacher" data-id="${escapeHtml(s.id)}">Reset</button></div>`).join('')}</div>`;
-    renderPomodoroSettings();
+    renderPomodoroSettings();renderNotificationSettings();
     const removed=state.chapters.filter(c=>c.removed);document.getElementById('removedChapters').innerHTML=removed.length?`<div class="task-list">${removed.map(c=>`<div class="history-item"><div><div class="history-date">${escapeHtml(c.name)}<small>${escapeHtml(currentSubject(c.subjectId).name)} · ${c.custom?'Custom chapter':'Syllabus chapter'}</small></div></div><button class="btn small" data-action="restore-chapter" data-id="${escapeHtml(c.id)}">Restore</button></div>`).join('')}</div>`:`<div class="empty"><strong>No removed chapters.</strong>Removed chapters will appear here for restoration.</div>`;
   }
 
   function pomodoroLabel(){return state.pomodoro.mode==='work'?'Focus':state.pomodoro.mode==='short'?'Short break':'Long break'}
   function pomodoroDuration(){return (state.pomodoro.mode==='work'?state.pomodoro.work:state.pomodoro.mode==='short'?state.pomodoro.shortBreak:state.pomodoro.longBreak)*60}
   function pomodoroTime(){if(state.pomodoro.running&&state.pomodoro.endsAt){return Math.max(0,Math.ceil((state.pomodoro.endsAt-Date.now())/1000))}return Math.max(0,Math.round(state.pomodoro.remaining))}
-  function renderPomodoroSettings(){
+  function renderNotificationSettings(){
+  const n=state.notifications||{enabled:true,funnyEnabled:true};
+  const enabledBtn=document.querySelector('[data-action="notifications-enable"]');
+  const disabledBtn=document.querySelector('[data-action="notifications-disable"]');
+  const funnyYes=document.querySelector('[data-action="funny-yes"]');
+  const funnyNo=document.querySelector('[data-action="funny-no"]');
+
+  [enabledBtn,funnyYes].forEach(btn=>btn?.classList.remove('primary'));
+  [disabledBtn,funnyNo].forEach(btn=>btn?.classList.remove('danger'));
+
+  if(n.enabled) enabledBtn?.classList.add('primary');
+  else disabledBtn?.classList.add('danger');
+
+  if(n.funnyEnabled) funnyYes?.classList.add('primary');
+  else funnyNo?.classList.add('danger');
+
+  const status=document.getElementById('notificationPermissionStatus');
+  if(status){
+    let android='Android permission status unavailable.';
+    try{
+      if(window.StudyOSNotifications?.areNotificationsEnabled){
+        android=window.StudyOSNotifications.areNotificationsEnabled()
+          ? 'Android notifications are currently allowed.'
+          : 'Android notifications are currently blocked or not yet allowed.';
+      }
+    }catch(e){}
+    status.textContent=(n.enabled?'StudyOS notifications: ON. ':'StudyOS notifications: OFF. ')+android;
+  }
+}
+
+function enableStudyOSNotifications(){
+  state.notifications.enabled=true;
+  saveState();
+  try{
+    if(window.StudyOSNotifications?.requestPermission){
+      window.StudyOSNotifications.requestPermission();
+    }
+  }catch(e){}
+  renderSettings();
+  showToast('StudyOS notifications enabled.');
+}
+
+function disableStudyOSNotifications(){
+  state.notifications.enabled=false;
+  saveState();
+  renderSettings();
+  showToast('StudyOS notifications turned off.');
+}
+
+let funnyOffMessageTimer = null;
+
+function showFunnyNoConfirmation(){
+  if(funnyOffMessageTimer){
+    clearTimeout(funnyOffMessageTimer);
+    funnyOffMessageTimer=null;
+  }
+
+  openModal('Are you sure?', `
+    <div class="card" style="box-shadow:none;padding:0;border:0">
+      <div class="kicker">Funny Notifications</div>
+      <h3 style="margin-top:8px">Turn off funny notifications?</h3>
+      <p class="muted" style="line-height:1.65;margin-top:8px">
+        You can turn them back on anytime from Settings.
+      </p>
+      <div class="modal-actions" style="margin-top:16px">
+        <button class="btn danger" data-action="funny-no-final">Yes, turn them off</button>
+        <button class="btn primary" data-action="funny-no-cancel">No, keep them on</button>
+      </div>
+    </div>
+  `);
+}
+
+function showFunnyOffMessage(){
+  if(funnyOffMessageTimer){
+    clearTimeout(funnyOffMessageTimer);
+    funnyOffMessageTimer=null;
+  }
+
+  openModal('Funny Notifications', `
+    <div class="card" style="box-shadow:none;padding:0;border:0;text-align:center">
+      <div style="font-size:18px;font-weight:800;line-height:1.5">
+        Why don't you want funny notifications 🥲
+      </div>
+    </div>
+  `);
+
+  funnyOffMessageTimer=setTimeout(()=>{
+    funnyOffMessageTimer=null;
+    closeModal();
+    renderSettings();
+  },4000);
+}
+
+function cancelFunnyNo(){
+  if(funnyOffMessageTimer){
+    clearTimeout(funnyOffMessageTimer);
+    funnyOffMessageTimer=null;
+  }
+  state.notifications.funnyEnabled=true;
+  saveState();
+  closeModal();
+  renderSettings();
+}
+
+function confirmFunnyNo(){
+  if(funnyOffMessageTimer){
+    clearTimeout(funnyOffMessageTimer);
+    funnyOffMessageTimer=null;
+  }
+  state.notifications.funnyEnabled=false;
+  saveState();
+  showFunnyOffMessage();
+}
+
+function renderPomodoroSettings(){
     const p=state.pomodoro;const secs=pomodoroTime();const mm=String(Math.floor(secs/60)).padStart(2,'0'),ss=String(secs%60).padStart(2,'0');
     document.getElementById('pomodoroSettings').innerHTML=`<div class="pomo-wrap"><div class="pomo-display"><div class="pomo-mode">${pomodoroLabel()}</div><div class="pomo-time" id="pomoClock">${mm}:${ss}</div><div class="pomo-controls"><button class="btn primary" data-action="pomo-toggle">${p.running?'Pause':'Start'}</button><button class="btn ghost" data-action="pomo-reset">Reset</button><button class="btn ghost" data-action="pomo-skip">Skip</button></div><div class="pomo-sessions">${p.sessions} focus session${p.sessions===1?'':'s'} completed</div></div><div class="pomo-settings"><div class="pomo-presets"><button class="btn small ghost" data-action="pomo-preset" data-work="25" data-short="5" data-long="15">25 / 5</button><button class="btn small ghost" data-action="pomo-preset" data-work="50" data-short="10" data-long="20">50 / 10</button><button class="btn small ghost" data-action="pomo-preset" data-work="90" data-short="15" data-long="30">90 / 15</button></div><div class="form-grid"><div class="field"><label for="pomoWork">Focus minutes</label><input class="input" id="pomoWork" type="number" min="1" max="180" value="${p.work}"></div><div class="field"><label for="pomoShort">Short break</label><input class="input" id="pomoShort" type="number" min="1" max="60" value="${p.shortBreak}"></div><div class="field"><label for="pomoLong">Long break</label><input class="input" id="pomoLong" type="number" min="1" max="120" value="${p.longBreak}"></div><div class="field"><label for="pomoEvery">Long break after</label><input class="input" id="pomoEvery" type="number" min="1" max="12" value="${p.longBreakEvery}"></div></div><button class="btn" data-action="pomo-apply">Apply timer settings</button><div class="small muted">Timer continues accurately across page changes and browser refreshes while running.</div></div></div>`;
   }
@@ -840,7 +2866,7 @@
     else {const n=chapter(uid('ch'),subjectId,name,hours,obj.unit,false);Object.assign(n,obj,{id:uid('ch'),custom:true,removed:false});state.chapters.push(n)}
     saveState();closeModal();renderCurrent();showToast(id?'Chapter updated.':'Custom chapter added.');
   }
-  function removeOrRestoreChapter(id){const c=currentChapter(id);if(!c)return;if(c.removed){c.removed=false;saveState();closeModal();renderCurrent();showToast('Chapter restored.');return}if(!confirm(`Remove “${c.name}”? Its data will stay in Settings and can be restored.`))return;c.removed=true;state.academicTasks=state.academicTasks.filter(t=>t.chapterId!==id || t.completed || t.date<todayKey());saveState();closeModal();renderCurrent();showToast('Chapter removed from active planning.');}
+  function removeOrRestoreChapter(id){const c=currentChapter(id);if(!c)return;if(c.removed){c.removed=false;saveState();closeModal();renderCurrent();showToast('Chapter restored.');return}showConfirm('Remove chapter?',`Remove "${escapeHtml(c.name)}" from active planning? Its data will stay in Settings and can be restored.`,()=>{c.removed=true;state.academicTasks=state.academicTasks.filter(t=>t.chapterId!==id || t.completed || t.date<todayKey());saveState();closeModal();renderCurrent();showToast('Chapter removed from active planning.')},{confirmLabel:'Remove'});}
   function restoreChapter(id){const c=currentChapter(id);if(c){c.removed=false;c.updatedAt=nowISO();saveState();renderCurrent();showToast('Chapter restored.')}}
 
   // =========================================================
@@ -849,22 +2875,297 @@
   function openModal(title,body){const mb=document.getElementById('modalBackdrop');document.getElementById('modalTitle').textContent=title;document.getElementById('modalBody').innerHTML=body;mb.classList.add('open');mb.setAttribute('aria-hidden','false');setTimeout(()=>{const first=mb.querySelector('input,select,textarea,button');first?.focus()},30)}
   function closeModal(){const mb=document.getElementById('modalBackdrop');mb.classList.remove('open');mb.setAttribute('aria-hidden','true');if(lastModalFocus&&document.contains(lastModalFocus))lastModalFocus.focus();lastModalFocus=null}
 
+  let pendingConfirmAction=null;
+
+  function showConfirm(title,message,onConfirm,options={}){
+    pendingConfirmAction=typeof onConfirm==='function'?onConfirm:null;
+    const danger=options.danger!==false;
+    openModal(title,`<div class="small muted" style="line-height:1.6">${message}</div><div class="modal-actions"><button class="btn ghost" data-confirm-cancel>Cancel</button><button class="btn ${danger?'danger':'primary'}" data-confirm-ok>${escapeHtml(options.confirmLabel||'Confirm')}</button></div>`);
+  }
+
+  function cancelConfirm(){
+    pendingConfirmAction=null;
+    closeModal();
+  }
+
+  function acceptConfirm(){
+    const action=pendingConfirmAction;
+    pendingConfirmAction=null;
+    closeModal();
+    if(action)action();
+  }
+
   // =========================================================
   // IMPORT / EXPORT / RESET
   // =========================================================
-  function exportBackup(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`studyos2-backup-${todayKey()}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);showToast('Backup exported.');}
-  function importBackup(file){const reader=new FileReader();reader.onload=()=>{const incoming=safeParse(reader.result);if(!incoming||typeof incoming!=='object'||!Array.isArray(incoming.subjects)||!Array.isArray(incoming.chapters)){showToast('Invalid StudyOS backup.');return}if(!confirm('Import this backup and replace current StudyOS data? A fresh backup is recommended first.'))return;state=sanitizeState(incoming);state.firstRun=false;state.setup.done=true;saveState();renderCurrent();showToast('Backup imported successfully.');};reader.onerror=()=>showToast('Could not read the backup file.');reader.readAsText(file)}
-  function resetAll(){if(!confirm('Reset StudyOS? This permanently deletes local StudyOS data in this browser.'))return;if(!confirm('Are you absolutely sure? All chapters, progress, plans, personal tasks, calendar events and history will be deleted.'))return;localStorage.removeItem(CONFIG.STORAGE_KEY);state=blankState();applyTheme();saveState();showOnboarding();}
+  function exportBackup(){
+  const backup={
+    app:'StudyOS 2',
+    formatVersion:2,
+    exportedAt:nowISO(),
+    state:state,
+    formulaVaultUser:loadFormulaVaultUser()
+  };
 
-  // =========================================================
-  // ONBOARDING
-  // =========================================================
-  function showOnboarding(){
-    const checkedSubjects=state.subjects.filter(s=>s.enabled).map(s=>s.id);
-    openModal('Welcome to StudyOS 2',`<div class="small muted">Set the basics once. You can change everything later in Settings.</div><div class="form-grid mt16"><div class="field full"><label>Active subjects</label><div class="two-col-mobile" id="setupSubjects">${state.subjects.map(s=>`<label class="soft-box" style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" data-setup-subject="${escapeHtml(s.id)}" ${checkedSubjects.includes(s.id)?'checked':''}> <span class="small strong">${escapeHtml(s.name)}</span></label>`).join('')}</div></div><div class="field full"><label>Teachers</label><div>${state.subjects.map(s=>`<div class="subject-setting"><span class="small strong">${escapeHtml(s.name)}</span><input class="input" data-setup-teacher="${escapeHtml(s.id)}" value="${escapeHtml(s.teacher)}" placeholder="Teacher"></div>`).join('')}</div></div><div class="field"><label for="setupHours">Daily study hours</label><input class="input" id="setupHours" type="number" min="0.25" max="16" step="0.25" value="${state.planner.dailyHours}"></div><div class="field"><label for="setupTarget">Target date</label><input class="input" id="setupTarget" type="date"></div><div class="field"><label for="setupSpeed">Playback speed</label><select class="select" id="setupSpeed"><option value="1">1x</option><option value="1.25">1.25x</option><option value="1.5">1.5x</option><option value="2">2x</option></select></div><div class="field"><label for="setupStrategy">Strategy</label><select class="select" id="setupStrategy"><option value="balanced">Balanced</option><option value="priority">High-Priority First</option><option value="deadline">Exam / Deadline Focused</option></select></div></div><div class="modal-actions"><button class="btn primary" data-finish-setup>Open Dashboard</button></div>`);
+  const fileName=`studyos2-backup-${todayKey()}.json`;
+  const content=JSON.stringify(backup,null,2);
+
+  if(window.StudyOSAndroid&&typeof window.StudyOSAndroid.saveBackup==='function'){
+    window.StudyOSAndroid.saveBackup(fileName,content);
+    showToast('Saving backup to StudyOS Backups…');
+    return;
   }
-  function finishSetup(){
-    state.subjects.forEach(s=>{const cb=document.querySelector(`[data-setup-subject="${CSS.escape(s.id)}"]`);const inp=document.querySelector(`[data-setup-teacher="${CSS.escape(s.id)}"]`);s.enabled=!!cb?.checked;if(inp)s.teacher=inp.value.trim()});state.planner.dailyHours=clampNum(document.getElementById('setupHours').value,.25,16,3);state.planner.targetDate=document.getElementById('setupTarget').value;state.planner.playbackSpeed=Number(document.getElementById('setupSpeed').value)||1;state.planner.strategy=document.getElementById('setupStrategy').value;state.setup.done=true;state.firstRun=false;saveState();closeModal();navigate('dashboard');showToast('StudyOS 2 is ready.');
+
+  const blob=new Blob([content],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=fileName;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),2000);
+  localStorage.setItem('studyos2_last_backup_at',nowISO());
+  showToast('Backup exported.');
+}
+  
+window.StudyOSBackupSaved = function(success){
+  if(success){
+    localStorage.setItem('studyos2_last_backup_at', nowISO());
+    showToast('Backup saved and verified.');
+  }else{
+    showToast('Backup failed. Please try again.');
+  }
+};
+
+function importBackup(file){
+  const reader=new FileReader();
+  reader.onload=()=>importBackupText(String(reader.result||''));
+  reader.onerror=()=>showToast('Could not read the backup file.');
+  reader.readAsText(file);
+}
+
+window.StudyOSShowBackupFiles = function(names){
+  const rows = (Array.isArray(names) ? names : []).map((name,index) =>
+    `<button type="button" class="soft-box" data-backup-index="${index}"
+      style="display:flex;width:100%;align-items:center;gap:12px;text-align:left;margin-top:10px;padding:14px;border-radius:14px;cursor:pointer">
+      <span aria-hidden="true" style="font-size:22px">📄</span>
+      <span style="min-width:0;flex:1;overflow-wrap:anywhere">
+        <span class="strong">${escapeHtml(String(name))}</span>
+        <span class="small muted" style="display:block;margin-top:4px">StudyOS JSON backup</span>
+      </span><span aria-hidden="true">›</span>
+    </button>`
+  ).join('');
+  openModal('Choose a backup',
+    `<p class="small muted">Select a backup to restore your StudyOS data.</p>
+     ${rows || '<p class="small muted">No backup files found.</p>'}
+     <div class="modal-actions"><button type="button" class="btn" data-close-backup-picker>Cancel</button></div>`);
+};
+
+window.StudyOSImportBackupText = function(text){
+  importBackupText(String(text||''));
+};
+
+function importBackupText(text){
+  const incoming=safeParse(text);
+  if(!incoming||typeof incoming!=='object'){
+    showToast('Invalid StudyOS backup.');
+    return;
+  }
+
+  const importedState=incoming.state&&typeof incoming.state==='object'
+    ? incoming.state
+    : incoming;
+
+  if(!Array.isArray(importedState.subjects)||!Array.isArray(importedState.chapters)){
+    showToast('Invalid StudyOS backup.');
+    return;
+  }
+
+  showConfirm(
+    'Import backup?',
+    'This will replace your current StudyOS data with the selected backup. A fresh backup is recommended first.',
+    ()=>{
+      state=sanitizeState(importedState);
+      state.firstRun=false;
+      state.setup.done=true;
+      saveState();
+
+      if(incoming.formulaVaultUser&&typeof incoming.formulaVaultUser==='object'){
+        saveFormulaVaultUser({
+          favorites:incoming.formulaVaultUser.favorites&&typeof incoming.formulaVaultUser.favorites==='object'?incoming.formulaVaultUser.favorites:{},
+          known:incoming.formulaVaultUser.known&&typeof incoming.formulaVaultUser.known==='object'?incoming.formulaVaultUser.known:{},
+          viewed:incoming.formulaVaultUser.viewed&&typeof incoming.formulaVaultUser.viewed==='object'?incoming.formulaVaultUser.viewed:{}
+        });
+      }else{
+        saveFormulaVaultUser({
+          favorites:{},
+          known:{},
+          viewed:{}
+        });
+      }
+
+      renderCurrent();
+      showToast('Backup imported successfully.');
+    },
+    {confirmLabel:'Import',danger:false}
+  );
+}
+
+function resetAll(){
+  showConfirm(
+    'Reset StudyOS data?',
+    'This will permanently delete your local StudyOS data from this browser.',
+    ()=>{
+      showConfirm(
+        'Final confirmation',
+        'Are you absolutely sure? All chapters, progress, plans, personal tasks, calendar events, Formula Vault personal data and history will be deleted.',
+        ()=>{
+          try{window.StudyOSAndroid?.setOnboardingComplete?.(false)}catch(e){}
+          localStorage.removeItem(CONFIG.STORAGE_KEY);
+          localStorage.removeItem('studyos2_formula_vault_user');
+          localStorage.removeItem('studyos2_last_backup_at');
+          localStorage.removeItem('studyos2_backup_reminder_later_at');
+          sessionStorage.removeItem('studyos2_backup_reminder_shown');
+
+          state=blankState();
+          saveFormulaVaultUser({
+            favorites:{},
+            known:{},
+            viewed:{}
+          });
+          applyTheme();
+          updateSidebar();
+          showOnboarding();
+        },
+        {confirmLabel:'Delete Everything'}
+      );
+    },
+    {confirmLabel:'Continue',danger:false}
+  );
+}
+
+function showOnboarding(){
+  if(state.firstRun){
+    showWelcomeVideo();
+  }else{
+    showSubjectSetup();
+  }
+}
+
+function showWelcomeVideo(){
+  closeModal();
+  document.getElementById('studyosWelcomeOverlay')?.remove();
+
+  const overlay=document.createElement('div');
+  overlay.id='studyosWelcomeOverlay';
+  overlay.style.cssText='position:fixed;inset:0;width:100%;height:100%;height:100dvh;background:radial-gradient(ellipse at 50% 35%,#203b49 0%,#101c28 48%,#070b11 100%);z-index:2147483647;display:flex;align-items:center;justify-content:center;overflow:hidden;color:#f7f4ec;font-family:inherit';
+
+  overlay.innerHTML=`
+    <video id="studyosWelcomeVideo" playsinline preload="auto"
+      disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback"
+      style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;opacity:0;transition:opacity .35s">
+      <source src="./studyos-welcome.mp4" type="video/mp4">
+    </video>
+    <div data-intro-cover style="position:relative;z-index:1;text-align:center;width:min(90%,560px);padding:28px">
+      <div style="font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#c8b887;margin-bottom:20px">A NEW CHAPTER STARTS HERE</div>
+      <div style="font-size:clamp(30px,5vw,52px);font-weight:650;letter-spacing:-1.5px;line-height:1.08">Welcome to<br>StudyOS <span style="color:#d9c99b">2</span></div>
+      <div style="font-size:15px;line-height:1.7;color:#bdc8ce;margin:18px auto 28px;max-width:390px">A calmer space to plan, learn and make progress—one day at a time.</div>
+      <button type="button" data-start-welcome-video style="border:1px solid #e7d7a9;border-radius:30px;padding:14px 26px;background:linear-gradient(135deg,#f4e7c1,#d8c28b);color:#1b2630;font:inherit;font-weight:650;box-shadow:0 8px 30px #0005">▶ &nbsp; Begin your journey</button>
+      <div data-intro-hint style="font-size:12px;color:#98aab4;margin-top:14px">Your introduction is ready</div>
+    </div>
+    <button type="button" data-skip-welcome-video style="position:absolute;z-index:3;right:18px;top:18px;border:1px solid #ffffff35;border-radius:24px;padding:10px 17px;background:#101820b8;color:#f7f4ec;font:inherit;backdrop-filter:blur(12px)">Skip intro</button>`;
+
+  document.body.appendChild(overlay);
+
+  const video=overlay.querySelector('#studyosWelcomeVideo');
+  const cover=overlay.querySelector('[data-intro-cover]');
+  const start=overlay.querySelector('[data-start-welcome-video]');
+  const hint=overlay.querySelector('[data-intro-hint]');
+  let finished=false;
+
+  const continueToWelcome=()=>{
+    if(finished)return;
+    finished=true;
+    overlay.remove();
+    showWelcomeScreen();
+  };
+
+  video.addEventListener('ended',continueToWelcome,{once:true});
+  video.addEventListener('error',()=>{
+    hint.textContent='The video could not load. You can continue to your welcome.';
+    start.textContent='Continue to StudyOS';
+    start.onclick=continueToWelcome;
+  },{once:true});
+
+  const begin=()=>{
+    video.currentTime=0;
+    video.muted=false;
+    hint.textContent='Starting your introduction…';
+    const result=video.play();
+    if(result&&result.then){
+      result.then(()=>{
+        cover.style.display='none';
+        video.style.opacity='1';
+      }).catch(()=>{
+        hint.textContent='Tap below to play the introduction with sound.';
+        start.textContent='▶  Play introduction';
+      });
+    }else{
+      cover.style.display='none';
+      video.style.opacity='1';
+    }
+  };
+
+  start.onclick=begin;
+
+  video.muted=false;
+  video.currentTime=0;
+  const autoplay=video.play();
+  if(autoplay&&autoplay.then){
+    autoplay.then(()=>{
+      cover.style.display='none';
+      video.style.opacity='1';
+    }).catch(()=>{
+      video.pause();
+      video.currentTime=0;
+      hint.textContent='Tap below to start your introduction.';
+    });
+  }
+}
+function showWelcomeScreen(){
+  openModal('Welcome to StudyOS 2', `
+    <div style="padding:4px 0">
+      <div class="kicker">YOUR STUDY JOURNEY STARTS HERE</div>
+      <h2 style="font-size:clamp(25px,5vw,36px);line-height:1.15;margin:12px 0">Welcome to StudyOS 2! ✨</h2>
+      <p class="muted" style="line-height:1.7">Hello, and welcome!</p>
+      <p style="line-height:1.7">I'm Naitik, the creator of StudyOS 2, and first of all, <strong>THANK YOU FOR CHOOSING THIS APP!</strong></p>
+      <p style="line-height:1.7">This project took a lot of time, effort, and learning to bring to life, and I'm genuinely happy to finally share it with you. I hope StudyOS 2 helps you make the most of your potential and makes your study journey a little easier.</p>
+      <p style="line-height:1.7">I've included features like the Smart Planner, Revision Replanner, progress tracking, and much more to enhance your academic performance.</p>
+      <p style="line-height:1.7">My goal was never to make studying feel like another burden, but to make it feel a little more manageable.</p>
+      <p style="line-height:1.7">I'd also like to thank every single person and my friends who contributed to this project. Your support and contributions helped turn this idea into something real, and I'm truly grateful for that.</p>
+      <p style="line-height:1.7">If you have any feedback, ideas, or suggestions, I'd love to hear them! You can find more information in the About section.</p>
+      <p style="line-height:1.7">I hope you enjoy using StudyOS 2.</p>
+      <div style="margin-top:20px;padding:16px;border-radius:16px;background:var(--surface-2,rgba(127,160,170,.12));text-align:center">
+        <strong style="letter-spacing:.08em">ALL THE BEST</strong>
+        <div style="margin-top:7px;font-weight:750">Plan. Focus. Progress. ✨</div>
+      </div>
+      <div class="modal-actions" style="margin-top:20px">
+        <button class="btn primary" data-continue-welcome>Continue</button>
+      </div>
+    </div>
+  `);
+}
+
+function showSubjectSetup(){
+  const checkedSubjects=state.subjects.filter(s=>s.enabled).map(s=>s.id);
+  openModal('Set Up StudyOS 2', `<div class="small muted">Choose the subjects you study. You can change them later in Settings.</div><div class="form-grid mt16"><div class="field full"><label>Active subjects</label><div class="two-col-mobile" id="setupSubjects">${state.subjects.map(s=>`<label class="soft-box" style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" data-setup-subject="${escapeHtml(s.id)}" ${checkedSubjects.includes(s.id)?'checked':''}> <span class="small strong">${escapeHtml(s.name)}</span></label>`).join('')}</div></div><div class="field full"><label>Teachers (optional)</label><div>${state.subjects.map(s=>`<div class="subject-setting"><span class="small strong">${escapeHtml(s.name)}</span><input class="input" data-setup-teacher="${escapeHtml(s.id)}" value="${escapeHtml(s.teacher)}" placeholder="Teacher"></div>`).join('')}</div></div><div class="field"><label for="setupHours">Daily study hours</label><input class="input" id="setupHours" type="number" min="0.25" max="16" step="0.25" value="${state.planner.dailyHours}"></div><div class="field"><label for="setupTarget">Target date</label><input class="input" id="setupTarget" type="date" value="${escapeHtml(state.planner.targetDate||'')}"></div><div class="field"><label for="setupSpeed">Playback speed</label><select class="select" id="setupSpeed">${[1,1.25,1.5,2].map(v=>`<option value="${v}" ${Number(state.planner.playbackSpeed)===v?'selected':''}>${v}x</option>`).join('')}</select></div><div class="field"><label for="setupStrategy">Strategy</label><select class="select" id="setupStrategy"><option value="balanced" ${state.planner.strategy==='balanced'?'selected':''}>Balanced</option><option value="priority" ${state.planner.strategy==='priority'?'selected':''}>High-Priority First</option><option value="deadline" ${state.planner.strategy==='deadline'?'selected':''}>Exam / Deadline Focused</option></select></div></div><div class="modal-actions"><button class="btn primary" data-finish-setup>Open Dashboard</button></div>`);
+}
+
+function finishSetup(){
+    state.subjects.forEach(s=>{const cb=document.querySelector(`[data-setup-subject="${CSS.escape(s.id)}"]`);const inp=document.querySelector(`[data-setup-teacher="${CSS.escape(s.id)}"]`);s.enabled=!!cb?.checked;if(inp)s.teacher=inp.value.trim()});state.planner.dailyHours=clampNum(document.getElementById('setupHours').value,.25,16,3);state.planner.targetDate=document.getElementById('setupTarget').value;state.planner.playbackSpeed=Number(document.getElementById('setupSpeed').value)||1;state.planner.strategy=document.getElementById('setupStrategy').value;state.setup.done=true;state.firstRun=false;saveState();
+  try{window.StudyOSAndroid?.setOnboardingComplete?.(true)}catch(e){}
+  closeModal();navigate('dashboard');showToast('StudyOS 2 is ready.');
   }
 
   // =========================================================
@@ -878,12 +3179,241 @@
     document.getElementById('calPrev').addEventListener('click',()=>{calendarCursor=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()-1,1);renderCalendar()});document.getElementById('calNext').addEventListener('click',()=>{calendarCursor=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()+1,1);renderCalendar()});document.getElementById('calToday').addEventListener('click',()=>{const d=CONFIG.TODAY();calendarCursor=new Date(d.getFullYear(),d.getMonth(),1);renderCalendar()});
     const mq=matchMedia('(prefers-color-scheme: dark)');mq.addEventListener?.('change',()=>{if(state.theme==='system')applyTheme()});
   }
-  function onDocumentClick(e){
-    const actionEl=e.target.closest('[data-action]');if(actionEl){const a=actionEl.dataset.action,id=actionEl.dataset.id;if(a==='go-planner'||a==='open-planner')navigate('planner');if(a==='rebalance'){generatePlan({rebalance:true})}if(a==='generate-plan'){generatePlan()}if(a==='open-today')navigate('today');if(a==='open-daily')navigate('daily');if(a==='open-progress')navigate('progress');if(a==='add-personal')openPersonalModal();if(a==='edit-personal')openPersonalModal(id);if(a==='add-event')openEventModal(null,actionEl.dataset.date||null);if(a==='edit-event')openEventModal(id);if(a==='delete-event')deleteEvent(id);if(a==='add-chapter')openChapterModal();if(a==='edit-chapter')openChapterModal(id);if(a==='restore-chapter')restoreChapter(id);if(a==='export')exportBackup();if(a==='import')document.getElementById('importFile').click();if(a==='reset')resetAll();if(a==='reset-teacher'){const s=currentSubject(id);if(s){s.teacher='';saveState();renderSettings()}}if(a==='pomo-toggle'){state.pomodoro.running?pomodoroPause():pomodoroStart();return}if(a==='pomo-reset'){pomodoroReset();return}if(a==='pomo-skip'){pomodoroSkip();return}if(a==='pomo-apply'){state.pomodoro.work=clampNum(document.getElementById('pomoWork').value,1,180,25);state.pomodoro.shortBreak=clampNum(document.getElementById('pomoShort').value,1,60,5);state.pomodoro.longBreak=clampNum(document.getElementById('pomoLong').value,1,120,15);state.pomodoro.longBreakEvery=clampNum(document.getElementById('pomoEvery').value,1,12,4);state.pomodoro.running=false;state.pomodoro.endsAt=null;state.pomodoro.remaining=pomodoroDuration();saveState();renderSettings();showToast('Pomodoro settings applied.');return}if(a==='pomo-preset'){state.pomodoro.work=Number(actionEl.dataset.work);state.pomodoro.shortBreak=Number(actionEl.dataset.short);state.pomodoro.longBreak=Number(actionEl.dataset.long);state.pomodoro.running=false;state.pomodoro.endsAt=null;state.pomodoro.remaining=pomodoroDuration();saveState();renderSettings();return}return}
-    const dateBtn=e.target.closest('[data-cal-date]');if(dateBtn){renderCalendarDetails(dateBtn.dataset.calDate);return}const openToday=e.target.closest('[data-cal-open-today]');if(openToday){navigate('today');return}const saveEvent=e.target.closest('[data-save-event]');if(saveEvent){saveEventFromModal(saveEvent.dataset.id);return}const deleteEventBtn=e.target.closest('[data-delete-event]');if(deleteEventBtn){deleteEvent(deleteEventBtn.dataset.deleteEvent);return}
-    const savePersonal=e.target.closest('[data-save-personal]');if(savePersonal){savePersonalFromModal(savePersonal.dataset.id);return}const delPersonal=e.target.closest('[data-delete-personal]');if(delPersonal){deletePersonal(delPersonal.dataset.deletePersonal);return}const close=e.target.closest('[data-modal-close]');if(close){closeModal();return}const saveCh=e.target.closest('[data-save-chapter]');if(saveCh){saveChapterFromModal(saveCh.dataset.id);return}const rem=e.target.closest('[data-remove-chapter]');if(rem){removeOrRestoreChapter(rem.dataset.removeChapter);return}const finish=e.target.closest('[data-finish-setup]');if(finish){finishSetup();return}
+  function animateCalendarDetails(){
+    const panel=document.getElementById('calendarDetails');
+    if(!panel)return;
+
+    panel.classList.remove('calendar-date-animate');
+
+    void panel.offsetWidth;
+
+    panel.classList.add('calendar-date-animate');
   }
-  function onDocumentChange(e){
+
+  function onDocumentClick(e){
+  const backupChoice=e.target.closest('[data-backup-index]');
+  if(backupChoice){
+    const index=Number(backupChoice.dataset.backupIndex);
+    closeModal();
+    if(Number.isInteger(index))window.StudyOSAndroid?.selectBackup?.(index);
+    return;
+  }
+  if(e.target.closest('[data-close-backup-picker]')){
+    closeModal();
+    return;
+  }
+
+  const calendarDateButton=e.target.closest('[data-cal-date]');
+  if(calendarDateButton){
+    const date=calendarDateButton.dataset.calDate;
+    renderCalendarDetails(date);
+    animateCalendarDetails();
+    return;
+  }
+
+  const actionEl=e.target.closest('[data-action]');
+  if(actionEl){
+    const a=actionEl.dataset.action;
+    const id=actionEl.dataset.id;
+
+    if(a==='go-planner'||a==='open-planner'){navigate('planner');return}
+    if(a==='rebalance'){generatePlan({rebalance:true});return}
+    if(a==='generate-plan'){generatePlan();return}
+    if(a==='open-today'){navigate('today');return}
+    if(a==='open-daily'){navigate('daily');return}
+    if(a==='open-progress'){navigate('progress');return}
+
+    if(a==='revision-confidence'){
+      setRevisionConfidence(id,Number(actionEl.dataset.revision),actionEl.dataset.confidence);
+      return;
+    }
+    if(a==='revision-done'){completeRevision(id,Number(actionEl.dataset.revision));return}
+    if(a==='revision-now'){openRevisionTimer(id,Number(actionEl.dataset.revision));return}
+    if(a==='revision-timer-toggle'){
+      revisionTimer.running?revisionTimerPause():revisionTimerStart();
+      return;
+    }
+    if(a==='revision-timer-reset'){revisionTimerReset();return}
+    if(a==='revision-timer-done'){revisionTimerFinish();return}
+
+    if(a==='add-personal'){openPersonalModal();return}
+    if(a==='edit-personal'){openPersonalModal(id);return}
+    if(a==='delete-personal'){deletePersonal(id);return}
+
+    if(a==='add-event'){
+      openEventModal(null,actionEl.dataset.date||null);
+      return;
+    }
+    if(a==='edit-event'){openEventModal(id);return}
+    if(a==='delete-event'){deleteEvent(id);return}
+
+    if(a==='add-chapter'){openChapterModal();return}
+    if(a==='edit-chapter'){openChapterModal(id);return}
+    if(a==='restore-chapter'){restoreChapter(id);return}
+
+    if(a==='notifications-enable'){enableStudyOSNotifications();return}
+    if(a==='notifications-disable'){disableStudyOSNotifications();return}
+    if(a==='notifications-permission'){
+      try{window.StudyOSNotifications?.requestPermission?.()}catch(e){}
+      renderSettings();
+      return;
+    }
+
+    if(a==='funny-yes'){
+      state.notifications.funnyEnabled=true;
+      saveState();
+      renderSettings();
+      showToast('Funny notifications enabled.');
+      return;
+    }
+    if(a==='funny-no'){showFunnyNoConfirmation();return}
+    if(a==='funny-no-final'){confirmFunnyNo();return}
+    if(a==='funny-no-cancel'){cancelFunnyNo();return}
+
+    if(a==='export'){exportBackup();return}
+    if(a==='import'){
+      if(window.StudyOSAndroid && typeof window.StudyOSAndroid.importBackup==='function'){
+        window.StudyOSAndroid.importBackup();
+      }else{
+        document.getElementById('importFile').click();
+      }
+      return;
+    }
+    if(a==='reset'){resetAll();return}
+
+    if(a==='reset-teacher'){
+      const subject=currentSubject(id);
+      if(subject){
+        subject.teacher='';
+        saveState();
+        renderSettings();
+      }
+      return;
+    }
+
+    if(a==='streak-saver-use'){useStreakSaver();return}
+    if(a==='streak-saver-reset'){dismissStreakSaver();return}
+
+    if(a==='pomo-toggle'){
+      state.pomodoro.running?pomodoroPause():pomodoroStart();
+      return;
+    }
+    if(a==='pomo-reset'){pomodoroReset();return}
+    if(a==='pomo-skip'){pomodoroSkip();return}
+    if(a==='pomo-apply'){
+      state.pomodoro.work=clampNum(document.getElementById('pomoWork').value,1,180,25);
+      state.pomodoro.shortBreak=clampNum(document.getElementById('pomoShort').value,1,60,5);
+      state.pomodoro.longBreak=clampNum(document.getElementById('pomoLong').value,1,120,15);
+      state.pomodoro.longBreakEvery=clampNum(document.getElementById('pomoEvery').value,1,12,4);
+      state.pomodoro.running=false;
+      state.pomodoro.endsAt=null;
+      state.pomodoro.remaining=pomodoroDuration();
+      saveState();
+      renderSettings();
+      showToast('Pomodoro settings applied.');
+      return;
+    }
+    if(a==='pomo-preset'){
+      state.pomodoro.work=Number(actionEl.dataset.work);
+      state.pomodoro.shortBreak=Number(actionEl.dataset.short);
+      state.pomodoro.longBreak=Number(actionEl.dataset.long);
+      state.pomodoro.running=false;
+      state.pomodoro.endsAt=null;
+      state.pomodoro.remaining=pomodoroDuration();
+      saveState();
+      renderSettings();
+      return;
+    }
+  }
+
+  const dateBtn=e.target.closest('[data-cal-date]');
+  if(dateBtn){
+    renderCalendarDetails(dateBtn.dataset.calDate);
+    return;
+  }
+
+  const openToday=e.target.closest('[data-cal-open-today]');
+  if(openToday){
+    navigate('today');
+    return;
+  }
+
+  const saveEvent=e.target.closest('[data-save-event]');
+  if(saveEvent){
+    saveEventFromModal(saveEvent.dataset.id);
+    return;
+  }
+
+  const deleteEventBtn=e.target.closest('[data-delete-event]');
+  if(deleteEventBtn){
+    deleteEvent(deleteEventBtn.dataset.deleteEvent);
+    return;
+  }
+
+  const savePersonal=e.target.closest('[data-save-personal]');
+  if(savePersonal){
+    savePersonalFromModal(savePersonal.dataset.id);
+    return;
+  }
+
+  const delPersonal=e.target.closest('[data-delete-personal]');
+  if(delPersonal){
+    deletePersonal(delPersonal.dataset.deletePersonal);
+    return;
+  }
+
+  const confirmOk=e.target.closest('[data-confirm-ok]');
+  if(confirmOk){
+    acceptConfirm();
+    return;
+  }
+
+  const confirmCancel=e.target.closest('[data-confirm-cancel]');
+  if(confirmCancel){
+    cancelConfirm();
+    return;
+  }
+
+  const close=e.target.closest('[data-modal-close]');
+  if(close){
+    closeModal();
+    return;
+  }
+
+  const saveCh=e.target.closest('[data-save-chapter]');
+  if(saveCh){
+    saveChapterFromModal(saveCh.dataset.id);
+    return;
+  }
+
+  const rem=e.target.closest('[data-remove-chapter]');
+  if(rem){
+    removeOrRestoreChapter(rem.dataset.removeChapter);
+    return;
+  }
+
+const skipWelcomeVideo=e.target.closest('[data-skip-welcome-video]');
+  if(skipWelcomeVideo){
+    document.getElementById('studyosWelcomeOverlay')?.remove();
+    closeModal();
+    showWelcomeScreen();
+    return;
+  }
+
+const welcomeContinue=e.target.closest('[data-continue-welcome]');
+  if(welcomeContinue){
+    showSubjectSetup();
+    return;
+  }
+
+  const finish=e.target.closest('[data-finish-setup]');
+  if(finish){
+    finishSetup();
+    return;
+  }
+}
+
+function onDocumentChange(e){
     const el=e.target;
     if(el.matches('[data-task-id]')){toggleTask(el.dataset.taskId,el.dataset.taskType,el.checked);return}
     if(el.matches('[data-chapter-id][data-check-index]')){toggleChapterChecklist(el.dataset.chapterId,Number(el.dataset.checkIndex),el.checked);return}
@@ -891,37 +3421,1900 @@
     if(el.matches('[data-subject-enable]')){const s=currentSubject(el.dataset.subjectEnable);if(s){s.enabled=el.checked;if(!s.enabled)state.academicTasks=state.academicTasks.filter(t=>t.completed||t.subjectId!==s.id||t.date<todayKey()||!t.generated);saveState();renderCurrent()}return}
     if(el.matches('[data-teacher-subject]')){const s=currentSubject(el.dataset.teacherSubject);if(s){s.teacher=el.value.trim();saveState();renderCurrent()}return}
     if(el.id==='themeSetting'){setTheme(el.value);return}
-    if(el.id==='settingDailyHours'){state.planner.dailyHours=clampNum(el.value,.25,16,3);saveState();renderCurrent();return}
+    if(el.id==='settingDailyHours'){
+  state.planner.dailyHours=clampNum(el.value,.25,16,3);
+  saveState();
+  if(state.planner.targetDate) generatePlan({rebalance:true});
+  else renderCurrent();
+  return;
+}
     if(el.id==='settingSpeed'){state.planner.playbackSpeed=Number(el.value)||1;saveState();if(state.planner.targetDate)generatePlan({rebalance:true});else renderCurrent();return}
     if(el.id==='settingVideoShare'){state.planner.videoShare=clampNum(Number(el.value)/100,0,1,CONFIG.DEFAULT_VIDEO_SHARE);saveState();renderCurrent();return}
     if(el.id==='settingStrategy'){state.planner.strategy=el.value;saveState();renderCurrent();return}
     if(el.id==='plannerTarget'){state.planner.targetDate=el.value;saveState();renderPlanner();updateSidebar();return}
-    if(el.id==='plannerHours'){state.planner.dailyHours=clampNum(el.value,.25,16,3);saveState();renderPlanner();return}
+    if(el.id==='plannerHours'){
+  state.planner.dailyHours=clampNum(el.value,.25,16,3);
+  saveState();
+  if(state.planner.targetDate) generatePlan({rebalance:true});
+  else renderPlanner();
+  return;
+}
     if(el.id==='plannerSpeed'){state.planner.playbackSpeed=Number(el.value)||1;saveState();if(state.planner.targetDate)generatePlan({rebalance:true});else{renderPlanner();renderDashboard();updateSidebar()}return}
     if(el.id==='plannerStrategy'){state.planner.strategy=el.value;saveState();renderPlanner();return}
     if(el.id==='syllabusFilter'||el.id==='syllabusSubjectFilter'||el.id==='dailyFilter'||el.id==='dailyDateFilter'){if(activePage==='syllabus')renderSyllabus();if(activePage==='daily')renderDaily();return}
     if(el.id==='importFile'&&el.files?.[0]){importBackup(el.files[0]);el.value='';return}
     if(el.matches('[data-setup-subject],[data-setup-teacher]'))return;
   }
-  function onDocumentInput(e){const el=e.target;if(el.id==='syllabusSearch')renderSyllabus();if(el.id==='dailySearch')renderDaily();if(el.matches('[data-check-label]')){const sid=el.dataset.checkLabel,i=Number(el.dataset.index);state.checklistLabels[sid]??=[...(DEFAULT_LABELS[sid]||DEFAULT_LABELS.physics)];state.checklistLabels[sid][i]=el.value;saveState()}}
+  function onDocumentInput(e){
+    const el=e.target;
+    if(el.id==='syllabusSearch')renderSyllabus();
+    if(el.id==='dailySearch')renderDaily();
+
+    if(el.matches('[data-check-label]')){
+      const sid=el.dataset.checkLabel,i=Number(el.dataset.index);
+      state.checklistLabels[sid]??=[...(DEFAULT_LABELS[sid]||DEFAULT_LABELS.physics)];
+      state.checklistLabels[sid][i]=el.value;
+      saveState();
+    }
+
+    if(el.id==='plannerHours'||el.id==='settingDailyHours'){
+      const value=Number(el.value);
+
+      if(Number.isFinite(value)&&value>=0.25&&value<=16){
+        state.planner.dailyHours=value;
+        saveState();
+
+        clearTimeout(window.__plannerHoursTimer);
+
+        window.__plannerHoursTimer=setTimeout(()=>{
+          if(state.planner.targetDate){
+            generatePlan({rebalance:true});
+          }else{
+            renderCurrent();
+          }
+        },350);
+      }
+    }
+  }
   function shiftCompletedDate(date,delta){if(!date)return;state.completedDates[date]=round2((state.completedDates[date]||0)+delta);if(state.completedDates[date]<=0.001)delete state.completedDates[date]}
   function toggleTask(id,type,checked){
-    if(type==='personal'){const t=state.personalTasks.find(x=>x.id===id);if(!t)return;if(t.completed && t.completedOnDate)shiftCompletedDate(t.completedOnDate,-t.duration);t.completed=checked;t.updatedAt=nowISO();t.completedAt=checked?nowISO():null;t.completedOnDate=checked?todayKey():null;if(checked)shiftCompletedDate(todayKey(),t.duration)}
-    else {const t=state.academicTasks.find(x=>x.id===id);if(!t)return;if(t.completed && t.completedOnDate)shiftCompletedDate(t.completedOnDate,-t.duration);t.completed=checked;t.completedAt=checked?nowISO():null;t.completedOnDate=checked?todayKey():null;if(checked){shiftCompletedDate(todayKey(),t.duration);state.academicHistory=state.academicHistory.filter(h=>h.taskId!==t.id);state.academicHistory.push({id:uid('hist'),taskId:t.id,chapterId:t.chapterId,subjectId:t.subjectId,date:todayKey(),duration:t.duration,type:t.type,createdAt:nowISO()})}else{state.academicHistory=state.academicHistory.filter(h=>h.taskId!==t.id)}}
-    markMeaningfulChange();saveState();renderCurrent();
-  }
-  function toggleChapterChecklist(chId,index,checked){const c=currentChapter(chId);if(!c)return;c.checklist[index]=checked;c.updatedAt=nowISO();saveState();renderCurrent()}
+  if(type==='personal'){
+    const t=state.personalTasks.find(x=>x.id===id);
+    if(!t)return;
 
-  // =========================================================
-  // INITIALIZATION
-  // =========================================================
-  function init(){
-    state=loadState();applyTheme();bindEvents();updateDerivedMeta();
-    if(!state.setup?.done){showOnboarding()}else{navigate('dashboard')}
+    if(t.completed && t.completedOnDate){
+      shiftCompletedDate(t.completedOnDate,-t.duration);
+    }
+
+    t.completed=checked;
+    t.updatedAt=nowISO();
+    t.completedAt=checked?nowISO():null;
+    t.completedOnDate=checked?todayKey():null;
+
+    if(checked){
+      shiftCompletedDate(todayKey(),t.duration);
+      recordStudyActivity(todayKey());
+    }
+  }else{
+    const t=state.academicTasks.find(x=>x.id===id);
+    if(!t)return;
+
+    if(t.completed && t.completedOnDate){
+      shiftCompletedDate(t.completedOnDate,-t.duration);
+    }
+
+    t.completed=checked;
+    t.completedAt=checked?nowISO():null;
+    t.completedOnDate=checked?todayKey():null;
+
+    if(checked){
+      shiftCompletedDate(todayKey(),t.duration);
+
+      state.academicHistory=state.academicHistory.filter(
+        h=>h.taskId!==t.id
+      );
+
+      state.academicHistory.push({
+        id:uid('hist'),
+        taskId:t.id,
+        chapterId:t.chapterId,
+        subjectId:t.subjectId,
+        date:todayKey(),
+        duration:t.duration,
+        type:t.type,
+        createdAt:nowISO()
+      });
+
+      recordStudyActivity(todayKey());
+    }else{
+      state.academicHistory=state.academicHistory.filter(
+        h=>h.taskId!==t.id
+      );
+    }
   }
-  init();
+
+  saveState();
+  renderCurrent();
+
+  if(typeof window.studyOSCheckAchievements==='function'){
+    window.studyOSCheckAchievements();
+  }
+}
+
+
+function createRevisionSchedule(chapter){
+  if(!chapter||chapterCompletion(chapter)<1)return;
+
+  const rr=state.revisionReplanner;
+  if(!rr)return;
+
+  const completionDate=todayKey();
+
+  // Do not create duplicate schedules for the same completion event.
+  const existing=rr.schedules.find(x =>
+    x.chapterId===chapter.id &&
+    x.completedOn===completionDate &&
+    x.status!=='cancelled'
+  );
+
+  if(existing)return;
+
+  const intervals=[1,3,7,14,30];
+
+  const schedule={
+    id:'rev_'+Date.now()+'_'+Math.random().toString(36).slice(2,8),
+    chapterId:chapter.id,
+    subjectId:chapter.subjectId,
+    chapterName:chapter.name,
+    completedOn:completionDate,
+    createdAt:nowISO(),
+    confidence:'Okay',
+    status:'active',
+    stages:intervals.map((days,index)=>({
+      revision:index+1,
+      dueDate:localDateKey(new Date(parseKey(completionDate).getTime()+days*86400000)),
+      intervalDays:days,
+      status:'pending',
+      completedAt:null,
+      confidence:null
+    }))
+  };
+
+  rr.schedules.push(schedule);
+  saveState();
+}
+
+
+function setRevisionConfidence(scheduleId,revisionNumber,confidence){
+  const rr=state.revisionReplanner;
+  if(!rr)return;
+
+  const schedule=rr.schedules.find(x=>x.id===scheduleId);
+  if(!schedule)return;
+
+  const stage=(schedule.stages||[]).find(x=>Number(x.revision)===Number(revisionNumber));
+  if(!stage)return;
+
+  if(!['Weak','Okay','Strong'].includes(confidence))return;
+
+  stage.confidence=confidence;
+
+  const adaptiveIntervals={
+    Weak:{1:2,2:4,3:7,4:14},
+    Okay:{1:3,2:7,3:14,4:30},
+    Strong:{1:4,2:10,3:21,4:45}
+  };
+
+  const currentRevision=Number(stage.revision)||0;
+  const nextStage=(schedule.stages||[]).find(
+    x=>Number(x.revision)===currentRevision+1
+  );
+
+  if(nextStage&&nextStage.status!=='completed'){
+    const days=(adaptiveIntervals[confidence]||adaptiveIntervals.Okay)[currentRevision];
+
+    if(Number.isFinite(days)){
+      const baseDate=stage.status==='completed'&&stage.completedDate
+        ?parseKey(stage.completedDate)
+        :parseKey(todayKey());
+
+      nextStage.dueDate=localDateKey(
+        new Date(baseDate.getTime()+days*86400000)
+      );
+
+      nextStage.confidence=null;
+      nextStage.status='pending';
+    }
+  }
+
+  saveState();
+  renderCurrent();
+
+  showToast(
+    confidence==='Strong'
+      ?`Revision R${currentRevision}: Strong — future revision frequency reduced.`
+      :confidence==='Weak'
+        ?`Revision R${currentRevision}: Weak — next revision moved sooner.`
+        :`Revision R${currentRevision}: Okay — normal revision interval restored.`
+  );
+}
+function completeRevision(scheduleId,revisionNumber){
+    const rr=state.revisionReplanner;
+    if(!rr)return;
+
+    const schedule=rr.schedules.find(x=>x.id===scheduleId);
+    if(!schedule)return;
+
+    const stage=(schedule.stages||[]).find(x=>Number(x.revision)===Number(revisionNumber));
+    if(!stage||stage.status==='completed')return;
+
+    const completedDate=todayKey();
+    const confidence=stage.confidence||schedule.confidence||'Okay';
+
+    stage.status='completed';
+    stage.completedAt=nowISO();
+    stage.completedDate=completedDate;
+    stage.confidence=confidence;
+
+    if((schedule.stages||[]).every(x=>x.status==='completed')){
+      schedule.status='completed';
+    }else{
+      const adaptiveIntervals={
+        Weak:{1:2,2:4,3:7,4:14},
+        Okay:{1:3,2:7,3:14,4:30},
+        Strong:{1:4,2:10,3:21,4:45}
+      };
+
+      const currentRevision=Number(stage.revision)||0;
+      const nextStage=(schedule.stages||[]).find(
+        x=>Number(x.revision)===currentRevision+1
+      );
+
+      if(nextStage){
+        const days=(adaptiveIntervals[confidence]||adaptiveIntervals.Okay)[currentRevision];
+
+        if(Number.isFinite(days)){
+          nextStage.dueDate=localDateKey(
+            new Date(parseKey(completedDate).getTime()+days*86400000)
+          );
+          nextStage.confidence=null;
+          nextStage.status='pending';
+        }
+      }
+    }
+
+    rr.history.push({
+      id:'revhist_'+Date.now()+'_'+Math.random().toString(36).slice(2,8),
+      scheduleId:schedule.id,
+      chapterId:schedule.chapterId,
+      subjectId:schedule.subjectId,
+      chapterName:schedule.chapterName||'Unknown chapter',
+      revision:Number(stage.revision)||0,
+      scheduledDate:stage.dueDate||'',
+      completedDate,
+      completedAt:stage.completedAt,
+      confidence
+    });
+
+    saveState();
+    renderCurrent();
+    showToast(`Revision R${Number(stage.revision)||0} completed.`);
+}
+
+let revisionTimer={
+  scheduleId:null,
+  revisionNumber:null,
+  totalSeconds:0,
+  remaining:0,
+  running:false,
+  endsAt:null
+};
+
+function revisionTimerTime(){
+  if(!revisionTimer.running||!revisionTimer.endsAt){
+    return Math.max(0,revisionTimer.remaining);
+  }
+  return Math.max(0,Math.ceil((revisionTimer.endsAt-Date.now())/1000));
+}
+
+function revisionTimerFormat(seconds){
+  seconds=Math.max(0,Math.floor(seconds||0));
+  const m=Math.floor(seconds/60);
+  const sec=seconds%60;
+  return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+}
+
+function renderRevisionTimer(){
+  const el=document.getElementById('revisionQuickTimer');
+  const toggle=document.getElementById('revisionTimerToggle');
+  if(!el)return;
+
+  const remaining=revisionTimerTime();
+  el.textContent=revisionTimerFormat(remaining);
+
+  if(toggle){
+    toggle.textContent=revisionTimer.running?'Pause':'Start';
+  }
+}
+
+function revisionTimerStart(){
+  if(revisionTimer.remaining<=0)return;
+
+  revisionTimer.running=true;
+  revisionTimer.endsAt=Date.now()+revisionTimer.remaining*1000;
+  renderRevisionTimer();
+}
+
+function revisionTimerPause(){
+  revisionTimer.remaining=revisionTimerTime();
+  revisionTimer.running=false;
+  revisionTimer.endsAt=null;
+  renderRevisionTimer();
+}
+
+function revisionTimerReset(){
+  revisionTimer.running=false;
+  revisionTimer.endsAt=null;
+  revisionTimer.remaining=revisionTimer.totalSeconds;
+  renderRevisionTimer();
+}
+
+function openRevisionTimer(scheduleId,revisionNumber){
+  const rr=state.revisionReplanner;
+  if(!rr)return;
+
+  const schedule=rr.schedules.find(x=>x.id===scheduleId);
+  if(!schedule)return;
+
+  const stage=(schedule.stages||[]).find(
+    x=>Number(x.revision)===Number(revisionNumber)
+  );
+  if(!stage||stage.status==='completed')return;
+
+  const chapter=currentChapter(schedule.chapterId);
+  const estimatedHours=Number(chapter?.estimatedHours)||1;
+
+  const suggestedMinutes=Math.max(
+    5,
+    Math.min(30,Math.round(estimatedHours*60*0.25))
+  );
+
+  revisionTimer={
+    scheduleId,
+    revisionNumber:Number(revisionNumber),
+    totalSeconds:suggestedMinutes*60,
+    remaining:suggestedMinutes*60,
+    running:false,
+    endsAt:null
+  };
+
+  openModal(
+    'Revise Now',
+    `
+      <div class="card" style="text-align:center;">
+        <strong>${escapeHtml(schedule.chapterName||'Chapter')}</strong>
+        <div style="margin-top:6px;opacity:.72;">
+          Revision R${Number(revisionNumber)||0} · Suggested ${suggestedMinutes} min
+        </div>
+
+        <div id="revisionQuickTimer"
+             style="font-size:42px;font-weight:800;margin:22px 0;">
+          ${revisionTimerFormat(revisionTimer.remaining)}
+        </div>
+
+        <div class="row-actions" style="justify-content:center;gap:8px;flex-wrap:wrap;">
+          <button class="btn" data-action="revision-timer-toggle" id="revisionTimerToggle">Start</button>
+          <button class="btn" data-action="revision-timer-reset">Reset</button>
+          <button class="btn primary" data-action="revision-timer-done">
+            Finish & Mark Done
+          </button>
+        </div>
+      </div>
+    `
+  );
+
+  renderRevisionTimer();
+}
+
+function revisionTimerFinish(){
+  const sid=revisionTimer.scheduleId;
+  const rev=revisionTimer.revisionNumber;
+
+  revisionTimer.running=false;
+  revisionTimer.endsAt=null;
+
+  closeModal();
+
+  if(sid&&rev){
+    completeRevision(sid,rev);
+  }
+
+  revisionTimer={
+    scheduleId:null,
+    revisionNumber:null,
+    totalSeconds:0,
+    remaining:0,
+    running:false,
+    endsAt:null
+  };
+}
+
+function revisionTimerTick(){
+  if(!revisionTimer.running)return;
+
+  const remaining=revisionTimerTime();
+
+  if(remaining<=0){
+    revisionTimer.remaining=0;
+    revisionTimer.running=false;
+    revisionTimer.endsAt=null;
+    renderRevisionTimer();
+    showToast('Revision timer finished. Mark it done when ready.');
+    return;
+  }
+
+  renderRevisionTimer();
+}
+
+function renderRevisionReplanner(){
+    const rr=state.revisionReplanner;
+    if(!rr)return;
+
+    const today=todayKey();
+    const schedules=Array.isArray(rr.schedules)?rr.schedules:[];
+
+    const due=[];
+    const upcoming=[];
+    const missed=[];
+    const history=Array.isArray(rr.history)?rr.history:[];
+
+    for(const schedule of schedules){
+        const stages=Array.isArray(schedule.stages)?schedule.stages:[];
+
+        for(const stage of stages){
+            const item={
+                schedule,
+                stage,
+                chapterName:schedule.chapterName||'Unknown chapter',
+                subject:currentSubject(schedule.subjectId),
+                revision:Number(stage.revision)||0
+            };
+
+            if(stage.status==='completed'){
+                continue;
+            }
+
+            if(stage.status==='pending'){
+                if(stage.dueDate===today){
+                    due.push(item);
+                }else if(stage.dueDate>today){
+                    upcoming.push(item);
+                }else if(stage.dueDate<today){
+                    missed.push(item);
+                }
+            }
+        }
+    }
+
+    due.sort((a,b)=>a.chapterName.localeCompare(b.chapterName)||a.revision-b.revision);
+    upcoming.sort((a,b)=>a.stage.dueDate.localeCompare(b.stage.dueDate)||a.chapterName.localeCompare(b.chapterName));
+    missed.sort((a,b)=>a.stage.dueDate.localeCompare(b.stage.dueDate)||a.chapterName.localeCompare(b.chapterName));
+
+    const dueEl=document.getElementById('revisionDueToday');
+    const upcomingEl=document.getElementById('revisionUpcoming');
+    const missedEl=document.getElementById('revisionMissed');
+    const historyEl=document.getElementById('revisionHistory');
+
+    if(!dueEl||!upcomingEl||!missedEl||!historyEl)return;
+
+    const subjectName=item=>item.subject?.name||'Unknown subject';
+
+    const revisionRow=(item,showDate=true)=>{
+        const confidence=item.stage.confidence||item.schedule.confidence||'Okay';
+        return `
+        <div class="task-row">
+            <div class="task-main">
+                <strong>${escapeHtml(item.chapterName)}</strong>
+                <span>${escapeHtml(subjectName(item))} · R${item.revision}${showDate?' · '+escapeHtml(item.stage.dueDate):''}</span>
+            </div>
+            <div class="row-actions">
+                <button class="btn small ${confidence==='Weak'?'active':''}" data-action="revision-confidence" data-id="${escapeHtml(item.schedule.id)}" data-revision="${item.revision}" data-confidence="Weak">Weak</button>
+                <button class="btn small ${confidence==='Okay'?'active':''}" data-action="revision-confidence" data-id="${escapeHtml(item.schedule.id)}" data-revision="${item.revision}" data-confidence="Okay">Okay</button>
+                <button class="btn small ${confidence==='Strong'?'active':''}" data-action="revision-confidence" data-id="${escapeHtml(item.schedule.id)}" data-revision="${item.revision}" data-confidence="Strong">Strong</button>
+                <button class="btn small ghost" data-action="revision-now" data-id="${escapeHtml(item.schedule.id)}" data-revision="${item.revision}">Revise Now</button>
+              <button class="btn small" data-action="revision-done" data-id="${escapeHtml(item.schedule.id)}" data-revision="${item.revision}">✓ Done</button>
+            </div>
+        </div>
+        `;
+    };
+
+    dueEl.innerHTML=due.length
+        ?due.map(x=>revisionRow(x,false)).join('')
+        :'<div class="empty">No revisions due today.</div>';
+
+    upcomingEl.innerHTML=upcoming.length
+        ?upcoming.slice(0,20).map(x=>revisionRow(x,true)).join('')
+        :'<div class="empty">No upcoming revisions.</div>';
+
+    missedEl.innerHTML=missed.length
+        ?missed.slice(0,20).map(x=>revisionRow(x,true)).join('')
+        :'<div class="empty">No missed revisions.</div>';
+
+    historyEl.innerHTML=history.length
+        ?history.slice().reverse().slice(0,30).map(h=>`
+            <div class="task-row">
+              <div class="task-main">
+                <strong>${escapeHtml(h.chapterName||'Unknown chapter')}</strong>
+                <span>${escapeHtml(currentSubject(h.subjectId)?.name||'Unknown subject')} · R${Number(h.revision)||0} · ${escapeHtml(h.completedDate||'')}</span>
+              </div>
+              <span class="badge">${escapeHtml(h.confidence||'Okay')}</span>
+            </div>
+          `).join('')
+        :'<div class="empty">No revision history yet.</div>';
+
+    const dueCount=document.getElementById('revisionDueCount');
+    const missedCount=document.getElementById('revisionMissedCount');
+
+    if(dueCount)dueCount.textContent=String(due.length);
+    if(missedCount)missedCount.textContent=String(missed.length);
+}
+
+function toggleChapterChecklist(chid,index,checked){
+  const c=currentChapter(chid);
+  if(!c)return;
+
+  const wasComplete=chapterCompletion(c)>=1;
+
+  c.checklist[index]=checked;
+  c.updatedAt=nowISO();
+
+  const isComplete=chapterCompletion(c)>=1;
+
+  if(checked){
+    recordStudyActivity(todayKey());
+  }
+
+  if(!wasComplete && isComplete){
+    createRevisionSchedule(c);
+  }
+
+  saveState();
+  renderCurrent();
+
+  if(typeof window.studyOSCheckAchievements==='function'){
+    window.studyOSCheckAchievements();
+  }
+}
+
+// ===================================================
+// FORMULA VAULT
+// ===================================================
+let formulaVaultData = null;
+let formulaVaultLoadPromise = null;
+
+const FORMULA_VAULT_STORAGE_KEY = 'studyos2_formula_vault_user';
+
+function loadFormulaVaultUser(){
+  try{
+    const raw = localStorage.getItem(FORMULA_VAULT_STORAGE_KEY);
+    const parsed = raw ? safeParse(raw) : null;
+    return {
+      favorites: parsed?.favorites && typeof parsed.favorites === 'object' ? parsed.favorites : {},
+      known: parsed?.known && typeof parsed.known === 'object' ? parsed.known : {},
+      viewed: parsed?.viewed && typeof parsed.viewed === 'object' ? parsed.viewed : {}
+    };
+  }catch(e){
+    return {favorites:{},known:{},viewed:{}};
+  }
+}
+
+function saveFormulaVaultUser(data){
+  try{
+    localStorage.setItem(FORMULA_VAULT_STORAGE_KEY, JSON.stringify(data));
+  }catch(e){
+    showToast('Could not save Formula Vault progress.');
+  }
+}
+
+async function loadFormulaVault(){
+  if(formulaVaultData)return formulaVaultData;
+  if(formulaVaultLoadPromise)return formulaVaultLoadPromise;
+
+  formulaVaultLoadPromise = fetch('data/formula-vault.json')
+    .then(r=>{
+      if(!r.ok)throw new Error('Formula Vault data could not be loaded.');
+      return r.json();
+    })
+    .then(data=>{
+      formulaVaultData=data;
+      return data;
+    })
+    .catch(err=>{
+      console.error('Formula Vault:',err);
+      formulaVaultLoadPromise=null;
+      throw err;
+    });
+
+  return formulaVaultLoadPromise;
+}
+
+function renderFormulaVault(){
+  const page=document.querySelector('[data-page-view="formulaVault"]');
+  if(!page)return;
+
+  if(!formulaVaultData){
+    page.innerHTML=`
+      <div class="section-head">
+        <div>
+          <h2>Formula Vault</h2>
+          <p>Fast Class 11 CBSE 2026–27 academic reference.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="empty">
+          <strong>Loading Formula Vault…</strong>
+          <span>Preparing your offline academic reference.</span>
+        </div>
+      </div>`;
+    loadFormulaVault()
+      .then(()=>renderFormulaVault())
+      .catch(()=>{
+        page.querySelector('.empty').innerHTML=
+          '<strong>Formula Vault unavailable</strong><span>The bundled reference data could not be loaded.</span>';
+      });
+    return;
+  }
+
+  const subjects=formulaVaultData.subjects||{};
+  const keys=Object.keys(subjects);
+  const user=loadFormulaVaultUser();
+
+  if(!renderFormulaVault.selection){
+    renderFormulaVault.selection={
+      subject:keys[0]||'',
+      chapter:'all',
+      type:'all',
+      search:'',
+      important:false
+    };
+  }
+
+  const sel=renderFormulaVault.selection;
+  if(!subjects[sel.subject] && keys.length)sel.subject=keys[0];
+
+  const subject=subjects[sel.subject]||{name:'Formula Vault',chapters:[]};
+  const chapters=Array.isArray(subject.chapters)?subject.chapters:[];
+
+  if(sel.chapter!=='all' && !chapters.some(c=>c.id===sel.chapter))sel.chapter='all';
+
+  const selectedChapters=sel.chapter==='all'
+    ? chapters
+    : chapters.filter(c=>c.id===sel.chapter);
+
+  const allItems=[];
+  selectedChapters.forEach(ch=>{
+    (Array.isArray(ch.items)?ch.items:[]).forEach((item,i)=>{
+      allItems.push({...item,_chapterId:ch.id,_chapterName:ch.name,_index:i});
+    });
+  });
+
+  const typeValues=[...new Set(allItems.map(x=>x.type).filter(Boolean))].sort();
+
+  if(sel.type!=='all' && !typeValues.includes(sel.type))sel.type='all';
+
+  const q=sel.search.trim().toLowerCase();
+
+  const itemKey=item=>{
+    const raw=item.id || `${sel.subject}_${item._chapterId}_${item._index}`;
+    return `${sel.subject}:${raw}`;
+  };
+
+  const filtered=allItems.filter(item=>{
+    const hay=[
+      item.title,item.formula,item.content,item.explanation,
+      item.symbols,item.unit,item.condition,item.keywords,
+      item.type,item._chapterName,item.front,item.back,item.use
+    ].filter(Boolean).join(' ').toLowerCase();
+
+    return (!q||hay.includes(q)) &&
+      (sel.type==='all'||item.type===sel.type) &&
+      (!sel.important || !!user.favorites[itemKey(item)]);
+  });
+
+  
+const mathFormat=v=>{
+  let x=String(v??'');
+
+  const supers={
+    '0':'⁰','1':'¹','2':'²','3':'³','4':'⁴',
+    '5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹',
+    '+':'⁺','-':'⁻','(':'⁽',')':'⁾','=':'⁼'
+  };
+
+  const subs={
+    '0':'₀','1':'₁','2':'₂','3':'₃','4':'₄',
+    '5':'₅','6':'₆','7':'₇','8':'₈','9':'₉',
+    '+':'₊','-':'₋','(':'₍',')':'₎','=':'₌'
+  };
+
+  const toSup=t=>[...t].map(c=>supers[c]||c).join('');
+  const toSub=t=>[...t].map(c=>subs[c]||c).join('');
+
+  x=x.replace(/\^([+-]?\d+(?:\.\d+)?)/g,(_,n)=>toSup(n));
+  x=x.replace(/_([+-]?\d+)/g,(_,n)=>toSub(n));
+
+  x=x.replace(/\b1\/2\b/g,'½')
+     .replace(/\b1\/3\b/g,'⅓')
+     .replace(/\b2\/3\b/g,'⅔')
+     .replace(/\b1\/4\b/g,'¼')
+     .replace(/\b3\/4\b/g,'¾')
+     .replace(/\b1\/5\b/g,'⅕')
+     .replace(/\b2\/5\b/g,'⅖')
+     .replace(/\b3\/5\b/g,'⅗')
+     .replace(/\b4\/5\b/g,'⅘')
+     .replace(/\b1\/6\b/g,'⅙')
+     .replace(/\b5\/6\b/g,'⅚')
+     .replace(/\b1\/8\b/g,'⅛')
+     .replace(/\b3\/8\b/g,'⅜')
+     .replace(/\b5\/8\b/g,'⅝')
+     .replace(/\b7\/8\b/g,'⅞');
+
+  x=x.replace(/>=/g,'≥')
+     .replace(/<=/g,'≤')
+     .replace(/!=/g,'≠')
+     .replace(/->/g,'→')
+     .replace(/<-/g,'←')
+     .replace(/\+-/g,'±');
+
+  const symbols={
+    '\\bpi\\b':'π',
+    '\\btheta\\b':'θ',
+    '\\balpha\\b':'α',
+    '\\bbeta\\b':'β',
+    '\\bgamma\\b':'γ',
+    '\\bdelta\\b':'δ',
+    '\\bDelta\\b':'Δ',
+    '\\bmu\\b':'μ',
+    '\\bsigma\\b':'σ',
+    '\\bSigma\\b':'Σ',
+    '\\blambda\\b':'λ',
+    '\\bomega\\b':'ω',
+    '\\bOmega\\b':'Ω'
+  };
+
+  for(const [pattern,repl] of Object.entries(symbols)){
+    x=x.replace(new RegExp(pattern,'g'),repl);
+  }
+
+  return x;
+};
+
+const esc=v=>String(v??'')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
+
+const mathEsc=v=>esc(mathFormat(v));
+
+  const totalItems=Object.values(subjects).reduce(
+    (n,x)=>n+(x.chapters||[]).reduce((m,c)=>m+(Array.isArray(c.items)?c.items.length:0),0),0
+  );
+
+  page.innerHTML=`
+    <div class="section-head">
+      <div>
+        <h2>Formula Vault</h2>
+        <p>Class 11 CBSE 2026–27 · formulas, rules, concepts and quick reference.</p>
+      </div>
+      <div class="section-actions">
+        <span class="badge">${esc(keys.length)} subjects</span>
+        <span class="badge">${esc(totalItems)} entries</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:16px">
+      <div class="toolbar">
+        <div class="search-wrap" style="min-width:240px">
+          <span>⌕</span>
+          <input id="fvSearch" class="input" type="search"
+            placeholder="Search formulas, concepts, symbols…" value="${esc(sel.search)}">
+        </div>
+
+        <select id="fvSubject" class="select" style="width:auto;min-width:170px">
+          ${keys.map(k=>`<option value="${esc(k)}" ${k===sel.subject?'selected':''}>${esc(subjects[k].name||k)}</option>`).join('')}
+        </select>
+
+        <select id="fvChapter" class="select" style="width:auto;min-width:220px">
+          <option value="all">All chapters</option>
+          ${chapters.map(c=>`<option value="${esc(c.id)}" ${c.id===sel.chapter?'selected':''}>${esc(c.name)}</option>`).join('')}
+        </select>
+
+        <select id="fvType" class="select" style="width:auto;min-width:150px">
+          <option value="all">All types</option>
+          ${typeValues.map(t=>`<option value="${esc(t)}" ${t===sel.type?'selected':''}>${esc(t)}</option>`).join('')}
+        </select>
+      </div>
+
+      <div class="chip-row" style="margin-top:12px">
+        <button class="chip ${sel.type==='all'&&!sel.important?'active':''}" data-fv-type="all">All</button>
+        <button class="chip ${sel.important?'active':''}" data-fv-important="true">★ Important</button>
+        ${typeValues.map(t=>`
+          <button class="chip ${sel.type===t?'active':''}" data-fv-type="${esc(t)}">${esc(t)}</button>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="grid g-2" id="fvResults">
+      ${filtered.length ? filtered.map(item=>{
+        const key=itemKey(item);
+        const fav=!!user.favorites[key];
+        const known=!!user.known[key];
+        const isEnglish=sel.subject==='english';
+      const isLiterature=isEnglish && item.type==='Reference';
+      const isPoeticDevice=isEnglish && item.type==='Poetic Device';
+      const displayTitle=isLiterature ? item._chapterName : (item.title||'Untitled');
+      const frontText=item.front||(isEnglish?item.content:'');
+      const backText=item.back||item.use||item.content||item.explanation||'';
+      const copyText=item.formula||item.front||item.back||item.content||item.explanation||item.title||'';
+
+        return `
+          <article class="card formula-vault-card" data-fv-card="${esc(key)}">
+      <div class="formula-vault-card-inner">
+
+        <div class="formula-vault-face formula-vault-face-front">
+          <div class="card-title">
+            <div>
+              <div class="kicker">${esc(item.type||'Reference')}</div>
+              <h3>${esc(displayTitle)}</h3>
+              <p>${esc(item._chapterName)}</p>
+            </div>
+            <div class="section-actions">
+              <button class="btn small ${fav?'gold':''}" data-fv-favorite="${esc(key)}" title="Favorite">
+                ${fav?'★':'☆'}
+              </button>
+              <button class="btn small ${known?'primary':''}" data-fv-known="${esc(key)}">
+                ${known?'✓ Known':'Mark known'}
+              </button>
+            </div>
+          </div>
+
+          ${item.formula?`
+            <div style="margin-top:10px;padding:13px 14px;border-radius:12px;background:var(--panel-soft);border:1px solid var(--line);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;line-height:1.7;overflow:auto">
+              ${mathEsc(item.formula)}
+            </div>`:''}
+
+          ${frontText?`
+            <div style="margin-top:11px;font-size:12px;line-height:1.65">
+              ${esc(frontText)}
+            </div>`:''}
+
+          <div class="formula-vault-flip-hint">Tap card to flip · See meaning & details →</div>
+        </div>
+
+        <div class="formula-vault-face formula-vault-face-back">
+          <div class="card-title">
+            <div>
+              <div class="kicker">Meaning & Use</div>
+              <h3>${esc(displayTitle)}</h3>
+              <p>${esc(item._chapterName)}</p>
+            </div>
+          </div>
+
+          ${backText?`
+            <div style="margin-top:11px;padding:11px 12px;border-radius:12px;background:var(--panel-soft);font-size:11px;line-height:1.65">
+              <strong>${isPoeticDevice?'Example':'Meaning / Use'}</strong>
+              <div style="margin-top:6px;color:var(--muted)">
+                ${esc(backText)}
+              </div>
+            </div>`:''}
+
+          ${(item.symbols||item.unit||item.condition)?`
+            <div style="margin-top:11px;display:grid;gap:7px;font-size:11px">
+              ${item.symbols?`<div><strong>Symbols:</strong> <span class="muted">${mathEsc(item.symbols)}</span></div>`:''}
+              ${item.unit?`<div><strong>Unit:</strong> <span class="muted">${mathEsc(item.unit)}</span></div>`:''}
+              ${item.condition?`<div><strong>Condition:</strong> <span class="muted">${mathEsc(item.condition)}</span></div>`:''}
+            </div>`:''}
+
+          ${item.explanation?`
+            <div style="margin-top:12px;padding:11px 12px;border-radius:12px;background:var(--panel-soft);font-size:11px;line-height:1.65">
+              <strong>Explanation</strong>
+              <div style="margin-top:6px;color:var(--muted)">
+                ${esc(item.explanation)}
+              </div>
+            </div>`:''}
+
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:13px">
+            <span class="muted small formula-vault-known-status">${known?'Learned':'Not learned'}</span>
+            <button class="btn small ghost" data-fv-copy="${esc(copyText)}">Copy</button>
+          </div>
+
+          <div class="formula-vault-flip-hint">← Tap card to return</div>
+        </div>
+
+      </div>
+    </article>`;
+      }).join('') : `
+        <div class="card" style="grid-column:1/-1">
+          <div class="empty">
+            <strong>${totalItems===0?'Reference content is being prepared.':'No matching entries.'}</strong>
+            <span>${totalItems===0
+              ? 'The Formula Vault structure is ready. Academic entries will be added chapter-by-chapter.'
+              : 'Try another search, chapter or type filter.'}</span>
+          </div>
+        </div>`
+      }
+    </div>
+  `;
+
+  const rerender=()=>renderFormulaVault();
+
+  page.querySelector('#fvSearch').addEventListener('input',e=>{
+    sel.search=e.target.value;
+    rerender();
+    const input=document.querySelector('#fvSearch');
+    if(input){input.focus();input.setSelectionRange(sel.search.length,sel.search.length);}
+  });
+
+  page.querySelector('#fvSubject').addEventListener('change',e=>{
+    sel.subject=e.target.value;
+    sel.chapter='all';
+    sel.type='all';
+    rerender();
+  });
+
+  page.querySelector('#fvChapter').addEventListener('change',e=>{
+    sel.chapter=e.target.value;
+    sel.type='all';
+    rerender();
+  });
+
+  page.querySelector('#fvType').addEventListener('change',e=>{
+    sel.type=e.target.value;
+    rerender();
+  });
+
+  page.querySelectorAll('[data-fv-type]').forEach(btn=>{
+
+
+    btn.addEventListener('click', ()=>{
+
+
+      sel.important=false;
+
+
+      sel.type=btn.dataset.fvType;
+
+
+      rerender();
+
+
+    });
+
+
+  });
+
+
+
+  page.querySelectorAll('[data-fv-important]').forEach(btn=>{
+
+
+    btn.addEventListener('click', ()=>{
+
+
+      sel.important=!sel.important;
+
+
+      sel.chapter='all';
+
+
+      sel.type='all';
+
+
+      rerender();
+
+
+    });
+
+
+  });
+
+  if(fvResults){
+    fvResults.addEventListener('click',async e=>{
+        const favorite=e.target.closest('[data-fv-favorite]');
+        const knownBtn=e.target.closest('[data-fv-known]');
+        const copyBtn=e.target.closest('[data-fv-copy]');
+
+        if(favorite){
+            const key=favorite.dataset.fvFavorite;
+            const card=favorite.closest('[data-fv-card]');
+
+            if(user.favorites[key])delete user.favorites[key];
+            else user.favorites[key]=true;
+
+            saveFormulaVaultUser(user);
+
+            const active=!!user.favorites[key];
+            favorite.classList.toggle('gold',active);
+            favorite.textContent=active?'★':'☆';
+
+            if(sel.important && !active && card)card.remove();
+            return;
+        }
+
+        if(knownBtn){
+            const key=knownBtn.dataset.fvKnown;
+
+            if(user.known[key]){
+                delete user.known[key];
+            }else{
+                user.known[key]=true;
+                user.viewed[key]=true;
+            }
+
+            saveFormulaVaultUser(user);
+
+            const active=!!user.known[key];
+            knownBtn.classList.toggle('primary',active);
+            knownBtn.textContent=active?'✓ Known':'Mark known';
+
+            const card=knownBtn.closest('[data-fv-card]');
+            const status=card?.querySelector('.formula-vault-known-status');
+            if(status)status.textContent=active?'Learned':'Not learned';
+            return;
+        }
+
+        if(copyBtn){
+            try{
+                await navigator.clipboard.writeText(copyBtn.dataset.fvCopy||'');
+                showToast('Copied.');
+            }catch(err){
+                showToast('Could not copy.');
+            }
+            return;
+        }
+
+        if(e.target.closest('details') || e.target.closest('summary'))return;
+
+        const card=e.target.closest('[data-fv-card]');
+        if(!card || !fvResults.contains(card))return;
+
+        card.classList.toggle('is-flipped');
+    });
+}
+
+
+}
+function maybeShowBackupReminder(){
+  const KEY='studyos2_last_backup_at';
+  const LATER_KEY='studyos2_backup_reminder_later_at';
+  const WEEK=7*24*60*60*1000;
+  const DAY=24*60*60*1000;
+  const now=Date.now();
+
+  if(sessionStorage.getItem('studyos2_backup_reminder_shown')==='1')return;
+
+  const last=Number(localStorage.getItem(KEY)||0);
+  const later=Number(localStorage.getItem(LATER_KEY)||0);
+
+  if(last&&now-last<WEEK)return;
+  if(later&&now-later<WEEK)return;
+
+  sessionStorage.setItem('studyos2_backup_reminder_shown','1');
+
+  openModal('Weekly Backup Reminder',`
+    <div class="card" style="box-shadow:none;padding:0;border:0">
+      <div class="kicker">Data safety</div>
+      <h3 style="margin-top:8px">Keep your study data safe</h3>
+      <p class="muted" style="line-height:1.65;margin-top:8px">
+        Your StudyOS 2 data stays on this device. Export a backup regularly so you can restore your progress if needed.
+      </p>
+      <div class="toolbar" style="margin-top:16px">
+        <button class="btn primary" id="backupReminderExport">Export Backup</button>
+        <button class="btn" id="backupReminderLater">Remind Me Later</button>
+      </div>
+      <div class="small muted mt12">
+        We recommend keeping the backup file somewhere safe.
+      </div>
+    </div>
+  `);
+
+  document.getElementById('backupReminderExport')?.addEventListener('click',()=>{
+    exportBackup();
+    closeModal();
+  });
+
+  document.getElementById('backupReminderLater')?.addEventListener('click',()=>{
+    localStorage.setItem(LATER_KEY,String(Date.now()));
+    closeModal();
+  });
+}
+
+
+const STUDYOS_PRELOADED_MESSAGES = [
+  {title:"Johny Johny, Yes Papa? 👦", message:"Eating sugar? No Papa. Telling lies? No Papa. Completing Backlogs? Open your app, lag gaye Papa!"},
+  {title:"Ek thha raja, ek thhi rani 👑", message:"Dono mar gaye, khatam kahani! Par tera syllabus baaki hai, complete kar!"},
+  {title:"Zindagi ek safar hai suhana 🚗", message:"Kal kya hoga kisne jaana... Par aaj padhai nahi ki toh fir fail hona pakka hai!"},
+  {title:"Melody khani hai? 🍬", message:"Dekh dekh dekh kaise notification padh raha hai! DPP solve kar le pehle!"},
+  {title:"Chaand pe noor hai, dil mein suroor hai 🌙", message:"Aaj ek chapter khatam karna aapke liye zaroori zaroor hai."},
+  {title:"Ek sawal tha... 🍫", message:"Agar mere paas 10 chocolates hain aur maine aapko 1 di, toh batao aapke kitne backlogs clear ho gaye? Padhai kar!"},
+  {title:"Your text book misses you 📚", message:"It's getting emotional 😕"},
+  {title:"Brooo 🙏🏻", message:"Please study, I am running out of ways to motivate you"},
+  {title:"Breaking news ⚠️", message:"Your syllabus is not going to finish itself 😊"},
+  {title:"Your syllabus is looking at you", message:"You should probably look back"},
+  {title:"Kuch yaad dilau?", message:"JOSH METER KESA HE 🥹"}
+];
+const STUDYOS_SPECIAL_UPDATE = {
+  title:"Important Latest Update ⚠️",
+  message:"Tap to view the latest update.",
+  action:"play_important_update"
+};
+
+function scheduleStudyOSPreloadedNotifications(){
+  try {
+    if (!state?.notifications?.enabled) return;
+    const bridge = window.StudyOSNotifications;
+    if (!bridge || typeof bridge.scheduleNotification !== 'function') return;
+
+    const KEY = 'studyos_preloaded_notification_cycle_v1';
+    const DAY = 24 * 60 * 60 * 1000;
+    const now = Date.now();
+    let data;
+    try { data = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch(e) {}
+    if (!data || !Array.isArray(data.queue) || !Number.isFinite(data.scheduledUntil)) {
+      const priority = STUDYOS_PRELOADED_MESSAGES.slice(0,4)
+        .map((_,i)=>i).sort(()=>Math.random()-0.5);
+      const rest = STUDYOS_PRELOADED_MESSAGES.slice(4)
+        .map((_,i)=>i+4).sort(()=>Math.random()-0.5);
+      const regular = [...rest, 11].sort(()=>Math.random()-0.5);
+      data = {queue:[...priority,...regular], scheduledUntil:now};
+    }
+
+    // Schedule notifications at minute :31, approximately every 2–3 hours.
+      let date = new Date(now);
+      date.setSeconds(0, 0);
+      date.setMinutes(31);
+      if (date.getTime() <= now + 60000) {
+        date.setHours(date.getHours() + 1);
+        date.setMinutes(31, 0, 0);
+      }
+
+      const endTime = now + 30 * DAY;
+      while (date.getTime() < endTime) {
+        const trigger = date.getTime();
+        if (trigger > data.scheduledUntil) {
+          const index = data.queue.shift();
+          let item = index === 11
+            ? STUDYOS_SPECIAL_UPDATE
+            : STUDYOS_PRELOADED_MESSAGES[index];
+
+          if (!item) {
+            data.queue = STUDYOS_PRELOADED_MESSAGES.map((_, i) => i)
+              .sort(() => Math.random() - 0.5);
+            item = STUDYOS_PRELOADED_MESSAGES[data.queue.shift()];
+          }
+
+          if (item) {
+            bridge.scheduleNotification(
+              73100 + Math.floor(trigger / DAY) % 30000,
+              trigger, item.title, item.message, item.action || ''
+            );
+            data.scheduledUntil = trigger;
+          }
+        }
+        date.setHours(date.getHours() + 2 + Math.floor(Math.random() * 2));
+        date.setMinutes(31, 0, 0);
+      }
+      localStorage.setItem(KEY, JSON.stringify(data));
+  } catch(e) {
+    console.warn('StudyOS notification scheduling failed:', e);
+  }
+}
+
+function init(){
+  state=loadState();
+
+  // Android stores completion outside WebView localStorage so ordinary restarts
+  // and activity recreation cannot replay onboarding.
+  try{
+    const android=window.StudyOSAndroid;
+    if(android&&typeof android.isOnboardingComplete==='function'){
+      const complete=android.isOnboardingComplete();
+      if(complete===true){
+        state.setup=state.setup&&typeof state.setup==='object'?state.setup:{};
+        state.setup.done=true;
+        state.firstRun=false;
+        saveState();
+      }else if(state.setup?.done===true){
+        android.setOnboardingComplete(true);
+      }
+    }
+  }catch(e){}
+
+  applyTheme();bindEvents();updateDerivedMeta();
+  if(!state.setup?.done){
+    showOnboarding();
+  }else{
+    navigate('dashboard');
+    setTimeout(maybeShowBackupReminder,900);
+  }
+}  init();
+setTimeout(scheduleStudyOSPreloadedNotifications, 1500);
   setInterval(pomodoroTick,1000);
+  setInterval(revisionTimerTick,1000);
+
+
+<!-- STUDYOS_ACHIEVEMENT_ENGINE_V3 -->
+
+
+
+
+const ACHIEVEMENT_ASSETS={
+  Common:"./achievement/common.png",
+  Special:"./achievement/special.png",
+  Major:"./achievement/major.png",
+  Hidden:"./achievement/hidden.png"
+};
+
+const ACHIEVEMENT_COLORS={
+  Common:"#e6c34f",
+  Special:"#e08a32",
+  Major:"#b06cff",
+  Hidden:"#63c77a"
+};
+
+const SOUND_FILES={
+  Common:"./sounds/achievement-common.mp3",
+  Special:"./sounds/achievement-special.mp3",
+  Major:"./sounds/achievement-major.mp3",
+  Hidden:"./sounds/achievement-hidden.mp3"
+};
+
+const ACHIEVEMENTS={
+  first_steps:{
+    title:"First Steps",
+    description:"First Study Task Done",
+    xp:25,rarity:"Common"
+  },
+  getting_serious:{
+    title:"Getting Serious",
+    description:"5 Hours Studied",
+    xp:50,rarity:"Common"
+  },
+  knowledge_acquired:{
+    title:"Knowledge Acquired",
+    description:"First Chapter Complete",
+    xp:75,rarity:"Common"
+  },
+  dedicated:{
+    title:"Dedicated",
+    description:"7 Day Streak",
+    xp:100,rarity:"Common"
+  },
+  multitasker:{
+    title:"Multitasker",
+    description:"4 Subjects in One Day",
+    xp:100,rarity:"Common"
+  },
+
+  unstoppable:{
+    title:"Unstoppable",
+    description:"14 Day Streak",
+    xp:200,rarity:"Special"
+  },
+  scholar_in_the_making:{
+    title:"Scholar in the Making",
+    description:"25 Chapters Complete",
+    xp:250,rarity:"Special"
+  },
+  against_the_clock:{
+    title:"Against the Clock",
+    description:"Daily Plan Completed",
+    xp:150,rarity:"Special"
+  },
+  overachiever:{
+    title:"Overachiever",
+    description:"Beat Your Plan",
+    xp:200,rarity:"Special"
+  },
+  the_strategist:{
+    title:"The Strategist",
+    description:"Planner Day Completed",
+    xp:200,rarity:"Special"
+  },
+  perfect_day:{
+    title:"Perfect Day",
+    description:"100% of Today Done",
+    xp:250,rarity:"Special"
+  },
+
+  mastery:{
+    title:"Mastery",
+    description:"All Selected Subjects Complete",
+    xp:1000,rarity:"Major"
+  },
+  the_mathematician:{
+    title:"The Mathematician",
+    description:"Mathematics Syllabus Complete",
+    xp:500,rarity:"Major"
+  },
+  the_einstein:{
+    title:"The Einstein",
+    description:"Physics Syllabus Complete",
+    xp:500,rarity:"Major"
+  },
+  the_shakespeare:{
+    title:"The Shakespeare",
+    description:"English Syllabus Complete",
+    xp:500,rarity:"Major"
+  },
+  the_milkha:{
+    title:"The Milkha",
+    description:"PE Syllabus Complete",
+    xp:500,rarity:"Major"
+  },
+  the_darwin:{
+    title:"The Darwin",
+    description:"Biology Syllabus Complete",
+    xp:500,rarity:"Major"
+  },
+  the_lavoisier:{
+    title:"The Lavoisier",
+    description:"Chemistry Syllabus Complete",
+    xp:500,rarity:"Major"
+  },
+  the_turing:{
+    title:"The Turing",
+    description:"Computer Science Complete",
+    xp:500,rarity:"Major"
+  },
+
+  night_owl:{
+    title:"Night Owl",
+    description:"Studied After 11 PM",
+    xp:100,rarity:"Hidden",hidden:true
+  },
+  early_bird:{
+    title:"Early Bird",
+    description:"Studied Before 6 AM",
+    xp:100,rarity:"Hidden",hidden:true
+  },
+  secret_one:{
+    title:"???",
+    description:"You weren't supposed to find this.",
+    xp:250,rarity:"Hidden",hidden:true
+  },
+  secret_two:{
+    title:"???",
+    description:"How did you even do that?",
+    xp:300,rarity:"Hidden",hidden:true
+  },
+  secret_three:{
+    title:"???",
+    description:"There is no achievement here.",
+    xp:150,rarity:"Hidden",hidden:true
+  },
+  secret_four:{
+    title:"???",
+    description:"You actually checked.",
+    xp:200,rarity:"Hidden",hidden:true
+  }
+};
+
+function ensureAchievementState(){
+  if(typeof state==="undefined" || !state)return false;
+
+  state.achievements ??={};
+  state.achievements.unlocked ??={};
+  state.achievements.xp ??=0;
+
+  return true;
+}
+
+function saveAchievementState(){
+  if(typeof saveState==="function"){
+    saveState();
+  }
+}
+
+function achievementUnlock(id){
+  if(!ensureAchievementState())return false;
+
+  const a=ACHIEVEMENTS[id];
+  if(!a)return false;
+
+  if(state.achievements.unlocked[id])return false;
+
+  state.achievements.unlocked[id]={
+    unlockedAt:Date.now()
+  };
+
+  state.achievements.xp+=Number(a.xp)||0;
+
+  saveAchievementState();
+  showAchievementToast(a);
+
+  if(typeof renderAchievements==="function" &&
+     typeof activePage!=="undefined" &&
+     activePage==="achievements"){
+    renderAchievements();
+  }
+
+  return true;
+}
+
+function isAchievementUnlocked(id){
+  if(!ensureAchievementState())return false;
+  return !!state.achievements.unlocked[id];
+}
+
+function getAchievementXP(){
+  if(!ensureAchievementState())return 0;
+  return Number(state.achievements.xp)||0;
+}
+
+let studyOSAchievementAudio=null;
+
+function playAchievementSound(rarity){
+  try{
+    const src=SOUND_FILES[rarity];
+    if(!src)return;
+
+    if(studyOSAchievementAudio){
+      studyOSAchievementAudio.pause();
+      studyOSAchievementAudio.currentTime=0;
+    }
+
+    studyOSAchievementAudio=new Audio();
+    studyOSAchievementAudio.preload="auto";
+    studyOSAchievementAudio.src=new URL(src,document.baseURI).href;
+    studyOSAchievementAudio.volume=0.9;
+
+    const promise=studyOSAchievementAudio.play();
+    if(promise && promise.catch){
+      promise.catch(()=>{});
+    }
+  }catch(e){}
+}
+
+function showAchievementToast(a){
+  const toast=document.getElementById("studyAchievementToast");
+  if(!toast)return;
+
+  const card=document.getElementById("studyAchievementCard");
+  const icon=document.getElementById("studyAchievementIcon");
+  const title=document.getElementById("studyAchievementTitle");
+  const description=document.getElementById("studyAchievementDescription");
+  const xp=document.getElementById("studyAchievementXP");
+  const rarity=document.getElementById("studyAchievementRarity");
+
+  const color=ACHIEVEMENT_COLORS[a.rarity]||ACHIEVEMENT_COLORS.Common;
+
+  if(card)card.style.setProperty("--achievement-color",color);
+  if(icon){
+    icon.src=ACHIEVEMENT_ASSETS[a.rarity]||ACHIEVEMENT_ASSETS.Common;
+    icon.alt="";
+  }
+
+  if(title)title.textContent=a.title||"Achievement";
+  if(description)description.textContent=a.description||"";
+  if(xp)xp.textContent="+"+(Number(a.xp)||0)+" XP";
+  if(rarity)rarity.textContent=a.rarity||"Common";
+
+  toast.classList.remove("show");
+  void toast.offsetWidth;
+  toast.classList.add("show");
+
+  playAchievementSound(a.rarity);
+
+  clearTimeout(window.__studyAchievementToastTimer);
+
+  window.__studyAchievementToastTimer=setTimeout(()=>{
+    toast.classList.remove("show");
+  },5000);
+}
+
+function completedHoursTotal(){
+  let total=0;
+
+  if(state.completedDates){
+    for(const value of Object.values(state.completedDates)){
+      total+=Number(value)||0;
+    }
+  }
+
+  return total;
+}
+
+function completedDatesMap(){
+  return state.completedDates||{};
+}
+
+function streakLength(){
+  return getStreakStats().longest;
+}
+
+function todayStudyHours(){
+  const today=typeof todayKey==="function"?todayKey():"";
+  return Number(completedDatesMap()[today])||0;
+}
+
+function todayAcademicHistory(){
+  const today=typeof todayKey==="function"?todayKey():"";
+
+  return (state.academicHistory||[])
+    .filter(h=>(h.date||"")===today);
+}
+
+function todaySubjectsStudied(){
+  return new Set(
+    todayAcademicHistory()
+      .map(h=>h.subjectId)
+      .filter(Boolean)
+  );
+}
+
+function completedChapterCount(){
+  if(typeof activeChapters!=="function")return 0;
+
+  return activeChapters()
+    .filter(c=>{
+      try{
+        return typeof chapterCompletion==="function" &&
+          chapterCompletion(c)>=1;
+      }catch(e){
+        return false;
+      }
+    }).length;
+}
+
+function subjectComplete(subjectId){
+  if(typeof activeChapters!=="function")return false;
+
+  const chapters=activeChapters()
+    .filter(c=>c.subjectId===subjectId);
+
+  return chapters.length>0 &&
+    chapters.every(c=>{
+      try{
+        return typeof chapterCompletion==="function" &&
+          chapterCompletion(c)>=1;
+      }catch(e){
+        return false;
+      }
+    });
+}
+
+function subjectByName(name){
+  if(typeof activeSubjects!=="function")return null;
+
+  const wanted=name.toLowerCase();
+
+  return activeSubjects().find(s=>
+    String(s.name||"").toLowerCase()===wanted
+  )||null;
+}
+
+function selectedSubjectsComplete(){
+  if(typeof activeSubjects!=="function")return false;
+
+  const subjects=activeSubjects();
+
+  if(!subjects.length)return false;
+
+  return subjects.every(s=>subjectComplete(s.id));
+}
+
+function plannerTodayTasks(){
+  const today=typeof todayKey==="function"?todayKey():"";
+
+  return (state.academicTasks||[])
+    .filter(t=>{
+      const date=t.date||t.dueDate||t.scheduledDate;
+      return date===today;
+    });
+}
+
+function plannerTodayCompletion(){
+  const tasks=plannerTodayTasks();
+
+  if(!tasks.length)return {planned:0,completed:0};
+
+  const planned=tasks.reduce((n,t)=>n+(Number(t.duration)||0),0);
+  const completed=tasks
+    .filter(t=>t.completed)
+    .reduce((n,t)=>n+(Number(t.duration)||0),0);
+
+  return {planned,completed};
+}
+
+function studyAfterHour(minHour,maxHour){
+  const today=typeof todayKey==="function"?todayKey():"";
+
+  const all=[
+    ...(state.academicHistory||[]),
+    ...(state.personalHistory||[])
+  ];
+
+  return all.some(h=>{
+    if((h.date||"")!==today)return false;
+
+    const raw=h.completedAt||h.createdAt||"";
+    if(!raw)return false;
+
+    const hour=new Date(raw).getHours();
+
+    if(minHour!==undefined && hour<minHour)return false;
+    if(maxHour!==undefined && hour>=maxHour)return false;
+
+    return true;
+  });
+}
+
+function secretConditions(){
+  const unlocked=state.achievements?.unlocked||{};
+
+  return {
+    secret_one:
+      Object.keys(unlocked).length>=10,
+
+    secret_two:
+      completedChapterCount()>=50,
+
+    secret_three:
+      completedHoursTotal()>=100,
+
+    secret_four:
+      Object.keys(unlocked).length>=20
+  };
+}
+
+function checkAchievements(){
+  if(!ensureAchievementState())return;
+
+  const today=typeof todayKey==="function"?todayKey():"";
+  const daily=plannerTodayCompletion();
+  const chapters=completedChapterCount();
+  const hours=completedHoursTotal();
+  const streak=streakLength();
+  const subjects=todaySubjectsStudied();
+
+  const conditions={
+    first_steps:hours>0 || (state.academicHistory||[]).length>0,
+    getting_serious:hours>=5,
+    knowledge_acquired:chapters>=1,
+    dedicated:streak>=7,
+    multitasker:subjects.size>=4,
+
+    unstoppable:streak>=14,
+    scholar_in_the_making:chapters>=25,
+
+    against_the_clock:
+      daily.planned>0 &&
+      daily.completed>=daily.planned,
+
+    overachiever:
+      daily.planned>0 &&
+      daily.completed>daily.planned,
+
+    the_strategist:
+      daily.planned>0 &&
+      daily.completed>=daily.planned,
+
+    perfect_day:
+      daily.planned>0 &&
+      daily.completed>=daily.planned,
+
+    mastery:selectedSubjectsComplete(),
+
+    the_mathematician:
+      !!subjectByName("Mathematics") &&
+      subjectComplete(subjectByName("Mathematics").id),
+
+    the_einstein:
+      !!subjectByName("Physics") &&
+      subjectComplete(subjectByName("Physics").id),
+
+    the_shakespeare:
+      !!subjectByName("English Core") &&
+      subjectComplete(subjectByName("English Core").id),
+
+    the_milkha:
+      !!subjectByName("Physical Education") &&
+      subjectComplete(subjectByName("Physical Education").id),
+
+    the_darwin:
+      !!subjectByName("Biology") &&
+      subjectComplete(subjectByName("Biology").id),
+
+    the_lavoisier:
+      !!subjectByName("Chemistry") &&
+      subjectComplete(subjectByName("Chemistry").id),
+
+    the_turing:
+      !!subjectByName("Computer Science") &&
+      subjectComplete(subjectByName("Computer Science").id),
+
+    night_owl:studyAfterHour(23,undefined),
+    early_bird:studyAfterHour(0,6),
+
+    ...secretConditions()
+  };
+
+  for(const [id,condition] of Object.entries(conditions)){
+    if(condition && !isAchievementUnlocked(id)){
+      achievementUnlock(id);
+    }
+  }
+}
+
+window.studyOSAchievement=achievementUnlock;
+window.studyOSAchievements=ACHIEVEMENTS;
+window.studyOSAchievementXP=getAchievementXP;
+window.studyOSIsAchievementUnlocked=isAchievementUnlocked;
+
+window.studyOSUnlockedAchievements=function(){
+  if(!ensureAchievementState())return {};
+  return state.achievements.unlocked||{};
+};
+
+window.studyOSCheckAchievements=checkAchievements;
+
+if(typeof window.studyOSAchievementCheckerInstalled==="undefined"){
+  window.studyOSAchievementCheckerInstalled=true;
+
+  setTimeout(()=>{
+    try{
+      checkAchievements();
+      updateSidebar();
+    }catch(e){
+      console.warn("StudyOS achievement check failed:",e);
+    }
+  },300);
+}
+
 })();
+
 </script>
+
+
+
+
+<style>
+#studyAchievementToast{
+  position:fixed;
+  top:24px;
+  right:24px;
+  width:min(420px,calc(100vw - 32px));
+  z-index:2147483647;
+  pointer-events:none;
+  opacity:0;
+  transform:translateX(120%);
+  transition:transform .58s cubic-bezier(.2,.8,.2,1),opacity .3s ease;
+  font-family:'StudyOSPixel',ui-monospace,monospace;
+}
+#studyAchievementToast.show{
+  opacity:1;
+  transform:translateX(0);
+}
+.study-achievement-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:16px;
+  padding:12px;
+  background:linear-gradient(135deg,#20262a,#111518);
+  border:2px solid var(--achievement-color,#e7bd55);
+  box-shadow:0 16px 45px rgba(0,0,0,.42),0 0 25px color-mix(in srgb,var(--achievement-color,#e7bd55) 22%,transparent);
+  color:#fff;
+}
+.study-achievement-inner{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.study-achievement-icon{
+  width:64px;
+  height:64px;
+  flex:0 0 64px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.12);
+  overflow:hidden;
+}
+.study-achievement-icon img{
+  width:52px;
+  height:52px;
+  object-fit:contain;
+  image-rendering:auto;
+}
+.study-achievement-small{
+  font-size:9px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  opacity:.62;
+  margin-bottom:4px;
+}
+.study-achievement-title{
+  color:var(--achievement-color,#e7bd55);
+  font-size:17px;
+  font-weight:900;
+  line-height:1.15;
+}
+.study-achievement-description{
+  margin-top:4px;
+  font-size:11px;
+  line-height:1.35;
+  color:#fff;
+  opacity:.9;
+}
+.study-achievement-meta{
+  display:flex;
+  gap:6px;
+  margin-top:7px;
+  flex-wrap:wrap;
+}
+.study-achievement-pill{
+  font-size:9px;
+  padding:3px 7px;
+  border-radius:999px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+}
+@media(max-width:600px){
+  #studyAchievementToast{
+    top:14px;
+    right:14px;
+    width:calc(100vw - 28px);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  #studyAchievementToast{
+    transition:none;
+  }
+}
+</style>
+
+<div id="studyAchievementToast">
+  <div class="study-achievement-card" id="studyAchievementCard">
+    <div class="study-achievement-inner">
+      <div class="study-achievement-icon">
+        <img id="studyAchievementIcon" src="./achievement/common.png" alt="">
+      </div>
+      <div>
+        <div class="study-achievement-small">Achievement Unlocked!</div>
+        <div class="study-achievement-title" id="studyAchievementTitle">Achievement</div>
+        <div class="study-achievement-description" id="studyAchievementDescription"></div>
+        <div class="study-achievement-meta">
+          <span class="study-achievement-pill" id="studyAchievementXP">+0 XP</span>
+          <span class="study-achievement-pill" id="studyAchievementRarity">Common</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.showImportantUpdateVideo = function () {
+  document.getElementById('studyosImportantUpdateOverlay')?.remove();
+  const overlay = document.createElement('div');
+  overlay.id = 'studyosImportantUpdateOverlay';
+  overlay.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;height:100dvh;background:#070b11;z-index:2147483647;display:flex;align-items:center;justify-content:center;overflow:hidden';
+  overlay.innerHTML = `
+    <video playsinline autoplay muted preload="auto" disablepictureinpicture
+      style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000">
+      <source src="./important_update.mp4" type="video/mp4">
+    </video>
+    <button type="button" style="position:absolute;right:18px;top:18px;z-index:2;padding:10px 17px;border-radius:24px;background:#101820dd;color:#fff;border:1px solid #ffffff55">Close</button>`;
+  document.body.appendChild(overlay);
+  const video = overlay.querySelector('video');
+  video.play().catch(() => {});
+  overlay.querySelector('button').onclick = () => { video.pause(); overlay.remove(); };
+};
+</script>
+
 </body>
 </html>
