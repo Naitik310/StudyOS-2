@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover" />
   <meta name="theme-color" content="#d8eff1" />
   <meta name="description" content="StudyOS 2 — a calm, sky-inspired academic command centre for Class 11." />
   <title>StudyOS 2</title>  
@@ -139,8 +139,9 @@
   .syllabus-activity .activity-icon{display:grid;place-items:center;width:17px;height:17px;flex:0 0 17px;color:var(--muted)}
   .syllabus-activity .activity-icon svg{width:16px;height:16px;display:block}
   .syllabus-activity .activity-label{display:inline-flex;align-items:center;gap:5px}
-  .syllabus-activity:has(input:checked){background:var(--accent-soft);border-color:var(--accent);color:var(--text)}
-  .syllabus-activity input:checked~.activity-icon{color:var(--accent-strong)}
+  .syllabus-activity:has(input:checked){background:var(--sage-soft);border-color:var(--sage);color:var(--text)}
+  .syllabus-activity input:checked~.activity-icon{color:var(--sage)}
+  .syllabus-activity input:checked~.activity-label::after{content:"✓";display:inline-grid;place-items:center;width:14px;height:14px;border-radius:50%;background:var(--sage-soft);color:var(--sage);font-size:11px;font-weight:900;margin-left:2px}
   .syllabus-activity:focus-within{outline:2px solid var(--accent);outline-offset:2px}
   .subject-illustration{width:38px;height:38px;flex:0 0 38px;display:grid;place-items:center;border-radius:12px;background:var(--accent-soft);color:var(--accent-strong)}
   .subject-illustration svg{width:27px;height:27px}
@@ -2369,12 +2370,14 @@ function navigate(page){
   function activityIllustration(label){
     const name=String(label||'').toLowerCase();
     let paths;
-    if(/dpp|test|question bank|questions|pyq/.test(name)){
-      paths='<path d="M8 3h8l4 4v14H8z"/><path d="M16 3v5h4M11 12h6m-6 4h6"/>';
+    if(/question bank|questions|question|pyq/.test(name)){
+      paths='<circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.5 2.5 0 1 1 4.3 1.8c-1.2 1.1-1.9 1.4-1.9 3"/><path d="M12 17.5h.01"/>';
+    }else if(/dpp|test/.test(name)){
+      paths='<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2h6v2M8.5 11l2 2 5-5M9 17h6"/>';
     }else if(/ncert|read|reading|theory/.test(name)){
       paths='<path d="M4 5.5A3.5 3.5 0 0 1 7.5 4H12v16H7.5A3.5 3.5 0 0 0 4 21.5z"/><path d="M20 5.5A3.5 3.5 0 0 0 16.5 4H12v16h4.5a3.5 3.5 0 0 1 3.5 1.5z"/>';
     }else if(/note/.test(name)){
-      paths='<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7m-7 4h7"/>';
+      paths='<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13l5-5 2 2-5 5-3 1z"/>';
     }else if(/revision|revise/.test(name)){
       paths='<path d="M20 7v5h-5"/><path d="M5 17v-5h5"/><path d="M6.5 9A7 7 0 0 1 18 6l2 6M5 12l2 6a7 7 0 0 0 11.5-3"/>';
     }else if(/writing|program|coding|practice|exercise/.test(name)){
@@ -6651,17 +6654,109 @@ window.showImportantUpdateVideo = function () {
   document.getElementById('studyosImportantUpdateOverlay')?.remove();
   const overlay = document.createElement('div');
   overlay.id = 'studyosImportantUpdateOverlay';
-  overlay.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;height:100dvh;background:#070b11;z-index:2147483647;display:flex;align-items:center;justify-content:center;overflow:hidden';
+  overlay.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;height:100dvh;background:rgba(7,11,17,.96);z-index:2147483647;display:flex;align-items:center;justify-content:center;overflow:auto;padding:16px;box-sizing:border-box;font-family:inherit;color:#f8fafc';
   overlay.innerHTML = `
-    <video playsinline autoplay muted preload="auto" disablepictureinpicture
-      style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000">
-      <source src="./important_update.mp4" type="video/mp4">
-    </video>
-    <button type="button" style="position:absolute;right:18px;top:18px;z-index:2;padding:10px 17px;border-radius:24px;background:#101820dd;color:#fff;border:1px solid #ffffff55">Close</button>`;
+    <section style="width:min(920px,100%);background:#111d2b;border:1px solid #ffffff20;border-radius:20px;overflow:hidden;box-shadow:0 24px 80px #0009">
+      <header style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 18px;background:linear-gradient(110deg,#142d43,#1b3441)">
+        <div style="display:flex;align-items:center;gap:11px">
+          <span style="width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:#d9eee9;color:#155b58;font-weight:900">S</span>
+          <span><strong style="display:block;font-size:14px;letter-spacing:.4px">StudyOS 2</strong><small style="color:#b8c9d3;font-size:11px">Important Update</small></span>
+        </div>
+        <button type="button" data-close style="border:1px solid #ffffff35;border-radius:20px;padding:8px 14px;background:#ffffff12;color:white;font-weight:650">Close ✕</button>
+      </header>
+      <div style="background:#05090e;display:grid;place-items:center">
+        <video playsinline preload="metadata" disablepictureinpicture
+          style="display:block;width:100%;max-height:68vh;aspect-ratio:16/9;object-fit:contain;background:#05090e">
+          <source src="./important_update.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div style="padding:14px 16px 16px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <button type="button" data-play style="min-width:92px;border:0;border-radius:22px;padding:10px 15px;background:#d8eee8;color:#174e4b;font-weight:800">▶ Play</button>
+          <span data-current style="font-size:11px;color:#c5d2dc;font-variant-numeric:tabular-nums">0:00</span>
+          <input data-seek aria-label="Video progress" type="range" min="0" max="1000" value="0" style="flex:1;min-width:30px;accent-color:#70c6b4">
+          <span data-duration style="font-size:11px;color:#c5d2dc;font-variant-numeric:tabular-nums">0:00</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:13px">
+          <button type="button" data-mute style="border:1px solid #ffffff30;border-radius:18px;padding:7px 12px;background:#ffffff10;color:white">Mute</button>
+          <span style="font-size:11px;color:#b9c8d2">Volume</span>
+          <input data-volume aria-label="Volume" type="range" min="0" max="1" step="0.05" value="1" style="width:105px;accent-color:#70c6b4">
+        </div>
+      </div>
+    </section>`;
   document.body.appendChild(overlay);
+
   const video = overlay.querySelector('video');
-  video.play().catch(() => {});
-  overlay.querySelector('button').onclick = () => { video.pause(); overlay.remove(); };
+  const playButton = overlay.querySelector('[data-play]');
+  const seek = overlay.querySelector('[data-seek]');
+  const current = overlay.querySelector('[data-current]');
+  const duration = overlay.querySelector('[data-duration]');
+  const muteButton = overlay.querySelector('[data-mute]');
+  const volume = overlay.querySelector('[data-volume]');
+  const formatTime = seconds => {
+    if (!Number.isFinite(seconds)) return '0:00';
+    const n = Math.floor(seconds);
+    return Math.floor(n / 60) + ':' + String(n % 60).padStart(2, '0');
+  };
+  const updatePlay = () => {
+    playButton.textContent = video.ended ? '↻ Replay' : video.paused ? '▶ Play' : 'Ⅱ Pause';
+  };
+  const updateMute = () => {
+    muteButton.textContent = video.muted || video.volume === 0 ? 'Unmute' : 'Mute';
+  };
+  playButton.onclick = () => {
+    if (video.ended) video.currentTime = 0;
+    video.muted = false;
+    video.play().then(updatePlay).catch(() => {
+      playButton.textContent = 'Tap to Play';
+    });
+    updateMute();
+  };
+  video.addEventListener('play', updatePlay);
+  video.addEventListener('pause', updatePlay);
+  video.addEventListener('ended', updatePlay);
+  video.addEventListener('loadedmetadata', () => {
+    duration.textContent = formatTime(video.duration);
+  });
+  video.addEventListener('timeupdate', () => {
+    current.textContent = formatTime(video.currentTime);
+    if (Number.isFinite(video.duration) && video.duration > 0 && !seek.matches(':active')) {
+      seek.value = String(Math.round(video.currentTime / video.duration * 1000));
+    }
+  });
+  seek.oninput = () => {
+    if (Number.isFinite(video.duration) && video.duration > 0) {
+      video.currentTime = Number(seek.value) / 1000 * video.duration;
+    }
+  };
+  volume.oninput = () => {
+    video.volume = Number(volume.value);
+    video.muted = video.volume === 0;
+    updateMute();
+  };
+  muteButton.onclick = () => {
+    video.muted = !video.muted;
+    if (!video.muted && video.volume === 0) {
+      video.volume = 1;
+      volume.value = '1';
+    }
+    updateMute();
+  };
+  const close = () => {
+    video.pause();
+    overlay.remove();
+  };
+  overlay.querySelector('[data-close]').onclick = close;
+  overlay.addEventListener('click', event => {
+    if (event.target === overlay) close();
+  });
+  const escapeHandler = event => {
+    if (event.key === 'Escape') {
+      close();
+      document.removeEventListener('keydown', escapeHandler);
+    }
+  };
+  document.addEventListener('keydown', escapeHandler);
 };
 </script>
 
