@@ -1136,6 +1136,24 @@
     </div>
   </div>
 
+  <div class="card mt16" style="background:linear-gradient(135deg,#f1f7f5,#fffaf0);border:1px solid #d8e5dc">
+    <div class="card-title">
+      <div>
+        <h3>Get StudyOS 2</h3>
+        <p>Your academic workspace, ready to take with you.</p>
+      </div>
+      <span class="badge">Android App</span>
+    </div>
+    <p style="line-height:1.7">Download the latest StudyOS 2 Android release from our official Google Drive folder.</p>
+    <a href="https://drive.google.com/drive/folders/1KbCEchTPGXSEstogjIqruwmogG792I18?usp=drive_link"
+       target="_blank" rel="noopener noreferrer"
+       class="btn primary"
+       style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none;margin-top:8px">
+      ↓ &nbsp; Download StudyOS App
+    </a>
+    <p class="small muted" style="margin-top:10px">Google Drive · Latest available release</p>
+  </div>
+
   <div class="card mt16">
     <div class="card-title"><div><h3>Feedback & Support</h3><p>Questions, suggestions and bug reports are welcome.</p></div></div>
     <p class="small muted">Contact the creator through WhatsApp Business. Feedback buttons prepare a message for you to review before sending.</p>
@@ -4089,9 +4107,7 @@ function showClassIntroIfNeeded(onComplete=()=>{}){
       onComplete();
       return;
     }
-  }catch(e){
-    console.warn('Could not read class introduction status:',e);
-  }
+  }catch(e){}
 
   document.getElementById('studyosClassIntroOverlay')?.remove();
 
@@ -4102,29 +4118,101 @@ function showClassIntroIfNeeded(onComplete=()=>{}){
 
   const overlay=document.createElement('div');
   overlay.id='studyosClassIntroOverlay';
-  overlay.style.cssText='position:fixed;inset:0;width:100%;height:100%;height:100dvh;background:radial-gradient(ellipse at 50% 35%,#203b49 0%,#101c28 48%,#070b11 100%);z-index:2147483647;display:flex;align-items:center;justify-content:center;overflow:hidden;color:#f7f4ec;font-family:inherit';
+
+  overlay.style.cssText=`
+    position:fixed;inset:0;width:100%;height:100dvh;
+    z-index:2147483647;display:flex;align-items:center;
+    justify-content:center;overflow:hidden;color:#f7f4ec;
+    font-family:inherit;
+    background:radial-gradient(ellipse at 50% 35%,
+    #294957 0%,#142532 48%,#080e16 100%);
+  `;
 
   overlay.innerHTML=`
-    <video playsinline preload="auto"
-      disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback"
-      style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;opacity:0;transition:opacity .35s">
+    <style>
+      #studyosClassIntroOverlay video{
+        position:absolute;inset:0;width:100%;height:100%;
+        object-fit:contain;background:#05090e;
+        opacity:0;transition:opacity .6s ease;
+      }
+      #studyosClassIntroOverlay .intro-cover{
+        position:relative;z-index:2;text-align:center;
+        width:min(90%,600px);padding:35px 24px;
+        transition:opacity .5s ease;
+      }
+      #studyosClassIntroOverlay .intro-eyebrow{
+        font-size:11px;letter-spacing:4px;
+        text-transform:uppercase;color:#d5c18c;
+        margin-bottom:22px;font-weight:700;
+      }
+      #studyosClassIntroOverlay .intro-heading{
+        font-size:clamp(36px,7vw,65px);
+        font-weight:750;letter-spacing:-2px;
+        line-height:1.04;
+      }
+      #studyosClassIntroOverlay .intro-subtitle{
+        color:#c3d0d5;font-size:14px;
+        line-height:1.7;margin:18px auto 30px;
+        max-width:390px;
+      }
+      #studyosClassIntroOverlay .intro-start{
+        border:1px solid #f3e2b5;border-radius:40px;
+        padding:15px 30px;
+        background:linear-gradient(135deg,#f4e7c1,#d7bd7e);
+        color:#182631;font:inherit;font-weight:750;
+        font-size:14px;cursor:pointer;
+        box-shadow:0 8px 35px #d8c28b25;
+      }
+      #studyosClassIntroOverlay .intro-skip{
+        position:absolute;z-index:4;right:22px;top:22px;
+        border:1px solid #ffffff35;border-radius:30px;
+        padding:11px 19px;background:#101820b8;
+        color:#f7f4ec;font:inherit;font-size:12px;
+        cursor:pointer;backdrop-filter:blur(12px);
+      }
+      @media(max-width:600px){
+        #studyosClassIntroOverlay .intro-skip{
+          right:14px;top:14px;
+        }
+      }
+    </style>
+
+    <video playsinline webkit-playsinline preload="auto"
+      disablepictureinpicture
+      controlslist="nodownload noplaybackrate noremoteplayback">
       <source src="${videoPath}" type="video/mp4">
     </video>
-    <div data-class-intro-cover style="position:relative;z-index:1;text-align:center;width:min(90%,560px);padding:28px">
-      <div style="font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#c8b887;margin-bottom:20px">YOUR CLASS ${classLabel} JOURNEY</div>
-      <div style="font-size:clamp(30px,5vw,52px);font-weight:650;letter-spacing:-1.5px;line-height:1.08">Welcome to<br>Class ${classLabel}</div>
-      <div data-class-intro-hint style="font-size:13px;color:#bdc8ce;margin:18px auto 24px">Your introduction is ready</div>
-      <button type="button" data-start-class-intro style="border:1px solid #e7d7a9;border-radius:30px;padding:14px 26px;background:linear-gradient(135deg,#f4e7c1,#d8c28b);color:#1b2630;font:inherit;font-weight:650">▶ &nbsp; Begin introduction</button>
+
+    <div class="intro-cover">
+      <div class="intro-eyebrow">STUDYOS 2 · YOUR CLASS ${classLabel} JOURNEY</div>
+      <div class="intro-heading">Welcome to<br>Class ${classLabel}</div>
+      <div class="intro-subtitle" data-class-intro-hint>
+        A new chapter. A clearer plan. A better way to progress.
+      </div>
+      <button type="button" class="intro-start" data-start-class-intro>
+        ▶ &nbsp; Begin Introduction
+      </button>
     </div>
-    <button type="button" data-skip-class-intro style="position:absolute;z-index:3;right:18px;top:18px;border:1px solid #ffffff35;border-radius:24px;padding:10px 17px;background:#101820b8;color:#f7f4ec;font:inherit">Skip intro</button>`;
+
+    <button type="button" class="intro-skip" data-skip-class-intro>
+      Skip Intro
+    </button>
+  `;
 
   document.body.appendChild(overlay);
 
   const video=overlay.querySelector('video');
-  const cover=overlay.querySelector('[data-class-intro-cover]');
+  const cover=overlay.querySelector('.intro-cover');
   const start=overlay.querySelector('[data-start-class-intro]');
   const hint=overlay.querySelector('[data-class-intro-hint]');
+
   let finished=false;
+
+  const revealVideo=()=>{
+    cover.style.opacity='0';
+    cover.style.pointerEvents='none';
+    video.style.opacity='1';
+  };
 
   const finish=()=>{
     if(finished)return;
@@ -4138,44 +4226,50 @@ function showClassIntroIfNeeded(onComplete=()=>{}){
   const begin=()=>{
     video.currentTime=0;
     video.muted=false;
+    video.volume=1;
     hint.textContent='Starting your introduction…';
+
     const result=video.play();
+
     if(result&&result.then){
-      result.then(()=>{
-        cover.style.display='none';
-        video.style.opacity='1';
-      }).catch(()=>{
-        hint.textContent='Tap below to play the introduction.';
-        start.textContent='▶ Play introduction';
+      result.then(revealVideo).catch(()=>{
+        hint.textContent='Tap below to start your introduction with sound.';
+        start.textContent='▶ Play Introduction';
       });
     }else{
-      cover.style.display='none';
-      video.style.opacity='1';
+      revealVideo();
     }
   };
 
-  start.onclick=begin;
-  overlay.querySelector('[data-skip-class-intro]').addEventListener('click',finish);
+  start.addEventListener('click',()=>{
+    if(start.textContent.includes('Continue')){
+      finish();
+    }else{
+      begin();
+    }
+  });
+
+  overlay.querySelector('[data-skip-class-intro]')
+    .addEventListener('click',finish);
+
+  video.addEventListener('playing',revealVideo);
   video.addEventListener('ended',finish,{once:true});
+
   video.addEventListener('error',()=>{
     hint.textContent='The introduction could not load. You can continue.';
     start.textContent='Continue';
-    start.onclick=finish;
   },{once:true});
 
   const autoplay=video.play();
+
   if(autoplay&&autoplay.then){
-    autoplay.then(()=>{
-      cover.style.display='none';
-      video.style.opacity='1';
-    }).catch(()=>{
+    autoplay.then(revealVideo).catch(()=>{
       video.pause();
       video.currentTime=0;
-      hint.textContent='Tap below to start your introduction.';
+      hint.textContent='Your introduction is ready. Tap below to begin.';
     });
   }
 }
-
 function showSubjectSetup(){
   showClassIntroIfNeeded(()=>renderSubjectSetup());
 }
