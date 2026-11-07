@@ -111,6 +111,8 @@
     html[data-theme="dark"] .topbar{background:linear-gradient(180deg,rgba(29,45,50,.94),rgba(29,45,50,.75))}
     .menu-btn{display:none;width:40px;height:40px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
     .topbar-title{min-width:0;flex:1}.topbar-title h1{font-size:20px;line-height:1.2;margin:0}.topbar-title p{font-size:12px;color:var(--muted);margin:4px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .class-switcher{height:40px;max-width:125px;padding:0 9px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--text);font:600 12px inherit;cursor:pointer}
+    @media(max-width:580px){.class-switcher{max-width:91px;padding:0 5px;font-size:11px}.topbar{gap:7px}}
     .top-actions{display:flex;align-items:center;gap:8px}.icon-btn{width:40px;height:40px;border:1px solid var(--line);border-radius:12px;background:var(--panel);box-shadow:var(--shadow-sm)}
     .page{padding:24px;max-width:1600px;margin:0 auto}.page.hidden{display:none}
     .grid{display:grid;gap:16px}.g-4{grid-template-columns:repeat(4,minmax(0,1fr))}.g-3{grid-template-columns:repeat(3,minmax(0,1fr))}.g-2{grid-template-columns:repeat(2,minmax(0,1fr))}.g-auto{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
@@ -122,7 +124,38 @@
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:9px 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel-solid);font-weight:700;font-size:12px;transition:transform var(--transition),box-shadow var(--transition),background var(--transition)}.btn:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm)}.btn.primary{background:linear-gradient(135deg,var(--accent-strong),var(--accent));color:#fff;border-color:transparent}.btn.gold{background:linear-gradient(135deg,#cda64e,var(--gold));color:#fff;border-color:transparent}.btn.danger{background:var(--danger-soft);color:var(--danger)}.btn.ghost{background:transparent}.btn.small{min-height:34px;padding:7px 10px;font-size:11px;border-radius:10px}
     .metric{padding:17px}.metric .metric-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.metric-label{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.07em}.metric-value{font-size:27px;font-weight:800;margin-top:7px;letter-spacing:-.03em}.metric-sub{color:var(--muted);font-size:11px;margin-top:6px}.metric-icon{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:var(--accent-soft)}
     .progress-track{height:10px;background:rgba(90,128,133,.13);border-radius:999px;overflow:hidden}.progress-track.tiny{height:7px}.progress-fill{height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--accent-strong),var(--accent),var(--gold));transition:width .35s ease}
-    .subject-card{padding:16px}.subject-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.subject-name{display:flex;align-items:center;gap:9px}.subject-dot{width:11px;height:11px;border-radius:50%;background:var(--accent)}.subject-name strong{font-size:13px}.teacher{font-size:11px;color:var(--muted)}
+    .subject-card{padding:16px}
+  .syllabus-subject{padding:16px}
+  .syllabus-subject-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .syllabus-chapter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:12px;margin-top:14px}
+  .syllabus-chapter{border:1px solid var(--line);border-radius:14px;background:var(--panel-solid);padding:14px;min-width:0}
+  .syllabus-chapter-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .syllabus-chapter-name{font-size:13px;font-weight:800;line-height:1.45;overflow-wrap:anywhere}
+  .syllabus-chapter-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+  .syllabus-chapter-stats{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:11px;font-size:11px;color:var(--muted)}
+  .syllabus-activities{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
+  .syllabus-activity{position:relative;display:inline-flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--panel-soft);font-size:10px;font-weight:650;color:var(--muted);cursor:pointer;transition:background .18s,border-color .18s,color .18s}
+  .syllabus-activity .check-icon{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+  .syllabus-activity .activity-icon{display:grid;place-items:center;width:17px;height:17px;flex:0 0 17px;color:var(--muted)}
+  .syllabus-activity .activity-icon svg{width:16px;height:16px;display:block}
+  .syllabus-activity .activity-label{display:inline-flex;align-items:center;gap:5px}
+  .syllabus-activity:has(input:checked){background:var(--accent-soft);border-color:var(--accent);color:var(--text)}
+  .syllabus-activity input:checked~.activity-icon{color:var(--accent-strong)}
+  .syllabus-activity:focus-within{outline:2px solid var(--accent);outline-offset:2px}
+  .subject-illustration{width:38px;height:38px;flex:0 0 38px;display:grid;place-items:center;border-radius:12px;background:var(--accent-soft);color:var(--accent-strong)}
+  .subject-illustration svg{width:27px;height:27px}
+  .subject-illustration.chemistry{background:var(--gold-soft);color:var(--gold)}
+  .subject-illustration.biology{background:var(--sage-soft);color:var(--sage)}
+  .subject-illustration.mathematics{background:var(--peach-soft);color:var(--peach)}
+  .subject-illustration.english{background:var(--accent-soft);color:var(--accent-strong)}
+  .subject-illustration.pe{background:var(--sage-soft);color:var(--sage)}
+  .subject-illustration.cs{background:var(--gold-soft);color:var(--gold)}
+  .knowledge-status{font-weight:750}
+  .knowledge-status.needsRevision{background:var(--gold-soft);color:var(--text)}
+  .knowledge-status.completed{background:var(--sage-soft);color:var(--text)}
+  .knowledge-status.inProgress{background:var(--accent-soft);color:var(--accent-strong)}
+  .syllabus-card-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+  .syllabus-card-footer .small{min-width:0;overflow-wrap:anywhere}.subject-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.subject-name{display:flex;align-items:center;gap:9px}.subject-dot{width:11px;height:11px;border-radius:50%;background:var(--accent)}.subject-name strong{font-size:13px}.teacher{font-size:11px;color:var(--muted)}
     .subject-stats{display:flex;justify-content:space-between;align-items:center;margin-top:13px;color:var(--muted);font-size:11px}.subject-stats strong{color:var(--text);font-size:12px}.subject-card .progress-track{margin-top:8px}
     .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin:3px 0 12px}.section-head h2{font-size:18px;margin:0}.section-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.section-actions{display:flex;gap:8px;flex-wrap:wrap}
     .task-list{display:flex;flex-direction:column;gap:8px}.task-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:11px;align-items:center;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.30)}.task-row.done{opacity:.66}.task-check{width:20px;height:20px;border-radius:6px;border:2px solid #9eb0b2;display:grid;place-items:center;appearance:none;background:transparent;cursor:pointer}.task-check:checked{background:var(--accent-strong);border-color:var(--accent-strong)}.task-check:checked::after{content:"✓";color:#fff;font-size:13px;font-weight:800}.task-main{min-width:0}.task-main strong{display:block;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.task-main small{display:block;color:var(--muted);font-size:10px;margin-top:3px}.task-meta{font-size:10px;color:var(--muted);text-align:right}.task-pill{font-size:9px;font-weight:800;padding:5px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent-strong);white-space:nowrap}.task-pill.personal{background:var(--peach-soft);color:var(--peach)}
@@ -633,6 +666,26 @@
 .formula-vault-card summary{
   cursor:pointer;
 }
+
+/* Textbook-style inline mathematical fractions */
+.fv-math-fraction{
+  display:inline-flex;
+  flex-direction:column;
+  vertical-align:middle;
+  text-align:center;
+  line-height:1.15;
+  font-size:.9em;
+  margin:0 .13em;
+  white-space:nowrap;
+}
+.fv-math-fraction > span:first-child{
+  padding:0 .22em .08em;
+  border-bottom:1px solid currentColor;
+}
+.fv-math-fraction > span:last-child{
+  padding:.08em .22em 0;
+}
+
 </style>
 </head>
 <body>
@@ -778,6 +831,10 @@
     <header class="topbar">
       <button class="menu-btn" id="menuBtn" aria-label="Open navigation">☰</button>
       <div class="topbar-title"><h1 id="pageTitle">Dashboard</h1><p id="pageSubtitle">A calm view of what matters next.</p></div>
+      <select class="class-switcher" id="classSwitcher" aria-label="Switch class">
+        <option value="class11">Class XI</option>
+        <option value="class12">Class XII</option>
+      </select>
       <div class="top-actions"><button class="icon-btn" id="quickAddBtn" title="Add personal task" aria-label="Add personal task">＋</button><button class="icon-btn" id="themeQuickBtn" title="Toggle theme" aria-label="Toggle theme">☾</button></div>
     </header>
 
@@ -806,7 +863,7 @@
     </section>
 
     <section class="page hidden" data-page-view="syllabus">
-      <div class="section-head"><div><h2>Syllabus</h2><p>Active, editable Class 11 syllabus with stable chapter IDs.</p></div><div class="section-actions"><button class="btn small primary" data-action="add-chapter">＋ Add custom chapter</button></div></div>
+      <div class="section-head"><div><h2>Syllabus</h2><p>Track chapter progress, manage activities and organise your subjects.</p></div><div class="section-actions"><button class="btn small primary" data-action="add-chapter">＋ Add custom chapter</button></div></div>
       <div class="card"><div class="toolbar"><div class="search-wrap"><span>⌕</span><input class="input" id="syllabusSearch" placeholder="Search chapter, subject, teacher, custom topic…" /></div><select class="select inline-input" id="syllabusFilter"><option value="all">All</option><option value="active">Active</option><option value="completed">Completed</option><option value="incomplete">Incomplete</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option><option value="custom">Custom</option><option value="formative">Formative-only</option></select><select class="select inline-input" id="syllabusSubjectFilter"><option value="all">All subjects</option></select></div></div>
       <div class="card mt16"><div id="syllabusTable"></div></div>
     </section>
@@ -820,6 +877,7 @@
             <div class="field"><label for="plannerHours">Available study hours / day</label><input class="input" type="number" id="plannerHours" min="0.25" max="16" step="0.25" /></div>
             <div class="field"><label for="plannerSpeed">Playback speed</label><select class="select" id="plannerSpeed"><option value="1">1x</option><option value="1.25">1.25x</option><option value="1.5">1.5x</option><option value="2">2x</option></select></div>
             <div class="field"><label for="plannerStrategy">Strategy</label><select class="select" id="plannerStrategy"><option value="balanced">Balanced</option><option value="priority">High-Priority First</option><option value="deadline">Exam / Deadline Focused</option></select></div>
+            <div class="field full"><label for="plannerMode">What are you doing?</label><select class="select" id="plannerMode"><option value="firstTime">Learning the syllabus for the first time</option><option value="revision">Revising the whole syllabus</option></select><div class="small muted mt8">First-time learning follows prerequisite order. Full revision covers all active chapters in a revision-friendly sequence.</div></div>
           </div><div id="plannerWarning" class="mt12"></div></div>
           <div class="card mt16"><div class="card-title"><div><h3>Planning summary</h3><p>Playback only changes video/lecture time, never practice or revision time.</p></div></div><div class="planner-summary" id="plannerSummary"></div></div>
           <div class="card mt16"><div class="card-title"><div><h3>Generated schedule</h3><p>Large chapters are split into stable task chunks.</p></div></div><div id="plannerSchedule"></div></div>
@@ -1056,7 +1114,7 @@
   <div class="card">
     <div class="card-title">
       <div><h3>StudyOS 2</h3><p>Your study workspace, built around your workflow.</p></div>
-      <span class="badge">Class 11</span>
+      <span class="badge" id="aboutClassBadge">Class 11</span>
     </div>
     <p style="line-height:1.8">StudyOS 2 brings syllabus management, study planning, daily tasks, progress tracking, revision and academic quick references together in one place. Its goal is to make a busy academic workload easier to understand and manage.</p>
     <div class="stat-line"><span>App version</span><strong id="aboutAppVersion">1.0</strong></div>
@@ -1078,14 +1136,26 @@
   </div>
 
   <div class="card mt16">
-    <div class="card-title"><div><h3>Feedback & Support</h3><p>Suggestions, feedback and bug reports help improve the project.</p></div></div>
-    <p class="small muted">The contact link will be added when the creator's WhatsApp Business details are available.</p>
+    <div class="card-title"><div><h3>Feedback & Support</h3><p>Questions, suggestions and bug reports are welcome.</p></div></div>
+    <p class="small muted">Contact the creator through WhatsApp Business. Feedback buttons prepare a message for you to review before sending.</p>
     <div class="task-list">
       <button class="btn ghost" data-action="about-feedback" data-feedback="Suggestion">Share a suggestion</button>
       <button class="btn ghost" data-action="about-feedback" data-feedback="Feedback">Send feedback</button>
       <button class="btn ghost" data-action="about-feedback" data-feedback="Bug report">Report a bug</button>
+      <button class="btn" data-action="about-whatsapp">WhatsApp Business</button>
     </div>
-    <div class="small muted mt12">Website: <span>Link coming soon</span></div>
+  </div>
+
+  <div class="card mt16">
+    <div class="card-title"><div><h3>Official website</h3><p>Visit the StudyOS 2 project website.</p></div></div>
+    <p class="small muted">Find the project and its latest published information.</p>
+    <button class="btn primary" data-action="about-website">Visit StudyOS 2 website</button>
+    <div class="small muted mt12">naitik310.github.io/StudyOS-2/</div>
+  </div>
+
+  <div class="card mt16">
+    <div class="card-title"><div><h3>Your data</h3></div></div>
+    <p class="small muted">Your StudyOS study data is stored locally on this device. Export a backup before changing devices or clearing app data.</p>
   </div>
 
   <div class="card mt16">
@@ -1143,6 +1213,7 @@
 
   <div class="toolbar mt12">
     <button class="btn ghost" data-action="notifications-permission">Check Android notification permission</button>
+    <button class="btn ghost" data-action="notifications-exact-alarm">Open Exact Alarm Settings</button>
   </div>
 </div>
 
@@ -1166,6 +1237,7 @@
   const CONFIG = {
     VERSION: 3,
     STORAGE_KEY: 'studyos2_v3',
+    PROFILES_STORAGE_KEY: 'studyos2_class_profiles_v1',
     LEGACY_KEYS: ['studyos2', 'studyos2_v1', 'studyos2_v2'],
     TODAY: () => new Date(),
     CHECKLIST_COUNT: 5,
@@ -1241,7 +1313,137 @@
     cs:['Theory','Coding Practice','Questions','Programs','Revision']
   };
 
-  function makeChapterDefaults() {
+  // Independent curriculum configurations for both classes.
+  const CLASS12_SUBJECT_DEFS = SUBJECT_DEFS.map(s=>({...s}));
+  const CLASS12_SYLLABUS = [
+    ['physics','PHYSICS',[
+      'Electric Charges and Fields','Electrostatic Potential and Capacitance',
+      'Current Electricity','Moving Charges and Magnetism','Magnetism and Matter',
+      'Electromagnetic Induction','Alternating Current','Electromagnetic Waves',
+      'Ray Optics and Optical Instruments','Wave Optics',
+      'Dual Nature of Radiation and Matter','Atoms','Nuclei',
+      'Semiconductor Electronics: Materials, Devices and Simple Circuits'
+    ]],
+    ['chemistry','CHEMISTRY',[
+      'Solutions','Electrochemistry','Chemical Kinetics','d- and f-Block Elements',
+      'Coordination Compounds','Haloalkanes and Haloarenes',
+      'Alcohols, Phenols and Ethers',
+      'Aldehydes, Ketones and Carboxylic Acids','Amines','Biomolecules'
+    ]],
+    ['biology','BIOLOGY',[
+      'Sexual Reproduction in Flowering Plants','Human Reproduction',
+      'Reproductive Health','Principles of Inheritance and Variation',
+      'Molecular Basis of Inheritance','Evolution','Human Health and Diseases',
+      'Microbes in Human Welfare','Biotechnology - Principles and Processes',
+      'Biotechnology and its Applications','Organisms and Populations',
+      'Ecosystem','Biodiversity and its Conservation'
+    ]],
+    ['mathematics','MATHEMATICS',[
+      'Relations and Functions','Inverse Trigonometric Functions','Matrices',
+      'Determinants','Continuity and Differentiability','Applications of Derivatives',
+      'Integrals','Applications of Integrals','Differential Equations',
+      'Vector Algebra','Three-dimensional Geometry','Linear Programming',
+      'Probability'
+    ]],
+    ['english','ENGLISH CORE',[
+      'The Last Lesson','Lost Spring','Deep Water','The Rattrap','Indigo',
+      'Poets and Pancakes','The Interview','Going Places',
+      'My Mother at Sixty-Six','Keeping Quiet','A Thing of Beauty',
+      'A Roadside Stand','Aunt Jennifer’s Tigers',
+      'The Third Level','The Tiger King','Journey to the End of the Earth',
+      'The Enemy','On the Face of It','Memories of Childhood',
+      'Reading Comprehension','Creative Writing','Listening, Speaking and Project Work'
+    ]],
+    ['pe','PHYSICAL EDUCATION',[
+      'Management of Sporting Events','Children and Women in Sports',
+      'Yoga as a Preventive Measure for Lifestyle Diseases',
+      'Physical Education and Sports for CWSN','Sports and Nutrition',
+      'Test and Measurement in Sports','Physiology and Injuries in Sports',
+      'Biomechanics and Sports','Psychology and Sports','Training in Sports'
+    ]],
+    ['cs','COMPUTER SCIENCE',[
+      {unit:'UNIT 1 — Computational Thinking and Programming–2',chapters:[
+        'Python Revision','Functions','Exception Handling',
+        'Text File Handling','Binary File Handling','CSV File Handling',
+        'Stack Data Structure'
+      ]},
+      {unit:'UNIT 2 — Computer Networks',chapters:[
+        'Computer Networks'
+      ]},
+      {unit:'UNIT 3 — Database Management',chapters:[
+        'Database Concepts and Relational Model','SQL',
+        'Python and SQL Connectivity'
+      ]}
+    ]]
+  ];
+
+  const CLASS12_MATH_UNITS = {
+    relations:'RELATIONS AND FUNCTIONS',
+    algebra:'ALGEBRA',
+    calculus:'CALCULUS',
+    vectors:'VECTORS AND THREE-DIMENSIONAL GEOMETRY',
+    linear:'LINEAR PROGRAMMING',
+    probability:'PROBABILITY'
+  };
+  const CLASS12_MATH_UNIT_MAP = {
+    'Relations and Functions':'relations',
+    'Inverse Trigonometric Functions':'relations',
+    'Matrices':'algebra',
+    'Determinants':'algebra',
+    'Continuity and Differentiability':'calculus',
+    'Applications of Derivatives':'calculus',
+    'Integrals':'calculus',
+    'Applications of Integrals':'calculus',
+    'Differential Equations':'calculus',
+    'Vector Algebra':'vectors',
+    'Three-dimensional Geometry':'vectors',
+    'Linear Programming':'linear',
+    'Probability':'probability'
+  };
+
+  const CLASS12_HOURS = {
+    physics:[4,4,4,4,3,3,3,2,5,4,3,2,3,4],
+    chemistry:[4,5,3,3,4,3,4,4,3,3],
+    biology:[3,3,2,4,5,3,3,2,4,3,2,2,2],
+    mathematics:[3,2,3,3,4,4,6,4,4,3,4,2,3],
+    english:[2,2,2,2,2,2,2,2,1.5,1.5,1.5,1.5,1.5,2,2,2,2,2,2,2,3,2],
+    pe:[3,3,3,3,3,3,3,3,3,3],
+    cs:[3,3,2,3,3,2,3,3,3,3,3]
+  };
+
+  const CLASS_CONFIGS = {
+    class11: {
+      SUBJECT_DEFS,
+      SYLLABUS,
+      HOURS,
+      MATH_UNITS,
+      MATH_UNIT_MAP,
+      DEFAULT_LABELS,
+      defaultSubjectsEnabled:true,
+      firstRun:true
+    },
+    class12: {
+      SUBJECT_DEFS:CLASS12_SUBJECT_DEFS,
+      SYLLABUS:CLASS12_SYLLABUS,
+      HOURS:CLASS12_HOURS,
+      MATH_UNITS:CLASS12_MATH_UNITS,
+      MATH_UNIT_MAP:CLASS12_MATH_UNIT_MAP,
+      DEFAULT_LABELS,
+      defaultSubjectsEnabled:false,
+      firstRun:false
+    }
+  };
+
+  function defaultChecklistLabels(subjectId, classId=activeClass) {
+    const labels = CLASS_CONFIGS[classId]?.DEFAULT_LABELS
+      || CLASS_CONFIGS.class11.DEFAULT_LABELS;
+    return labels[subjectId] || labels.physics;
+  }
+
+  function makeChapterDefaults(classId='class11') {
+    const curriculum = CLASS_CONFIGS[classId];
+    if (!curriculum) throw new Error(`Curriculum not configured: ${classId}`);
+    const { SYLLABUS, HOURS, MATH_UNITS, MATH_UNIT_MAP } = curriculum;
     const list = [];
     for (const [sid, unit, data] of SYLLABUS) {
       if (sid === 'cs') {
@@ -1273,19 +1475,23 @@
   // STATE
   // =========================================================
   let state = null;
+  let activeClass = 'class11';
+  let classProfiles = { class11: null, class12: null };
   let activePage = 'dashboard';
   let calendarCursor = new Date(CONFIG.TODAY().getFullYear(), CONFIG.TODAY().getMonth(), 1);
   let toastTimer = null;
   let lastModalFocus = null;
 
-  function blankState(){
+  function blankState(classId='class11'){
+    const curriculum = CLASS_CONFIGS[classId];
+    if (!curriculum) throw new Error(`Curriculum not configured: ${classId}`);
     return {
       version:CONFIG.VERSION,
-      firstRun:true,
+      firstRun:curriculum.firstRun,
       theme:'system',
       setup:{done:false},
-      subjects:SUBJECT_DEFS.map(s=>({id:s.id,name:s.name,teacher:s.teacher,enabled:true})),
-      chapters:makeChapterDefaults(),
+      subjects:curriculum.SUBJECT_DEFS.map(s=>({id:s.id,name:s.name,teacher:s.teacher,enabled:curriculum.defaultSubjectsEnabled!==false})),
+      chapters:makeChapterDefaults(classId),
       personalTasks:[],
       calendarEvents:[],
       academicTasks:[],
@@ -1318,11 +1524,11 @@
       protectedDates:{},
         history:[]
       },
-      planner:{targetDate:'',dailyHours:CONFIG.DEFAULT_DAILY_HOURS,playbackSpeed:CONFIG.DEFAULT_SPEED,strategy:CONFIG.DEFAULT_STRATEGY,videoShare:CONFIG.DEFAULT_VIDEO_SHARE},
+      planner:{targetDate:'',dailyHours:CONFIG.DEFAULT_DAILY_HOURS,playbackSpeed:CONFIG.DEFAULT_SPEED,strategy:CONFIG.DEFAULT_STRATEGY,mode:'firstTime',videoShare:CONFIG.DEFAULT_VIDEO_SHARE},
       pomodoro:{work:25,shortBreak:5,longBreak:15,longBreakEvery:4,mode:'work',remaining:1500,running:false,endsAt:null,sessions:0},
       streak:0,
       lastOpenedDate:todayKey(),
-      checklistLabels:JSON.parse(JSON.stringify(DEFAULT_LABELS)),
+      checklistLabels:JSON.parse(JSON.stringify(curriculum.DEFAULT_LABELS)),
       settings:{ lastSave:null },notifications:{enabled:true,funnyEnabled:true}
     };
   }
@@ -1352,17 +1558,22 @@
     c.videoConfigured=typeof c.videoConfigured==='boolean'?c.videoConfigured:false;
     c.videoHours=clampNum(c.videoHours,0,c.estimatedHours,0);
     c.checklist=Array.isArray(c.checklist)?Array.from({length:CONFIG.CHECKLIST_COUNT},(_,j)=>!!c.checklist[j]):[false,false,false,false,false];
+    c.knowledgeStatus=['notStarted','inProgress','completed','needsRevision'].includes(c.knowledgeStatus)?c.knowledgeStatus:'notStarted';
+    c.includeInFirstTimeLearning=!!c.includeInFirstTimeLearning;
     c.updatedAt=c.updatedAt||nowISO();c.createdAt=c.createdAt||nowISO();c.unit=c.unit||'';
     return c;
   }
-  function sanitizeState(obj){
-    const base=blankState();
+  function sanitizeState(obj,classId='class11'){
+    const curriculum = CLASS_CONFIGS[classId];
+    if (!curriculum) throw new Error(`Curriculum not configured: ${classId}`);
+    const { SUBJECT_DEFS, DEFAULT_LABELS } = curriculum;
+    const base=blankState(classId);
     const s=deepMerge(base,obj||{});
     s.version=CONFIG.VERSION;
   s.notifications=deepMerge({enabled:true,funnyEnabled:true},s.notifications||{});
-    s.subjects=Array.isArray(s.subjects)?s.subjects.map((x,i)=>({id:String(x.id||SUBJECT_DEFS[i]?.id||`subject_${i}`),name:String(x.name||SUBJECT_DEFS[i]?.name||`Subject ${i+1}`),teacher:typeof x.teacher==='string'?x.teacher:'',enabled:x.enabled!==false})):base.subjects;
+    s.subjects=Array.isArray(s.subjects)?s.subjects.map((x,i)=>({id:String(x.id||SUBJECT_DEFS[i]?.id||`subject_${i}`),name:String(x.name||SUBJECT_DEFS[i]?.name||`Subject ${i+1}`),teacher:typeof x.teacher==='string'?x.teacher:'',enabled:typeof x.enabled==='boolean'?x.enabled:curriculum.defaultSubjectsEnabled!==false})):base.subjects;
     const ids=new Set(s.subjects.map(x=>x.id));
-    for(const d of SUBJECT_DEFS) if(!ids.has(d.id)) s.subjects.push({id:d.id,name:d.name,teacher:d.teacher,enabled:true});
+    for(const d of SUBJECT_DEFS) if(!ids.has(d.id)) s.subjects.push({id:d.id,name:d.name,teacher:d.teacher,enabled:curriculum.defaultSubjectsEnabled!==false});
     s.chapters=Array.isArray(s.chapters)?s.chapters.map(sanitizeChapter):base.chapters;
     const chids=new Set(s.chapters.map(c=>c.id));
     for(const c of base.chapters) if(!chids.has(c.id)) s.chapters.push(c);
@@ -1420,34 +1631,166 @@
 
     s.streak=Number(s.streak)||0;
     s.planner={...base.planner,...(s.planner||{})};
+    s.planner.mode=['firstTime','revision'].includes(s.planner.mode)?s.planner.mode:'firstTime';
     s.planner.dailyHours=clampNum(s.planner.dailyHours,.25,16,3);s.planner.playbackSpeed=[1,1.25,1.5,2].includes(Number(s.planner.playbackSpeed))?Number(s.planner.playbackSpeed):1;s.planner.strategy=['balanced','priority','deadline'].includes(s.planner.strategy)?s.planner.strategy:'balanced';s.planner.videoShare=clampNum(s.planner.videoShare,0,1,CONFIG.DEFAULT_VIDEO_SHARE);
-    s.pomodoro={...blankState().pomodoro,...(s.pomodoro||{})};
+    s.pomodoro={...blankState(classId).pomodoro,...(s.pomodoro||{})};
     s.pomodoro.work=clampNum(s.pomodoro.work,1,180,25);s.pomodoro.shortBreak=clampNum(s.pomodoro.shortBreak,1,60,5);s.pomodoro.longBreak=clampNum(s.pomodoro.longBreak,1,120,15);s.pomodoro.longBreakEvery=clampNum(s.pomodoro.longBreakEvery,1,12,4);s.pomodoro.mode=['work','short','long'].includes(s.pomodoro.mode)?s.pomodoro.mode:'work';s.pomodoro.remaining=Math.max(0,Number(s.pomodoro.remaining)||s.pomodoro.work*60);s.pomodoro.running=!!s.pomodoro.running;s.pomodoro.endsAt=Number(s.pomodoro.endsAt)||null;s.pomodoro.sessions=Math.max(0,Number(s.pomodoro.sessions)||0);
     s.theme=['light','dark','system'].includes(s.theme)?s.theme:'system';
     s.checklistLabels={...base.checklistLabels,...(s.checklistLabels||{})};
-    for(const sub of s.subjects) if(!Array.isArray(s.checklistLabels[sub.id])) s.checklistLabels[sub.id]=[...(DEFAULT_LABELS[sub.id]||DEFAULT_LABELS.physics)];
+    for(const sub of s.subjects) if(!Array.isArray(s.checklistLabels[sub.id])) s.checklistLabels[sub.id]=[...(defaultChecklistLabels(sub.id,classId))];
     s.firstRun=typeof s.firstRun==='boolean'?s.firstRun:!s.setup?.done;s.setup=s.setup&&typeof s.setup==='object'?s.setup:{};
     s.setup.done=!!s.setup.done;s.lastOpenedDate=s.lastOpenedDate||todayKey();s.streak=Number(s.streak)||0;
     return s;
   }
-  function migrateLegacy(){
+  function migrateLegacy(classId='class11'){
     let found=null;
     for(const key of CONFIG.LEGACY_KEYS){const raw=localStorage.getItem(key);if(raw){const parsed=safeParse(raw);if(parsed){found=parsed;break}}}
-    if(!found) return blankState();
-    const migrated=sanitizeState(found);
+    if(!found) return blankState(classId);
+    const migrated=sanitizeState(found,classId);
     migrated.firstRun = migrated.setup?.done===true ? false : true;
     return migrated;
   }
+  function persistClassProfiles(){
+    const payload={
+      version:1,
+      activeClass,
+      profiles:classProfiles
+    };
+    localStorage.setItem(CONFIG.PROFILES_STORAGE_KEY,JSON.stringify(payload));
+  }
+
   function loadState(){
     try{
+      const savedProfiles=safeParse(localStorage.getItem(CONFIG.PROFILES_STORAGE_KEY));
+      if(savedProfiles?.profiles?.class11){
+        activeClass=savedProfiles.activeClass==='class12'?'class12':'class11';
+        classProfiles={
+          class11:savedProfiles.profiles.class11,
+          class12:savedProfiles.profiles.class12||null
+        };
+        if(!classProfiles[activeClass]) activeClass='class11';
+        return sanitizeState(classProfiles[activeClass],activeClass);
+      }
+
       const raw=localStorage.getItem(CONFIG.STORAGE_KEY);
-      if(raw){const p=safeParse(raw);if(p) return sanitizeState(p)}
-      return migrateLegacy();
-    }catch(e){return blankState()}
+      let initialState=null;
+      if(raw){
+        const parsed=safeParse(raw);
+        if(parsed) initialState=sanitizeState(parsed,'class11');
+      }
+      if(!initialState) initialState=migrateLegacy('class11');
+
+      activeClass='class11';
+      classProfiles={class11:initialState,class12:null};
+      persistClassProfiles();
+      return initialState;
+    }catch(e){
+      activeClass='class11';
+      classProfiles={class11:blankState('class11'),class12:null};
+      return classProfiles.class11;
+    }
   }
+
   function saveState(){
-    try{state.settings.lastSave=nowISO();localStorage.setItem(CONFIG.STORAGE_KEY,JSON.stringify(state));}
-    catch(e){showToast('Could not save locally. Browser storage may be full.')} 
+    try{
+      state.settings.lastSave=nowISO();
+      classProfiles[activeClass]=state;
+      persistClassProfiles();
+    }catch(e){
+      showToast('Could not save locally. Browser storage may be full.');
+    }
+  }
+
+  function openStudyOSExternal(url){
+    try{
+      const parsed=new URL(url);
+      const allowedHosts=['naitik310.github.io','wa.me'];
+      if(parsed.protocol!=='https:'||!allowedHosts.includes(parsed.hostname)){
+        showToast('This external link is not allowed.');
+        return false;
+      }
+
+      const android=window.StudyOSAndroid;
+      if(android&&typeof android.openExternalUrl==='function'){
+        const opened=android.openExternalUrl(parsed.href);
+        if(opened===false)showToast('Could not open the external link.');
+        return opened!==false;
+      }
+
+      const opened=window.open(parsed.href,'_blank','noopener,noreferrer');
+      if(!opened)window.location.href=parsed.href;
+      return true;
+    }catch(e){
+      showToast('Could not open the external link.');
+      return false;
+    }
+  }
+
+  function renderAbout(){
+    const versionEl=document.getElementById('aboutAppVersion');
+    const buildEl=document.getElementById('aboutBuildType');
+    const bridge=window.StudyOSNotifications;
+
+    let version=null;
+    let buildCode=null;
+    try{
+      version=bridge?.getVersionName?.()||null;
+      buildCode=bridge?.getVersionCode?.();
+    }catch(e){}
+
+    if(versionEl)versionEl.textContent=version||'Web version';
+    if(buildEl)buildEl.textContent=version
+      ?`Android · Build ${buildCode??'—'}`
+      :'Browser';
+  }
+
+  function updateClassSwitcher(){
+    const selector=document.getElementById('classSwitcher');
+    if(selector) selector.value=activeClass;
+    const kicker=document.querySelector('.hero .kicker');
+    if(kicker) kicker.textContent=`StudyOS 2 · Class ${activeClass==='class12'?'12':'11'}`;
+    const aboutBadge=document.getElementById('aboutClassBadge');
+    if(aboutBadge)aboutBadge.textContent=activeClass==='class12'?'Class 12':'Class 11';
+  }
+
+  function switchClass(nextClass){
+    if(!['class11','class12'].includes(nextClass)||nextClass===activeClass)return;
+
+    saveState();
+
+    try{
+      if(!classProfiles[nextClass]){
+        classProfiles[nextClass]=blankState(nextClass);
+      }
+
+      activeClass=nextClass;
+      formulaVaultData=null;
+      formulaVaultLoadPromise=null;
+      renderFormulaVault.selection=null;
+      state=sanitizeState(classProfiles[activeClass],activeClass);
+      classProfiles[activeClass]=state;
+      persistClassProfiles();
+
+      updateClassSwitcher();
+      applyTheme();
+      updateDerivedMeta();
+      renderCurrent();
+
+      if(!state.setup?.done){
+        showSubjectSetup();
+      }else{
+        showClassIntroIfNeeded(()=>{});
+      }
+
+      showToast(`Switched to Class ${activeClass==='class12'?'XII':'XI'}.`);
+    }catch(e){
+      console.error('Class switch failed:',e);
+      showToast('Could not switch classes. Your saved profile was preserved.');
+      activeClass=activeClass==='class12'?'class11':'class12';
+      state=classProfiles[activeClass];
+      updateClassSwitcher();
+      renderCurrent();
+    }
   }
 
   function sanitizePersonalTask(t){
@@ -1668,6 +2011,11 @@ function getStreakSaverStatus(){
     const ss=ensureStreakState();
     const saver=state.streakSaver||{};
     const today=todayKey();
+
+    if(ss.activityDates?.[today]){
+      return {eligible:false,missedDate:'',previousDate:'',streak:0};
+    }
+
     const dates=Object.keys(ss.activityDates||{})
       .filter(d=>/^\d{4}-\d{2}-\d{2}$/.test(d)&&d<today)
       .sort();
@@ -1957,6 +2305,7 @@ function navigate(page){
   // RENDERING
   // =========================================================
   function renderCurrent(){
+    updateClassSwitcher();
     updateSidebar();
     if(activePage==='dashboard')renderDashboard();
     if(activePage==='today')renderToday();
@@ -1968,6 +2317,7 @@ function navigate(page){
   if(activePage==='revision')renderRevisionReplanner();
     if(activePage==='formulaVault')renderFormulaVault();
     if(activePage==='settings')renderSettings();
+    if(activePage==='about')renderAbout();
     applyTheme();
   }
   function updateSidebar(){
@@ -2003,215 +2353,603 @@ function navigate(page){
 
   function matchesSyllabus(c,q){const s=currentSubject(c.subjectId);const hay=`${c.name} ${s.name} ${s.teacher} ${c.notes} ${c.custom?'custom topic':''}`.toLowerCase();return hay.includes(q)}
   function syllabusFilterPass(c,filter){const cp=chapterCompletion(c);if(filter==='all')return true;if(filter==='active')return !c.removed;if(filter==='completed')return cp>=1;if(filter==='incomplete')return cp<1;if(filter==='high'||filter==='medium'||filter==='low')return c.priority===filter;if(filter==='custom')return c.custom;if(filter==='formative')return c.formativeOnly;return true}
+  function subjectIllustration(subjectId){
+    const icons={
+      physics:'<circle cx="16" cy="16" r="3"/><ellipse cx="16" cy="16" rx="12" ry="5" transform="rotate(35 16 16)"/><ellipse cx="16" cy="16" rx="12" ry="5" transform="rotate(-35 16 16)"/><circle cx="16" cy="16" r="1" fill="currentColor"/>',
+      chemistry:'<path d="M12 4h8M14 4v9l-6 10a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3l-6-10V4"/><path d="M10 21h12M12 18h8"/>',
+      biology:'<path d="M25 5C13 5 5 10 5 19a8 8 0 0 0 8 8c9 0 14-8 12-22Z"/><path d="M5 27c5-8 10-12 18-17M12 20l-1-6m7 1 5 1"/>',
+      mathematics:'<path d="M5 25 16 5l11 20Z"/><circle cx="16" cy="17" r="3"/><path d="M16 5v20M5 25h22"/>',
+      english:'<path d="M4 7c5-2 9-1 12 2v17c-3-3-7-4-12-2ZM28 7c-5-2-9-1-12 2v17c3-3 7-4 12-2Z"/><path d="M8 12h4m-4 4h4m8-4h4m-4 4h4"/>',
+      pe:'<circle cx="16" cy="6" r="3"/><path d="m14 11-4 6 5 3 2 8m-3-11 7 2 4-5m-13 3-6 6m13-7 3-5"/>',
+      cs:'<rect x="4" y="5" width="24" height="22" rx="4"/><path d="m13 12-4 4 4 4m6-8 4 4-4 4m-1-10-3 12"/>'
+    };
+    return `<span class="subject-illustration ${escapeHtml(subjectId)}" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${icons[subjectId]||icons.english}</svg></span>`;
+  }
+
+  function activityIllustration(label){
+    const name=String(label||'').toLowerCase();
+    let paths;
+    if(/dpp|test|question bank|questions|pyq/.test(name)){
+      paths='<path d="M8 3h8l4 4v14H8z"/><path d="M16 3v5h4M11 12h6m-6 4h6"/>';
+    }else if(/ncert|read|reading|theory/.test(name)){
+      paths='<path d="M4 5.5A3.5 3.5 0 0 1 7.5 4H12v16H7.5A3.5 3.5 0 0 0 4 21.5z"/><path d="M20 5.5A3.5 3.5 0 0 0 16.5 4H12v16h4.5a3.5 3.5 0 0 1 3.5 1.5z"/>';
+    }else if(/note/.test(name)){
+      paths='<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7m-7 4h7"/>';
+    }else if(/revision|revise/.test(name)){
+      paths='<path d="M20 7v5h-5"/><path d="M5 17v-5h5"/><path d="M6.5 9A7 7 0 0 1 18 6l2 6M5 12l2 6a7 7 0 0 0 11.5-3"/>';
+    }else if(/writing|program|coding|practice|exercise/.test(name)){
+      paths='<path d="m4 16-.8 4.8L8 20l11-11-4-4z"/><path d="m13.5 6.5 4 4M4 4h6"/>';
+    }else{
+      paths='<circle cx="12" cy="12" r="8"/><path d="M12 8v8m-4-4h8"/>';
+    }
+    return `<span class="activity-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${paths}</svg></span>`;
+  }
+
   function renderSyllabus(){
-    const search=(document.getElementById('syllabusSearch').value||'').trim().toLowerCase();const filter=document.getElementById('syllabusFilter').value;const sf=document.getElementById('syllabusSubjectFilter');
-    const prev=sf.value;sf.innerHTML='<option value="all">All subjects</option>'+state.subjects.map(s=>`<option value="${escapeHtml(s.id)}">${escapeHtml(s.name)}</option>`).join('');sf.value=state.subjects.some(s=>s.id===prev)?prev:'all';
-    const subjectFilter=sf.value;
-    const rows=state.chapters.filter(c=>!c.removed).filter(c=>subjectFilter==='all'||c.subjectId===subjectFilter).filter(c=>matchesSyllabus(c,search)).filter(c=>syllabusFilterPass(c,filter));
-    const grouped={};for(const c of rows){const key=`${c.subjectId}||${c.unit||''}`;(grouped[key]??=[]).push(c)}
-    if(!rows.length){document.getElementById('syllabusTable').innerHTML='<div class="empty"><strong>No matching chapters.</strong>Try a different search or filter.</div>';return}
-    let html='<div class="table-wrap"><table class="table"><thead><tr><th>Chapter</th><th>Subject / unit</th><th>Progress</th><th>Activities</th><th>Hours left</th><th>Priority</th><th>Teacher</th><th></th></tr></thead><tbody>';
-    for(const c of rows){const s=currentSubject(c.subjectId),cp=chapterCompletion(c), labels=state.checklistLabels[c.subjectId]||DEFAULT_LABELS.physics;html+=`<tr><td><strong>${escapeHtml(c.name)}</strong>${c.formativeOnly?'<div class="formative-note">Formative-only assessment</div>':''}${c.custom?'<div class="mt8"><span class="badge custom">Custom</span></div>':''}</td><td><span class="strong small">${escapeHtml(s.name)}</span><div class="small muted mt8">${escapeHtml(c.unit||'')}</div></td><td style="min-width:110px"><div class="small strong">${pct(cp)}%</div><div class="progress-track tiny mt8"><div class="progress-fill" style="width:${pct(cp)}%"></div></div></td><td><div class="check-row">${Array.from({length:5},(_,i)=>`<input class="check-icon" type="checkbox" ${c.checklist[i]?'checked':''} data-chapter-id="${escapeHtml(c.id)}" data-check-index="${i}" aria-label="${escapeHtml(labels[i]||`Activity ${i+1}`)} for ${escapeHtml(c.name)}" title="${escapeHtml(labels[i]||`Activity ${i+1}`)}">`).join('')}</div><div class="small muted mt8">${escapeHtml(labels.join(' · '))}</div></td><td class="strong">${fmtHours(effectiveRemaining(c,state.planner.playbackSpeed))}<div class="small muted mt8">${fmtHours(chapterVideoHours(c))} video</div></td><td><span class="priority ${c.priority}">${escapeHtml(c.priority)}</span></td><td>${escapeHtml(s.teacher||'—')}</td><td><button class="btn small ghost" data-action="edit-chapter" data-id="${escapeHtml(c.id)}">Edit</button></td></tr>`}
-    html+='</tbody></table></div>';document.getElementById('syllabusTable').innerHTML=html;
-  }
+    const search=(document.getElementById('syllabusSearch').value||'').trim().toLowerCase();
+    const filter=document.getElementById('syllabusFilter').value;
+    const sf=document.getElementById('syllabusSubjectFilter');
+    const prev=sf.value;
+    sf.innerHTML='<option value="all">All subjects</option>'+state.subjects.map(s=>`<option value="${escapeHtml(s.id)}">${escapeHtml(s.name)}</option>`).join('');
+    sf.value=state.subjects.some(s=>s.id===prev)?prev:'all';
 
-  function plannerData(){
-    const target=state.planner.targetDate;const today=todayKey();const days=target&&target>=today?daysBetweenInclusive(today,target):0;const speed=state.planner.playbackSpeed;
-    const chapters=activeChapters().filter(c=>chapterCompletion(c)<1).map(c=>({c,total:effectiveRemaining(c,speed),video:effectiveVideoRemaining(c,speed),nonVideo:effectiveNonVideoRemaining(c),priority:c.priority})).filter(x=>x.total>0.009);
-    const total=chapters.reduce((a,x)=>a+x.total,0),cap=days*state.planner.dailyHours,short=Math.max(0,total-cap);return {target,today,days,chapters,total,cap,short,speed};
-  }
-  function taskKey(t){return `${t.date}|${t.chapterId}|${t.type}|${Number(t.duration).toFixed(2)}|${t.chapterPart}`}
-  function generatePlan({rebalance=false}={}){
-  const data=plannerData();
-  if(!data.target){showToast('Set a target date first.');return false}
-  if(data.days<=0){showToast('Target date must be today or later.');return false}
+    const rows=state.chapters.filter(c=>!c.removed)
+      .filter(c=>sf.value==='all'||c.subjectId===sf.value)
+      .filter(c=>matchesSyllabus(c,search))
+      .filter(c=>syllabusFilterPass(c,filter));
 
-  const selected=activeSubjects();
-  if(!selected.length){showToast('Select at least one subject in Settings.');return false}
-
-  state.academicTasks=state.academicTasks.filter(t =>
-    t.completed || t.date<todayKey() || !t.generated
-  );
-
-  const dailyCapacity=Math.max(0.25,Number(state.planner.dailyHours)||3);
-  const speed=Number(state.planner.playbackSpeed)||1;
-
-  const scheduleDays=Array.from(
-    {length:data.days},
-    (_,i)=>localDateKey(addDays(parseKey(todayKey()),i))
-  );
-
-  const subjectIds=selected.map(s=>s.id);
-  const bySubject=Object.fromEntries(subjectIds.map(id=>[id,[]]));
-
-  for(const x of data.chapters){
-    if(!bySubject[x.c.subjectId]) continue;
-
-    if(x.video>0.01){
-      bySubject[x.c.subjectId].push({
-        c:x.c,type:'Lecture / Video',
-        remaining:round2(x.video),priority:x.priority
-      });
+    if(!rows.length){
+      document.getElementById('syllabusTable').innerHTML='<div class="empty"><strong>No matching chapters.</strong><div class="small muted mt8">Try a different search or filter.</div></div>';
+      return;
     }
 
-    if(x.nonVideo>0.01){
-      bySubject[x.c.subjectId].push({
-        c:x.c,type:'Study / Practice',
-        remaining:round2(x.nonVideo),priority:x.priority
-      });
+    const grouped=new Map();
+    for(const c of rows){
+      if(!grouped.has(c.subjectId))grouped.set(c.subjectId,[]);
+      grouped.get(c.subjectId).push(c);
     }
-  }
 
-  const weight={high:3,medium:2,low:1};
+    let html='';
+    for(const subject of state.subjects){
+      const chapters=grouped.get(subject.id);
+      if(!chapters?.length)continue;
+      const done=chapters.filter(c=>chapterCompletion(c)>=1).length;
+      const progress=chapters.reduce((sum,c)=>sum+chapterCompletion(c),0)/chapters.length;
+      html+=`<section class="card syllabus-subject">
+        <div class="syllabus-subject-head">
+          <div><div class="subject-name">${subjectIllustration(subject.id)}<strong>${escapeHtml(subject.name)}</strong></div>
+          <div class="small muted mt8">${chapters.length} chapter${chapters.length===1?'':'s'} · ${done} completed</div></div>
+          <span class="small strong">${pct(progress)}% complete</span>
+        </div>
+        <div class="progress-track mt8"><div class="progress-fill" style="width:${pct(progress)}%"></div></div>
+        <div class="syllabus-chapter-grid">`;
 
-  for(const sid of subjectIds){
-    bySubject[sid].sort((a,b)=>{
-      if(state.planner.strategy==='priority'||state.planner.strategy==='deadline'){
-        return (weight[b.priority]||0)-(weight[a.priority]||0)
-          || (b.remaining-a.remaining)
-          || (a.c.name||'').localeCompare(b.c.name||'');
+      for(const c of chapters){
+        const cp=chapterCompletion(c);
+        const labels=state.checklistLabels[c.subjectId]||defaultChecklistLabels(c.subjectId);
+        const remaining=c.includeInFirstTimeLearning
+          ?firstTimeRelearnRemaining(c)
+          :effectiveRemaining(c,state.planner.playbackSpeed);
+        const status=cp>=1?'Completed':cp>0?'In progress':'Not started';
+        const knowledgeLabels={notStarted:'Not started',inProgress:'In progress',completed:'Understood',needsRevision:'Needs revision'};
+        const knowledgeStatus=c.knowledgeStatus||'notStarted';
+        const knowledgeLabel=knowledgeLabels[knowledgeStatus]||'Not started';
+        html+=`<article class="syllabus-chapter">
+          <div class="syllabus-chapter-top">
+            <div class="syllabus-chapter-name">${escapeHtml(c.name)}</div>
+            <span class="priority ${c.priority}">${escapeHtml(c.priority)}</span>
+          </div>
+          <div class="syllabus-chapter-meta">
+            <span class="badge">${status}</span>
+            <span class="badge knowledge-status ${escapeHtml(knowledgeStatus)}">${escapeHtml(knowledgeLabel)}</span>
+            ${c.unit?`<span class="badge">${escapeHtml(c.unit)}</span>`:''}
+            ${c.custom?'<span class="badge custom">Custom</span>':''}
+            ${c.formativeOnly?'<span class="badge formative">Formative-only</span>':''}
+            ${c.includeInFirstTimeLearning?'<span class="badge">Relearning enabled</span>':''}
+          </div>
+          <div class="syllabus-chapter-stats">
+            <span><strong>${pct(cp)}%</strong> progress</span>
+            <span><strong>${fmtHours(remaining)}</strong> ${c.includeInFirstTimeLearning?'relearning left':'study hours left'}</span>
+            <span>${fmtHours(chapterVideoHours(c))} video</span>
+          </div>
+          <div class="progress-track mt8"><div class="progress-fill" style="width:${pct(cp)}%"></div></div>
+          <div class="syllabus-activities">
+            ${Array.from({length:5},(_,i)=>`<label class="syllabus-activity"><input class="check-icon" type="checkbox" ${c.checklist[i]?'checked':''} data-chapter-id="${escapeHtml(c.id)}" data-check-index="${i}" aria-label="${escapeHtml(labels[i]||`Activity ${i+1}`)} for ${escapeHtml(c.name)}" title="${escapeHtml(labels[i]||`Activity ${i+1}`)}">${activityIllustration(labels[i]||`Activity ${i+1}`)}<span class="activity-label">${escapeHtml(labels[i]||`Activity ${i+1}`)}</span></label>`).join('')}
+          </div>
+          <div class="syllabus-card-footer"><span class="small muted">${escapeHtml(subject.teacher||'No teacher set')}</span><button class="btn small ghost" data-action="edit-chapter" data-id="${escapeHtml(c.id)}">Edit chapter</button></div>
+        </article>`;
       }
-      return (a.c.name||'').localeCompare(b.c.name||'');
+      html+='</div></section>';
+    }
+    document.getElementById('syllabusTable').innerHTML=html;
+  }
+
+
+  // Explicit chapter dependencies. A link is [prerequisite, dependent, type].
+  // Essential links preserve learning order; helpful links only guide sequence.
+  const PLANNER_DEPENDENCIES = {
+    class11: {
+      physics: [
+        ['Motion in a Straight Line','Motion in a Plane','essential'],
+        ['Motion in a Plane','Laws of Motion','essential'],
+        ['Laws of Motion','Work, Energy and Power','essential'],
+        ['Work, Energy and Power','System of Particles and Rotational Motion','essential'],
+        ['Units and Measurements','Motion in a Straight Line','helpful'],
+        ['Work, Energy and Power','Gravitation','helpful']
+      ],
+      chemistry: [
+        ['Some Basic Concepts of Chemistry','Structure of Atom','helpful'],
+        ['Structure of Atom','Classification of Elements and Periodicity in Properties','essential'],
+        ['Classification of Elements and Periodicity in Properties','Chemical Bonding and Molecular Structure','essential'],
+        ['Chemical Bonding and Molecular Structure','Chemical Thermodynamics','helpful'],
+        ['Chemical Thermodynamics','Equilibrium','essential'],
+        ['Organic Chemistry: Some Basic Principles and Techniques','Hydrocarbons','essential']
+      ],
+      mathematics: [
+        ['Sets','Relations & Functions','essential'],
+        ['Relations & Functions','Trigonometric Functions','helpful'],
+        ['Straight Lines','Conic Sections','essential'],
+        ['Introduction to Three-dimensional Geometry','Conic Sections','helpful']
+      ],
+      biology: [
+        ['Cell: The Unit of Life','Biomolecules','helpful'],
+        ['Cell: The Unit of Life','Cell Cycle and Cell Division','essential'],
+        ['Morphology of Flowering Plants','Anatomy of Flowering Plants','essential'],
+        ['Breathing and Exchange of Gases','Body Fluids and Circulation','helpful'],
+        ['Neural Control and Coordination','Chemical Coordination and Integration','helpful']
+      ],
+      english: [
+        ['Reading Skills','Grammar & Creative Writing Skills','helpful']
+      ],
+      pe: [
+        ['Fundamentals of Anatomy and Physiology in Sports','Fundamentals of Kinesiology and Biomechanics in Sports','helpful'],
+        ['Physical Fitness, Wellness','Test, Measurements & Evaluation','helpful']
+      ],
+      cs: [
+        ['Introduction to Problem Solving','Familiarization with the Basics of Python Programming','essential'],
+        ['Familiarization with the Basics of Python Programming','Data Types, Variables and Operators','essential'],
+        ['Data Types, Variables and Operators','Expressions, Statements and Input/Output','essential'],
+        ['Expressions, Statements and Input/Output','Flow of Control','essential'],
+        ['Flow of Control','Strings','essential'],
+        ['Strings','Lists','essential'],
+        ['Lists','Tuples','helpful'],
+        ['Tuples','Dictionaries','helpful'],
+        ['Dictionaries','Introduction to Python Modules','helpful']
+      ]
+    },
+    class12: {
+      physics: [
+        ['Electric Charges and Fields','Electrostatic Potential and Capacitance','essential'],
+        ['Current Electricity','Moving Charges and Magnetism','essential'],
+        ['Moving Charges and Magnetism','Magnetism and Matter','helpful'],
+        ['Moving Charges and Magnetism','Electromagnetic Induction','essential'],
+        ['Electromagnetic Induction','Alternating Current','essential'],
+        ['Ray Optics and Optical Instruments','Wave Optics','helpful'],
+        ['Dual Nature of Radiation and Matter','Atoms','essential'],
+        ['Atoms','Nuclei','essential']
+      ],
+      chemistry: [
+        ['Solutions','Electrochemistry','essential'],
+        ['d- and f-Block Elements','Coordination Compounds','essential'],
+        ['Haloalkanes and Haloarenes','Alcohols, Phenols and Ethers','essential'],
+        ['Alcohols, Phenols and Ethers','Aldehydes, Ketones and Carboxylic Acids','essential'],
+        ['Aldehydes, Ketones and Carboxylic Acids','Amines','helpful']
+      ],
+      biology: [
+        ['Human Reproduction','Reproductive Health','essential'],
+        ['Principles of Inheritance and Variation','Molecular Basis of Inheritance','essential'],
+        ['Molecular Basis of Inheritance','Evolution','helpful'],
+        ['Biotechnology - Principles and Processes','Biotechnology and its Applications','essential'],
+        ['Organisms and Populations','Ecosystem','essential'],
+        ['Ecosystem','Biodiversity and its Conservation','essential']
+      ],
+      mathematics: [
+        ['Relations and Functions','Inverse Trigonometric Functions','essential'],
+        ['Matrices','Determinants','essential'],
+        ['Continuity and Differentiability','Applications of Derivatives','essential'],
+        ['Applications of Derivatives','Integrals','helpful'],
+        ['Integrals','Applications of Integrals','essential'],
+        ['Applications of Integrals','Differential Equations','helpful'],
+        ['Vector Algebra','Three-dimensional Geometry','essential']
+      ],
+      english: [
+        ['Reading Comprehension','Creative Writing','helpful']
+      ],
+      pe: [
+        ['Sports and Nutrition','Test and Measurement in Sports','helpful'],
+        ['Physiology and Injuries in Sports','Biomechanics and Sports','helpful']
+      ],
+      cs: [
+        ['Python Revision','Functions','essential'],
+        ['Functions','Exception Handling','helpful'],
+        ['Exception Handling','Text File Handling','helpful'],
+        ['Text File Handling','Binary File Handling','helpful'],
+        ['Binary File Handling','CSV File Handling','helpful'],
+        ['CSV File Handling','Stack Data Structure','helpful'],
+        ['Database Concepts and Relational Model','SQL','essential'],
+        ['SQL','Python and SQL Connectivity','essential']
+      ]
+    }
+  };
+
+  // Short Class XI foundation refreshers for selected Class XII topics.
+  // These are tasks, not extra syllabus chapters.
+  const CLASS12_FOUNDATIONS = {
+    chemistry: {
+      'd- and f-Block Elements': ['Chemical Bonding and Molecular Structure'],
+      'Coordination Compounds': ['Chemical Bonding and Molecular Structure'],
+      'Haloalkanes and Haloarenes': [
+        'Organic Chemistry: Some Basic Principles and Techniques',
+        'Hydrocarbons'
+      ],
+      'Alcohols, Phenols and Ethers': [
+        'Organic Chemistry: Some Basic Principles and Techniques',
+        'Hydrocarbons'
+      ],
+      'Aldehydes, Ketones and Carboxylic Acids': [
+        'Organic Chemistry: Some Basic Principles and Techniques',
+        'Hydrocarbons'
+      ],
+      'Amines': ['Organic Chemistry: Some Basic Principles and Techniques']
+    },
+    biology: {
+      'Principles of Inheritance and Variation': ['Cell Cycle and Cell Division'],
+      'Molecular Basis of Inheritance': ['Cell: The Unit of Life','Biomolecules']
+    },
+    mathematics: {
+      'Continuity and Differentiability': ['Limits and Derivatives'],
+      'Applications of Derivatives': ['Limits and Derivatives'],
+      'Integrals': ['Limits and Derivatives'],
+      'Differential Equations': ['Limits and Derivatives']
+    },
+    cs: {
+      'Functions': ['Data Types, Variables and Operators','Flow of Control'],
+      'Exception Handling': ['Data Types, Variables and Operators'],
+      'Text File Handling': ['Data Types, Variables and Operators'],
+      'Python and SQL Connectivity': ['Familiarization with the Basics of Python Programming']
+    }
+  };
+
+  function firstTimeRelearnRemaining(c,speed=state.planner.playbackSpeed){
+    const video=Math.max(0,chapterVideoHours(c)/Math.max(.25,Number(speed)||1)-completedAcademicByType(c,'Relearn Lecture / Video'));
+    const practice=Math.max(0,c.estimatedHours-chapterVideoHours(c)-completedAcademicByType(c,'Relearn Study / Practice'));
+    return round2(video+practice);
+  }
+
+  function plannerOrderedChapters(chapters, mode){
+    const rules = PLANNER_DEPENDENCIES[activeClass] || {};
+    const ordered = [];
+    const blocked = [];
+
+    for(const subject of activeSubjects()){
+      const all = state.chapters.filter(c=>c.subjectId===subject.id);
+      const active = chapters.filter(c=>c.subjectId===subject.id);
+      const byName = new Map(all.map(c=>[c.name,c]));
+      const activeNames = new Set(active.map(c=>c.name));
+      const edges = rules[subject.id] || [];
+      const blockedNames = new Set();
+
+      if(mode==='firstTime'){
+        for(const [pre,dep,type] of edges){
+          if(type!=='essential' || !activeNames.has(dep)) continue;
+          const prerequisite = byName.get(pre);
+          if(!prerequisite || prerequisite.removed){
+            blockedNames.add(dep);
+            blocked.push({chapter:dep,prerequisite:pre,subject:subject.name,reason:'unavailable'});
+          }else{
+            const relearningPending=prerequisite.includeInFirstTimeLearning &&
+              firstTimeRelearnRemaining(prerequisite)>.009;
+            const ordinaryIncomplete=prerequisite.knowledgeStatus!=='completed' &&
+              prerequisite.knowledgeStatus!=='needsRevision' &&
+              chapterCompletion(prerequisite)<1;
+            if(relearningPending || ordinaryIncomplete){
+              blockedNames.add(dep);
+              blocked.push({chapter:dep,prerequisite:pre,subject:subject.name,reason:'incomplete'});
+            }
+          }
+        }
+
+        let changed = true;
+        while(changed){
+          changed = false;
+          for(const [pre,dep,type] of edges){
+            if(type==='essential' && activeNames.has(dep) &&
+               blockedNames.has(pre) && !blockedNames.has(dep)){
+              blockedNames.add(dep);
+              blocked.push({chapter:dep,prerequisite:pre,subject:subject.name,reason:'incomplete'});
+              changed = true;
+            }
+          }
+        }
+      }
+
+      const usable = active.filter(c=>!blockedNames.has(c.name));
+      const indegree = new Map(usable.map(c=>[c.name,0]));
+      const next = new Map(usable.map(c=>[c.name,[]]));
+      const original = usable.map(c=>c.name);
+
+      // Helpful links influence sequence but never block a chapter.
+      for(const [pre,dep] of edges){
+        if(indegree.has(pre) && indegree.has(dep)){
+          next.get(pre).push(dep);
+          indegree.set(dep,indegree.get(dep)+1);
+        }
+      }
+
+      const ready = usable.filter(c=>indegree.get(c.name)===0);
+      const sorted = [];
+      while(ready.length){
+        const c = ready.shift();
+        sorted.push(c);
+        for(const name of next.get(c.name) || []){
+          indegree.set(name,indegree.get(name)-1);
+          if(indegree.get(name)===0){
+            const item = usable.find(x=>x.name===name);
+            const pos = ready.findIndex(x=>original.indexOf(x.name)>original.indexOf(name));
+            if(pos<0) ready.push(item);
+            else ready.splice(pos,0,item);
+          }
+        }
+      }
+
+      const included = new Set(sorted.map(c=>c.id));
+      ordered.push(...sorted,...usable.filter(c=>!included.has(c.id)));
+    }
+
+    return {ordered,blocked};
+  }
+
+  function class11FoundationNeeds(chapter){
+    if(activeClass!=='class12') return [];
+    const names = CLASS12_FOUNDATIONS[chapter.subjectId]?.[chapter.name] || [];
+    if(!names.length) return [];
+
+    const class11 = classProfiles?.class11;
+    return names.filter(name=>{
+      const old = class11?.chapters?.find(c=>c.name===name && c.subjectId===chapter.subjectId);
+      // Missing or removed Class XI foundations need a short refresher.
+      if(!old || old.removed) return true;
+      if(old.knowledgeStatus==='needsRevision') return true;
+      if(old.knowledgeStatus==='completed') return false;
+      return chapterCompletion(old)<1;
     });
   }
 
-  const scheduledBySubject=Object.fromEntries(
-    subjectIds.map(id=>[id,0])
-  );
+  function plannerData(){
+    const target = state.planner.targetDate;
+    const today = todayKey();
+    const days = target && target>=today ? daysBetweenInclusive(today,target) : 0;
+    const speed = state.planner.playbackSpeed;
+    const mode = state.planner.mode || 'firstTime';
+    const dependency = plannerOrderedChapters(activeChapters(),mode);
+    const chapters = [];
 
-  const existingUsedByDay={};
+    for(const c of dependency.ordered){
+      let video = 0;
+      let nonVideo = 0;
+      let foundation = [];
+      let relearn = false;
 
-  for(const t of state.academicTasks){
-    if(!t.completed&&t.generated&&t.date>=todayKey()){
-      existingUsedByDay[t.date]=(existingUsedByDay[t.date]||0)+Number(t.duration||0);
+      if(mode==='revision'){
+        const estimate = Math.max(.25,Math.min(1.5,c.estimatedHours*.3));
+        nonVideo = Math.max(0,round2(estimate-completedAcademicByType(c,'Revision')));
+      }else if(c.includeInFirstTimeLearning){
+        relearn=true;
+        video=Math.max(0,round2(chapterVideoHours(c)/speed-completedAcademicByType(c,'Relearn Lecture / Video')));
+        nonVideo=Math.max(0,round2(c.estimatedHours-chapterVideoHours(c)-completedAcademicByType(c,'Relearn Study / Practice')));
+      }else if(c.knowledgeStatus==='needsRevision'){
+        const estimate = Math.max(.25,Math.min(1.5,c.estimatedHours*.3));
+        nonVideo = Math.max(0,round2(estimate-completedAcademicByType(c,'Revision')));
+      }else if(c.knowledgeStatus!=='completed'){
+        video = effectiveVideoRemaining(c,speed);
+        nonVideo = effectiveNonVideoRemaining(c);
+        foundation = class11FoundationNeeds(c);
+      }
+
+      const total = round2(video+nonVideo+foundation.length*.5);
+      if(total>.009 || foundation.length){
+        chapters.push({c,total,video,nonVideo,foundation,priority:c.priority,relearn});
+      }
     }
+
+    const total = chapters.reduce((a,x)=>a+x.total,0);
+    const cap = days*state.planner.dailyHours;
+    const short = Math.max(0,total-cap);
+    return {target,today,days,chapters,total,cap,short,speed,mode,blocked:dependency.blocked};
   }
 
-  const tasks=[];
-
-  function nextItem(sid){
-    return (bySubject[sid]||[]).find(x=>x.remaining>0.009)||null;
+  function taskKey(t){
+    return `${t.date}|${t.chapterId}|${t.type}|${Number(t.duration).toFixed(2)}|${t.chapterPart}`
   }
 
-  function chooseSubject(available){
-    return available.slice().sort((a,b)=>{
-      const loadA=scheduledBySubject[a]||0;
-      const loadB=scheduledBySubject[b]||0;
+  function generatePlan({rebalance=false}={}){
+    const data = plannerData();
+    if(!data.target){showToast('Set a target date first.');return false}
+    if(data.days<=0){showToast('Target date must be today or later.');return false}
 
-      if(Math.abs(loadA-loadB)>0.001)return loadA-loadB;
-      return subjectIds.indexOf(a)-subjectIds.indexOf(b);
-    })[0];
-  }
+    const selected = activeSubjects();
+    if(!selected.length){showToast('Select at least one subject in Settings.');return false}
 
-  for(const date of scheduleDays){
-    let dayUsed=Math.min(
-      existingUsedByDay[date]||0,
-      dailyCapacity
+    state.academicTasks = state.academicTasks.filter(t =>
+      t.completed || t.date<todayKey() || !t.generated
     );
 
-    let guard=0;
+    const dailyCapacity = Math.max(.25,Number(state.planner.dailyHours)||3);
+    const speed = Number(state.planner.playbackSpeed)||1;
+    const scheduleDays = Array.from(
+      {length:data.days},
+      (_,i)=>localDateKey(addDays(parseKey(todayKey()),i))
+    );
+    const subjectIds = selected.map(s=>s.id);
+    const bySubject = Object.fromEntries(subjectIds.map(id=>[id,[]]));
 
-    while(dayUsed<dailyCapacity-0.009&&guard++<5000){
-      const available=subjectIds.filter(sid=>nextItem(sid));
-      if(!available.length)break;
+    // Keep each chapter's work together in dependency order. The next chapter
+    // cannot enter the queue until all tasks for its prerequisite are assigned.
+    for(const x of data.chapters){
+      if(!bySubject[x.c.subjectId]) continue;
 
-      const chosenSid=chooseSubject(available);
-      const item=nextItem(chosenSid);
-      if(!item)break;
-
-      const room=round2(dailyCapacity-dayUsed);
-      if(room<=0.009)break;
-
-      const chunkCap=Math.max(
-        0.5,
-        Math.min(2.5,dailyCapacity)
-      );
-
-      const duration=round2(
-        Math.min(item.remaining,room,chunkCap)
-      );
-
-      if(duration<=0.009){
-        item.remaining=0;
-        continue;
+      for(const foundationName of x.foundation || []){
+        bySubject[x.c.subjectId].push({
+          c:x.c,type:'Foundation Review',remaining:.5,initialRemaining:.5,
+          priority:x.priority,label:`Foundation review: ${foundationName} (before ${x.c.name})`
+        });
       }
 
-      const previousParts=tasks.filter(
-        t=>t.chapterId===item.c.id
-      ).length;
-
-      const totalParts=Math.max(
-        1,
-        Math.ceil(
-          effectiveRemaining(item.c,speed)/chunkCap
-        )
-      );
-
-      tasks.push({
-        id:uid('at'),
-        date,
-        subjectId:item.c.subjectId,
-        chapterId:item.c.id,
-        chapterPart:previousParts+1,
-        chapterPartsTotal:totalParts,
-        type:item.type,
-        duration,
-        completed:false,
-        generated:true,
-        createdAt:nowISO(),
-        completedAt:null,
-        source:rebalance?'rebalance':'planner',
-        priority:item.priority,
-        label:item.c.name
-      });
-
-      item.remaining=round2(item.remaining-duration);
-      dayUsed=round2(dayUsed+duration);
-
-      scheduledBySubject[chosenSid]=round2(
-        (scheduledBySubject[chosenSid]||0)+duration
-      );
-
-      if(item.remaining<=0.009){
-        const queue=bySubject[chosenSid];
-        const index=queue.indexOf(item);
-        if(index>=0)queue.splice(index,1);
+      if(data.mode==='revision'){
+        if(x.nonVideo>.01){
+          bySubject[x.c.subjectId].push({
+            c:x.c,type:'Revision',remaining:round2(x.nonVideo),
+            initialRemaining:round2(x.nonVideo),priority:x.priority,label:x.c.name
+          });
+        }
+      }else if(x.relearn){
+        if(x.video>.01){
+          bySubject[x.c.subjectId].push({
+            c:x.c,type:'Relearn Lecture / Video',remaining:round2(x.video),
+            initialRemaining:round2(x.video),priority:x.priority,label:`Relearn: ${x.c.name}`
+          });
+        }
+        if(x.nonVideo>.01){
+          bySubject[x.c.subjectId].push({
+            c:x.c,type:'Relearn Study / Practice',remaining:round2(x.nonVideo),
+            initialRemaining:round2(x.nonVideo),priority:x.priority,label:`Relearn: ${x.c.name}`
+          });
+        }
+      }else{
+        if(x.video>.01){
+          bySubject[x.c.subjectId].push({
+            c:x.c,type:'Lecture / Video',remaining:round2(x.video),
+            initialRemaining:round2(x.video),priority:x.priority,label:x.c.name
+          });
+        }
+        if(x.nonVideo>.01){
+          bySubject[x.c.subjectId].push({
+            c:x.c,type:x.c.knowledgeStatus==='needsRevision'?'Revision':'Study / Practice',
+            remaining:round2(x.nonVideo),initialRemaining:round2(x.nonVideo),
+            priority:x.priority,label:x.c.name
+          });
+        }
       }
     }
-  }
 
-  const seen=new Set();
-  const unique=[];
-
-  for(const t of tasks){
-    const k=taskKey(t);
-    if(!seen.has(k)){
-      seen.add(k);
-      unique.push(t);
+    const scheduledBySubject = Object.fromEntries(subjectIds.map(id=>[id,0]));
+    const existingUsedByDay = {};
+    for(const t of state.academicTasks){
+      if(!t.completed && t.generated && t.date>=todayKey()){
+        existingUsedByDay[t.date]=(existingUsedByDay[t.date]||0)+Number(t.duration||0);
+      }
     }
+
+    const tasks = [];
+    function nextItem(sid){
+      const queue=bySubject[sid]||[];
+      return queue.length && queue[0].remaining>.009 ? queue[0] : null;
+    }
+
+    function chooseSubject(available){
+      return available.slice().sort((a,b)=>{
+        const itemA=nextItem(a),itemB=nextItem(b);
+        if(state.planner.strategy==='priority'||state.planner.strategy==='deadline'){
+          const weight={high:3,medium:2,low:1};
+          const priorityDiff=(weight[itemB?.priority]||0)-(weight[itemA?.priority]||0);
+          if(priorityDiff) return priorityDiff;
+        }
+        const loadA=scheduledBySubject[a]||0;
+        const loadB=scheduledBySubject[b]||0;
+        if(Math.abs(loadA-loadB)>.001) return loadA-loadB;
+        return subjectIds.indexOf(a)-subjectIds.indexOf(b);
+      })[0];
+    }
+
+    for(const date of scheduleDays){
+      let dayUsed=Math.min(existingUsedByDay[date]||0,dailyCapacity);
+      let guard=0;
+
+      while(dayUsed<dailyCapacity-.009 && guard++<5000){
+        const available=subjectIds.filter(sid=>nextItem(sid));
+        if(!available.length) break;
+
+        const chosenSid=chooseSubject(available);
+        const item=nextItem(chosenSid);
+        if(!item) break;
+
+        const room=round2(dailyCapacity-dayUsed);
+        if(room<=.009) break;
+        const chunkCap=Math.max(.5,Math.min(2.5,dailyCapacity));
+        const duration=round2(Math.min(item.remaining,room,chunkCap));
+
+        if(duration<=.009){
+          item.remaining=0;
+          bySubject[chosenSid].shift();
+          continue;
+        }
+
+        const previousParts=tasks.filter(t=>t.chapterId===item.c.id).length;
+        const totalParts=Math.max(1,Math.ceil(item.initialRemaining/chunkCap));
+
+        tasks.push({
+          id:uid('at'),
+          date,
+          subjectId:item.c.subjectId,
+          chapterId:item.c.id,
+          chapterPart:previousParts+1,
+          chapterPartsTotal:totalParts,
+          type:item.type,
+          duration,
+          completed:false,
+          generated:true,
+          createdAt:nowISO(),
+          completedAt:null,
+          source:rebalance?'rebalance':'planner',
+          priority:item.priority,
+          label:item.label||item.c.name
+        });
+
+        item.remaining=round2(item.remaining-duration);
+        dayUsed=round2(dayUsed+duration);
+        scheduledBySubject[chosenSid]=round2((scheduledBySubject[chosenSid]||0)+duration);
+
+        if(item.remaining<=.009) bySubject[chosenSid].shift();
+      }
+    }
+
+    const seen=new Set();
+    const unique=[];
+    for(const t of tasks){
+      const k=taskKey(t);
+      if(!seen.has(k)){seen.add(k);unique.push(t)}
+    }
+
+    state.academicTasks.push(...unique);
+    saveState();
+    renderCurrent();
+
+    const blockedText=data.blocked.length
+      ? ` ${data.blocked.length} chapter(s) held back because an essential prerequisite is missing or removed.`
+      : '';
+    showToast(
+      unique.length
+        ? `${rebalance?'Rebalanced':'Generated'} ${unique.length} academic task${unique.length===1?'':'s'}.${blockedText}`
+        : `No new work could be scheduled within the available capacity.${blockedText}`
+    );
+    return true;
   }
-
-  state.academicTasks.push(...unique);
-
-  saveState();
-  renderCurrent();
-
-  showToast(
-    unique.length
-      ? `${rebalance?'Rebalanced':'Generated'} ${unique.length} academic task${unique.length===1?'':'s'}.`
-      : 'No new work could be scheduled within the available daily capacity.'
-  );
-
-  return true;
-}
 
 function scheduleDayUsed(date){return state.academicTasks.filter(t=>t.date===date&&!t.completed).reduce((a,t)=>a+t.duration,0)}
   function round2(n){return Math.round(n*100)/100}
 
   function renderPlanner(){
-    const targetEl=document.getElementById('plannerTarget'),hoursEl=document.getElementById('plannerHours'),speedEl=document.getElementById('plannerSpeed'),strategyEl=document.getElementById('plannerStrategy');targetEl.value=state.planner.targetDate;hoursEl.value=state.planner.dailyHours;speedEl.value=state.planner.playbackSpeed;strategyEl.value=state.planner.strategy;
+    const targetEl=document.getElementById('plannerTarget'),hoursEl=document.getElementById('plannerHours'),speedEl=document.getElementById('plannerSpeed'),strategyEl=document.getElementById('plannerStrategy'),modeEl=document.getElementById('plannerMode');targetEl.value=state.planner.targetDate;hoursEl.value=state.planner.dailyHours;speedEl.value=state.planner.playbackSpeed;strategyEl.value=state.planner.strategy;if(modeEl)modeEl.value=state.planner.mode||'firstTime';
     const d=plannerData();document.getElementById('plannerSummary').innerHTML=[['Work Left',fmtHours(d.total),'Total unfinished study work'],['Time Available',fmtHours(d.cap),'Total study time before target date'],['Daily Limit',fmtHours(state.planner.dailyHours),'Maximum planned study time per day'],['Time Shortfall',fmtHours(d.short),'Work that won\'t fit before target date']].map(([k,v,s])=>`<div class="sum-box"><div class="k">${escapeHtml(k)}</div><div class="v">${v}</div><div class="small muted mt8">${escapeHtml(s)}</div></div>`).join('');
-    document.getElementById('plannerWarning').innerHTML=d.short>0.009?`<div class="warn"><strong>Capacity warning.</strong> ${fmtHours(d.total)} remains, but only ${fmtHours(d.cap)} fits before ${fmtDate(d.target)}. Shortage: ${fmtHours(d.short)}. The planner will not overload any day.</div>`:(d.target?`<div class="success">The remaining ${fmtHours(d.total)} fits inside the available ${fmtHours(d.cap)} capacity at ${fmtHours(state.planner.dailyHours)}/day.</div>`:'<div class="note">Set a target date to calculate your schedule.</div>');
+    const blockedNote=d.blocked.length?(()=>{
+      const unavailable=d.blocked.filter(x=>x.reason==='unavailable');
+      const incomplete=d.blocked.filter(x=>x.reason!=='unavailable');
+      const row=x=>`<li><strong>${escapeHtml(x.chapter)}</strong><span class="muted"> needs </span>${escapeHtml(x.prerequisite)}</li>`;
+      const preview=d.blocked.slice(0,4).map(row).join('');
+      const extra=d.blocked.length>4?`<details class="mt8"><summary class="small">Show all ${d.blocked.length} waiting chapters</summary><ul class="mt8">${d.blocked.slice(4).map(row).join('')}</ul></details>`:'';
+      return `<div class="warn mt8"><strong>Some chapters are waiting for prerequisites.</strong><p class="small mt8">In First-time Learning, complete the required earlier chapters before moving on to these chapters.</p>${incomplete.length?`<div class="small strong mt8">Prerequisite incomplete (${incomplete.length})</div>`:''}${unavailable.length?`<div class="small strong mt8">Prerequisite missing or removed (${unavailable.length})</div>`:''}<ul class="mt8">${preview}</ul>${extra}</div>`;
+    })():'';
+    document.getElementById('plannerWarning').innerHTML=(d.short>0.009?`<div class="warn"><strong>Capacity warning.</strong> ${fmtHours(d.total)} remains, but only ${fmtHours(d.cap)} fits before ${fmtDate(d.target)}. Shortage: ${fmtHours(d.short)}. The planner will not overload any day.</div>`:(d.target?`<div class="success">The remaining ${fmtHours(d.total)} fits inside the available ${fmtHours(d.cap)} capacity at ${fmtHours(state.planner.dailyHours)}/day.</div>`:'<div class="note">Set a target date to calculate your schedule.</div>'))+blockedNote;
     const future=state.academicTasks.filter(t=>t.date>=todayKey());const byDay={};future.forEach(t=>(byDay[t.date]??=[]).push(t));const dates=Object.keys(byDay).sort();
     document.getElementById('plannerSchedule').innerHTML=dates.length?`<div class="grid g-2">${dates.map(date=>`<div class="plan-day"><div class="plan-day-head"><div><strong>${fmtDateLong(date)}</strong><small>${date===todayKey()?'Today · ':''}${fmtHours(byDay[date].reduce((a,t)=>a+t.duration,0))} planned</small></div><span class="badge">${byDay[date].filter(t=>t.completed).length}/${byDay[date].length} done</span></div><div class="plan-day-body">${byDay[date].map(t=>{const c=currentChapter(t.chapterId),s=currentSubject(t.subjectId);return `<div class="plan-row"><input class="task-check" type="checkbox" ${t.completed?'checked':''} data-task-id="${escapeHtml(t.id)}" data-task-type="academic" aria-label="Complete ${escapeHtml(c?.name||t.label)}"><div><div class="name">${escapeHtml(c?.name||t.label)}</div><span class="sub">${escapeHtml(s.name)} · ${escapeHtml(t.type)}${t.chapterPartsTotal>1?` · Part ${t.chapterPart}/${t.chapterPartsTotal}`:''}</span></div><div class="dur">${fmtHours(t.duration)}</div></div>`}).join('')}</div></div>`).join('')}</div>`:`<div class="empty"><strong>No generated tasks yet.</strong>Generate a plan to see your future schedule here.</div>`;
     const speed=state.planner.playbackSpeed;document.getElementById('plannerSidebarInfo').innerHTML=`<div class="stat-line"><span>Playback</span><strong>${speed}x</strong></div><div class="stat-line"><span>Video time left</span><strong>${fmtHours(activeChapters().reduce((a,c)=>a+effectiveVideoRemaining(c,speed),0))}</strong></div><div class="stat-line"><span>Non-video time left</span><strong>${fmtHours(activeChapters().reduce((a,c)=>a+effectiveNonVideoRemaining(c),0)-state.academicHistory.reduce((a,h)=>a+h.duration,0))}</strong></div><div class="stat-line"><span>Strategy</span><strong>${strategyLabel(state.planner.strategy)}</strong></div><div class="small muted mt12">Playback speed divides only video/lecture time. Practice, notes, tests and revision stay at full duration. If a chapter has no custom video duration, the assumed video share above is used.</div>`;
@@ -2753,7 +3491,15 @@ let weeklyReviewAnchor=todayKey();
           : 'Android notifications are currently blocked or not yet allowed.';
       }
     }catch(e){}
-    status.textContent=(n.enabled?'StudyOS notifications: ON. ':'StudyOS notifications: OFF. ')+android;
+    let exactAlarm='Exact Alarm status unavailable.';
+    try{
+      if(window.StudyOSNotifications?.canScheduleExactAlarms){
+        exactAlarm=window.StudyOSNotifications.canScheduleExactAlarms()
+          ? 'Exact Alarm access: allowed.'
+          : 'Exact Alarm access: not allowed. Android may use inexact timing.';
+      }
+    }catch(e){}
+    status.textContent=(n.enabled?'StudyOS notifications: ON. ':'StudyOS notifications: OFF. ')+android+' '+exactAlarm;
   }
 }
 
@@ -2765,12 +3511,29 @@ function enableStudyOSNotifications(){
       window.StudyOSNotifications.requestPermission();
     }
   }catch(e){}
+  window.StudyOSOnAndroidPermissionChanged?.();
   renderSettings();
   showToast('StudyOS notifications enabled.');
 }
 
 function disableStudyOSNotifications(){
   state.notifications.enabled=false;
+
+  try{
+    window.StudyOSNotifications?.cancelAllNotifications?.();
+  }catch(e){
+    console.warn('Could not cancel scheduled notifications:',e);
+  }
+
+  try{
+    const key='studyos_preloaded_notification_cycle_v1';
+    const data=JSON.parse(localStorage.getItem(key)||'null');
+    if(data&&typeof data==='object'){
+      data.scheduledUntil=Date.now();
+      localStorage.setItem(key,JSON.stringify(data));
+    }
+  }catch(e){}
+
   saveState();
   renderSettings();
   showToast('StudyOS notifications turned off.');
@@ -2838,6 +3601,8 @@ function confirmFunnyNo(){
   }
   state.notifications.funnyEnabled=false;
   saveState();
+  resetStudyOSNotificationSchedule();
+  renderSettings();
   showFunnyOffMessage();
 }
 
@@ -2855,13 +3620,43 @@ function renderPomodoroSettings(){
   // =========================================================
   // CHAPTER MODAL
   // =========================================================
+  let pendingRelearnChapterId=null;
+
+  function openChapterRelearnPrompt(c){
+    if(!c)return;
+    lastModalFocus=document.activeElement;
+    pendingRelearnChapterId=c.id;
+    openModal('Study this chapter again?',`<div style="line-height:1.65">
+      <p><strong>${escapeHtml(c.name)}</strong> is now marked as completed.</p>
+      <p>Would you like Smart Planner to include it in future <strong>First-time Learning</strong> plans?</p>
+      <div class="note mt8"><strong>Why this option?</strong><br>Some students start using StudyOS after a long break. They may have completed a few chapters earlier but still want to study them again to refresh their understanding.</div>
+      <p class="small muted mt8">You can change this choice later in Edit Chapter. Your existing progress and study history will stay safe.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn ghost" data-relearn-choice="no">No, skip this chapter</button>
+      <button class="btn primary" data-relearn-choice="yes">Yes, include this chapter</button>
+    </div>`);
+  }
+
+  function chooseChapterRelearning(include){
+    const c=currentChapter(pendingRelearnChapterId);
+    if(!c)return;
+    c.includeInFirstTimeLearning=!!include;
+    c.updatedAt=nowISO();
+    pendingRelearnChapterId=null;
+    saveState();
+    closeModal();
+    renderCurrent();
+    showToast(include?'This chapter will be included in future First-time Learning plans.':'This chapter will be skipped in First-time Learning plans.');
+  }
+
   function openChapterModal(id=null){
     const c=id?currentChapter(id):null;lastModalFocus=document.activeElement;
     const subjectOptions=state.subjects.map(s=>({value:s.id,label:s.name}));
-    openModal(c?'Edit chapter':'Add custom chapter',`<div class="form-grid"><div class="field full"><label for="chName">Chapter name</label><input class="input" id="chName" value="${escapeHtml(c?.name||'')}" placeholder="Chapter / topic name"></div><div class="field"><label for="chSubject">Subject</label><select class="select" id="chSubject">${optionHtml(subjectOptions,c?.subjectId||state.subjects[0].id)}</select></div><div class="field"><label for="chUnit">Unit / section</label><input class="input" id="chUnit" value="${escapeHtml(c?.unit||'')}" placeholder="Optional unit"></div><div class="field"><label for="chHours">Estimated hours</label><input class="input" id="chHours" type="number" min="0.25" max="100" step="0.25" value="${c?.estimatedHours??2}"></div><div class="field"><label for="chVideo">Video / lecture hours</label><input class="input" id="chVideo" type="number" min="0" max="100" step="0.25" value="${c?.videoHours??0}"><div class="small muted mt8">Leave blank to use the global assumed video share. Enter 0 to make this chapter fully non-video.</div></div><div class="field"><label for="chPriority">Priority</label><select class="select" id="chPriority">${optionHtml([{value:'high',label:'High'},{value:'medium',label:'Medium'},{value:'low',label:'Low'}],c?.priority||'medium')}</select></div><div class="field full"><label for="chNotes">Notes</label><textarea class="textarea" id="chNotes" placeholder="Optional chapter notes">${escapeHtml(c?.notes||'')}</textarea></div></div><div class="modal-actions"><button class="btn ghost" data-modal-close>Cancel</button>${c?`<button class="btn danger" data-remove-chapter="${escapeHtml(c.id)}">${c.removed?'Restore':'Remove'}</button>`:''}<button class="btn primary" data-save-chapter data-id="${escapeHtml(c?.id||'')}">Save chapter</button></div>`);
+    openModal(c?'Edit chapter':'Add custom chapter',`<div class="form-grid"><div class="field full"><label for="chName">Chapter name</label><input class="input" id="chName" value="${escapeHtml(c?.name||'')}" placeholder="Chapter / topic name"></div><div class="field"><label for="chSubject">Subject</label><select class="select" id="chSubject">${optionHtml(subjectOptions,c?.subjectId||state.subjects[0].id)}</select></div><div class="field"><label for="chUnit">Unit / section</label><input class="input" id="chUnit" value="${escapeHtml(c?.unit||'')}" placeholder="Optional unit"></div><div class="field"><label for="chHours">Estimated hours</label><input class="input" id="chHours" type="number" min="0.25" max="100" step="0.25" value="${c?.estimatedHours??2}"></div><div class="field"><label for="chVideo">Video / lecture hours</label><input class="input" id="chVideo" type="number" min="0" max="100" step="0.25" value="${c?.videoHours??0}"><div class="small muted mt8">Leave blank to use the global assumed video share. Enter 0 to make this chapter fully non-video.</div></div><div class="field"><label for="chPriority">Priority</label><select class="select" id="chPriority">${optionHtml([{value:'high',label:'High'},{value:'medium',label:'Medium'},{value:'low',label:'Low'}],c?.priority||'medium')}</select></div><div class="field full"><label for="chKnowledge">Your knowledge of this chapter</label><select class="select" id="chKnowledge">${optionHtml([{value:'notStarted',label:'Not started'},{value:'inProgress',label:'In progress'},{value:'completed',label:'Completed — I know this'},{value:'needsRevision',label:'Needs revision'}],c?.knowledgeStatus||'notStarted')}</select><div class="small muted mt8">This is separate from the five progress checkboxes. You can update it whenever your understanding changes.</div></div>${c?`<div class="field full"><label><input type="checkbox" id="chIncludeRelearn" ${c.includeInFirstTimeLearning?'checked':''}> Include this chapter in future First-time Learning plans</label><div class="small muted mt8">A fresh relearning cycle will be created without deleting your existing progress or history.</div></div>`:''}<div class="field full"><label for="chNotes">Notes</label><textarea class="textarea" id="chNotes" placeholder="Optional chapter notes">${escapeHtml(c?.notes||'')}</textarea></div></div><div class="modal-actions"><button class="btn ghost" data-modal-close>Cancel</button>${c?`<button class="btn danger" data-remove-chapter="${escapeHtml(c.id)}">${c.removed?'Restore':'Remove'}</button>`:''}<button class="btn primary" data-save-chapter data-id="${escapeHtml(c?.id||'')}">Save chapter</button></div>`);
   }
   function saveChapterFromModal(id){
-    const name=document.getElementById('chName').value.trim();if(!name){showToast('Chapter name is required.');return}const subjectId=document.getElementById('chSubject').value;const hours=clampNum(document.getElementById('chHours').value,.25,100,2);const videoField=document.getElementById('chVideo').value.trim();const video=clampNum(videoField,0,hours,0);const obj={name,subjectId,unit:document.getElementById('chUnit').value.trim(),estimatedHours:hours,videoHours:video,videoConfigured:videoField!=='',priority:document.getElementById('chPriority').value,notes:document.getElementById('chNotes').value.trim(),updatedAt:nowISO()};
+    const name=document.getElementById('chName').value.trim();if(!name){showToast('Chapter name is required.');return}const subjectId=document.getElementById('chSubject').value;const hours=clampNum(document.getElementById('chHours').value,.25,100,2);const videoField=document.getElementById('chVideo').value.trim();const video=clampNum(videoField,0,hours,0);const obj={name,subjectId,unit:document.getElementById('chUnit').value.trim(),estimatedHours:hours,videoHours:video,videoConfigured:videoField!=='',priority:document.getElementById('chPriority').value,knowledgeStatus:document.getElementById('chKnowledge').value,includeInFirstTimeLearning:!!document.getElementById('chIncludeRelearn')?.checked,notes:document.getElementById('chNotes').value.trim(),updatedAt:nowISO()};
     if(id){const c=currentChapter(id);if(c){Object.assign(c,obj);c.updatedAt=nowISO()}}
     else {const n=chapter(uid('ch'),subjectId,name,hours,obj.unit,false);Object.assign(n,obj,{id:uid('ch'),custom:true,removed:false});state.chapters.push(n)}
     saveState();closeModal();renderCurrent();showToast(id?'Chapter updated.':'Custom chapter added.');
@@ -2873,7 +3668,28 @@ function renderPomodoroSettings(){
   // MODALS
   // =========================================================
   function openModal(title,body){const mb=document.getElementById('modalBackdrop');document.getElementById('modalTitle').textContent=title;document.getElementById('modalBody').innerHTML=body;mb.classList.add('open');mb.setAttribute('aria-hidden','false');setTimeout(()=>{const first=mb.querySelector('input,select,textarea,button');first?.focus()},30)}
-  function closeModal(){const mb=document.getElementById('modalBackdrop');mb.classList.remove('open');mb.setAttribute('aria-hidden','true');if(lastModalFocus&&document.contains(lastModalFocus))lastModalFocus.focus();lastModalFocus=null}
+  function closeModal(){
+    const activeModalTitle=document.getElementById('modalTitle')?.textContent||'';
+    if(activeModalTitle.includes('Streak at risk!') && state.streakSaver?.pendingMissedDate){
+      state.streakSaver.pendingMissedDate='';
+      saveState();
+    }
+
+    if(pendingRelearnChapterId){
+      const c=currentChapter(pendingRelearnChapterId);
+      if(c){
+        c.includeInFirstTimeLearning=false;
+        c.updatedAt=nowISO();
+        saveState();
+      }
+      pendingRelearnChapterId=null;
+    }
+    const mb=document.getElementById('modalBackdrop');
+    mb.classList.remove('open');
+    mb.setAttribute('aria-hidden','true');
+    if(lastModalFocus&&document.contains(lastModalFocus))lastModalFocus.focus();
+    lastModalFocus=null;
+  }
 
   let pendingConfirmAction=null;
 
@@ -2899,12 +3715,23 @@ function renderPomodoroSettings(){
   // IMPORT / EXPORT / RESET
   // =========================================================
   function exportBackup(){
+  classProfiles[activeClass]=state;
+  persistClassProfiles();
   const backup={
     app:'StudyOS 2',
-    formatVersion:2,
+    formatVersion:3,
     exportedAt:nowISO(),
+    activeClass,
+    profiles:{
+      class11:classProfiles.class11,
+      class12:classProfiles.class12
+    },
     state:state,
-    formulaVaultUser:loadFormulaVaultUser()
+    formulaVaultUser:loadFormulaVaultUser(activeClass),
+    formulaVaultUsers:{
+      class11:loadFormulaVaultUser('class11'),
+      class12:loadFormulaVaultUser('class12')
+    }
   };
 
   const fileName=`studyos2-backup-${todayKey()}.json`;
@@ -2973,11 +3800,20 @@ function importBackupText(text){
     return;
   }
 
+  const hasProfiles=!!(
+    incoming.profiles &&
+    typeof incoming.profiles==='object' &&
+    incoming.profiles.class11 &&
+    Array.isArray(incoming.profiles.class11.subjects) &&
+    Array.isArray(incoming.profiles.class11.chapters)
+  );
+
   const importedState=incoming.state&&typeof incoming.state==='object'
     ? incoming.state
     : incoming;
 
-  if(!Array.isArray(importedState.subjects)||!Array.isArray(importedState.chapters)){
+  if(!hasProfiles &&
+     (!Array.isArray(importedState.subjects)||!Array.isArray(importedState.chapters))){
     showToast('Invalid StudyOS backup.');
     return;
   }
@@ -2986,23 +3822,35 @@ function importBackupText(text){
     'Import backup?',
     'This will replace your current StudyOS data with the selected backup. A fresh backup is recommended first.',
     ()=>{
-      state=sanitizeState(importedState);
+      if(hasProfiles){
+        classProfiles={
+          class11:sanitizeState(incoming.profiles.class11,'class11'),
+          class12:incoming.profiles.class12||null
+        };
+        activeClass=incoming.activeClass==='class12'&&classProfiles.class12
+          ? 'class12'
+          : 'class11';
+        state=sanitizeState(classProfiles[activeClass],activeClass);
+      }else{
+        activeClass='class11';
+        state=sanitizeState(importedState,'class11');
+        classProfiles={class11:state,class12:null};
+      }
       state.firstRun=false;
       state.setup.done=true;
+      classProfiles[activeClass]=state;
       saveState();
 
-      if(incoming.formulaVaultUser&&typeof incoming.formulaVaultUser==='object'){
-        saveFormulaVaultUser({
-          favorites:incoming.formulaVaultUser.favorites&&typeof incoming.formulaVaultUser.favorites==='object'?incoming.formulaVaultUser.favorites:{},
-          known:incoming.formulaVaultUser.known&&typeof incoming.formulaVaultUser.known==='object'?incoming.formulaVaultUser.known:{},
-          viewed:incoming.formulaVaultUser.viewed&&typeof incoming.formulaVaultUser.viewed==='object'?incoming.formulaVaultUser.viewed:{}
-        });
+      const emptyFormulaUser={favorites:{},known:{},viewed:{}};
+      if(incoming.formulaVaultUsers&&typeof incoming.formulaVaultUsers==='object'){
+        saveFormulaVaultUser(incoming.formulaVaultUsers.class11||emptyFormulaUser,'class11');
+        saveFormulaVaultUser(incoming.formulaVaultUsers.class12||emptyFormulaUser,'class12');
+      }else if(incoming.formulaVaultUser&&typeof incoming.formulaVaultUser==='object'){
+        saveFormulaVaultUser(emptyFormulaUser,activeClass==='class11'?'class12':'class11');
+        saveFormulaVaultUser(incoming.formulaVaultUser,activeClass);
       }else{
-        saveFormulaVaultUser({
-          favorites:{},
-          known:{},
-          viewed:{}
-        });
+        saveFormulaVaultUser(emptyFormulaUser,'class11');
+        saveFormulaVaultUser(emptyFormulaUser,'class12');
       }
 
       renderCurrent();
@@ -3023,12 +3871,17 @@ function resetAll(){
         ()=>{
           try{window.StudyOSAndroid?.setOnboardingComplete?.(false)}catch(e){}
           localStorage.removeItem(CONFIG.STORAGE_KEY);
+          localStorage.removeItem(CONFIG.PROFILES_STORAGE_KEY);
+          activeClass='class11';
+          classProfiles={class11:null,class12:null};
           localStorage.removeItem('studyos2_formula_vault_user');
+          localStorage.removeItem('studyos2_formula_vault_user_class11');
+          localStorage.removeItem('studyos2_formula_vault_user_class12');
           localStorage.removeItem('studyos2_last_backup_at');
           localStorage.removeItem('studyos2_backup_reminder_later_at');
           sessionStorage.removeItem('studyos2_backup_reminder_shown');
 
-          state=blankState();
+          state=blankState('class11');
           saveFormulaVaultUser({
             favorites:{},
             known:{},
@@ -3088,7 +3941,7 @@ function showWelcomeVideo(){
     if(finished)return;
     finished=true;
     overlay.remove();
-    showWelcomeScreen();
+    showClassSelection();
   };
 
   video.addEventListener('ended',continueToWelcome,{once:true});
@@ -3157,15 +4010,259 @@ function showWelcomeScreen(){
   `);
 }
 
+function showClassSelection(){
+  closeModal();
+  document.getElementById('studyosWelcomeOverlay')?.remove();
+  document.getElementById('studyosClassIntroOverlay')?.remove();
+  document.getElementById('studyosClassSelectionOverlay')?.remove();
+
+  const overlay=document.createElement('div');
+  overlay.id='studyosClassSelectionOverlay';
+  overlay.style.cssText='position:fixed;inset:0;width:100%;height:100%;height:100dvh;background:radial-gradient(ellipse at 50% 30%,#e7f0ed 0%,#dce9e8 42%,#f5f0e4 100%);z-index:2147483647;display:flex;align-items:center;justify-content:center;overflow:auto;color:#20333b;font-family:inherit;padding:24px;box-sizing:border-box';
+
+  overlay.innerHTML=`
+    <div style="width:min(100%,680px);text-align:center">
+      <div style="font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#8a7950;font-weight:700;margin-bottom:16px">PLAN. FOCUS. PROGRESS.</div>
+      <div style="font-size:clamp(30px,6vw,48px);font-weight:750;letter-spacing:-1.5px;line-height:1.12">Choose your class</div>
+      <div style="font-size:15px;line-height:1.6;color:#63757a;margin:14px auto 30px;max-width:440px">Let's set up your learning space. You can switch classes later, and each class keeps its own progress.</div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;text-align:left">
+        <button type="button" data-select-initial-class="class11" style="min-height:190px;border:1px solid #c6d9d5;border-radius:22px;padding:24px;background:linear-gradient(145deg,#ffffff,#edf5f1);color:#20333b;text-align:left;box-shadow:0 12px 32px #24434b12;font:inherit;cursor:pointer">
+          <div style="font-size:12px;letter-spacing:2px;color:#8a7950;font-weight:700">SENIOR SECONDARY</div>
+          <div style="font-size:42px;font-weight:800;letter-spacing:-2px;margin:13px 0 4px">XI</div>
+          <div style="font-size:14px;color:#63757a">Class 11 · Build your foundation</div>
+          <div style="margin-top:20px;font-size:13px;font-weight:750;color:#26766f">Continue →</div>
+        </button>
+        <button type="button" data-select-initial-class="class12" style="min-height:190px;border:1px solid #d9cfb5;border-radius:22px;padding:24px;background:linear-gradient(145deg,#fffefa,#f5efdf);color:#20333b;text-align:left;box-shadow:0 12px 32px #5a492012;font:inherit;cursor:pointer">
+          <div style="font-size:12px;letter-spacing:2px;color:#8a7950;font-weight:700">SENIOR SECONDARY</div>
+          <div style="font-size:42px;font-weight:800;letter-spacing:-2px;margin:13px 0 4px">XII</div>
+          <div style="font-size:14px;color:#63757a">Class 12 · Focus on your goals</div>
+          <div style="margin-top:20px;font-size:13px;font-weight:750;color:#92743b">Continue →</div>
+        </button>
+      </div>
+      <div style="font-size:12px;color:#718187;margin-top:22px">Your class can be changed anytime from the app.</div>
+    </div>`;
+
+  document.body.appendChild(overlay);
+}
+
+function selectInitialClass(classId){
+  if(!['class11','class12'].includes(classId))return;
+
+  try{
+    saveState();
+    classProfiles[activeClass]=state;
+
+    if(!classProfiles[classId]){
+      classProfiles[classId]=blankState(classId);
+    }
+
+    activeClass=classId;
+    formulaVaultData=null;
+    formulaVaultLoadPromise=null;
+    renderFormulaVault.selection=null;
+    state=sanitizeState(classProfiles[classId],classId);
+    classProfiles[classId]=state;
+    persistClassProfiles();
+
+    updateClassSwitcher();
+    applyTheme();
+    updateDerivedMeta();
+    renderCurrent();
+
+    document.getElementById('studyosClassSelectionOverlay')?.remove();
+    showClassIntroIfNeeded(()=>showWelcomeScreen());
+  }catch(e){
+    console.error('Initial class selection failed:',e);
+    showToast('Could not open that class. Your saved profiles were preserved.');
+  }
+}
+
+function showClassIntroIfNeeded(onComplete=()=>{}){
+  const classId=activeClass;
+  const storageKey=`studyos2_intro_seen_${classId}`;
+
+  try{
+    if(localStorage.getItem(storageKey)==='true'){
+      onComplete();
+      return;
+    }
+  }catch(e){
+    console.warn('Could not read class introduction status:',e);
+  }
+
+  document.getElementById('studyosClassIntroOverlay')?.remove();
+
+  const classLabel=classId==='class12'?'XII':'XI';
+  const videoPath=classId==='class12'
+    ? './videos/class12-intro.mp4'
+    : './videos/class11-intro.mp4';
+
+  const overlay=document.createElement('div');
+  overlay.id='studyosClassIntroOverlay';
+  overlay.style.cssText='position:fixed;inset:0;width:100%;height:100%;height:100dvh;background:radial-gradient(ellipse at 50% 35%,#203b49 0%,#101c28 48%,#070b11 100%);z-index:2147483647;display:flex;align-items:center;justify-content:center;overflow:hidden;color:#f7f4ec;font-family:inherit';
+
+  overlay.innerHTML=`
+    <video playsinline preload="auto"
+      disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback"
+      style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;opacity:0;transition:opacity .35s">
+      <source src="${videoPath}" type="video/mp4">
+    </video>
+    <div data-class-intro-cover style="position:relative;z-index:1;text-align:center;width:min(90%,560px);padding:28px">
+      <div style="font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#c8b887;margin-bottom:20px">YOUR CLASS ${classLabel} JOURNEY</div>
+      <div style="font-size:clamp(30px,5vw,52px);font-weight:650;letter-spacing:-1.5px;line-height:1.08">Welcome to<br>Class ${classLabel}</div>
+      <div data-class-intro-hint style="font-size:13px;color:#bdc8ce;margin:18px auto 24px">Your introduction is ready</div>
+      <button type="button" data-start-class-intro style="border:1px solid #e7d7a9;border-radius:30px;padding:14px 26px;background:linear-gradient(135deg,#f4e7c1,#d8c28b);color:#1b2630;font:inherit;font-weight:650">▶ &nbsp; Begin introduction</button>
+    </div>
+    <button type="button" data-skip-class-intro style="position:absolute;z-index:3;right:18px;top:18px;border:1px solid #ffffff35;border-radius:24px;padding:10px 17px;background:#101820b8;color:#f7f4ec;font:inherit">Skip intro</button>`;
+
+  document.body.appendChild(overlay);
+
+  const video=overlay.querySelector('video');
+  const cover=overlay.querySelector('[data-class-intro-cover]');
+  const start=overlay.querySelector('[data-start-class-intro]');
+  const hint=overlay.querySelector('[data-class-intro-hint]');
+  let finished=false;
+
+  const finish=()=>{
+    if(finished)return;
+    finished=true;
+    try{localStorage.setItem(storageKey,'true')}catch(e){}
+    video.pause();
+    overlay.remove();
+    onComplete();
+  };
+
+  const begin=()=>{
+    video.currentTime=0;
+    video.muted=false;
+    hint.textContent='Starting your introduction…';
+    const result=video.play();
+    if(result&&result.then){
+      result.then(()=>{
+        cover.style.display='none';
+        video.style.opacity='1';
+      }).catch(()=>{
+        hint.textContent='Tap below to play the introduction.';
+        start.textContent='▶ Play introduction';
+      });
+    }else{
+      cover.style.display='none';
+      video.style.opacity='1';
+    }
+  };
+
+  start.onclick=begin;
+  overlay.querySelector('[data-skip-class-intro]').addEventListener('click',finish);
+  video.addEventListener('ended',finish,{once:true});
+  video.addEventListener('error',()=>{
+    hint.textContent='The introduction could not load. You can continue.';
+    start.textContent='Continue';
+    start.onclick=finish;
+  },{once:true});
+
+  const autoplay=video.play();
+  if(autoplay&&autoplay.then){
+    autoplay.then(()=>{
+      cover.style.display='none';
+      video.style.opacity='1';
+    }).catch(()=>{
+      video.pause();
+      video.currentTime=0;
+      hint.textContent='Tap below to start your introduction.';
+    });
+  }
+}
+
 function showSubjectSetup(){
+  showClassIntroIfNeeded(()=>renderSubjectSetup());
+}
+
+function renderSubjectSetup(){
   const checkedSubjects=state.subjects.filter(s=>s.enabled).map(s=>s.id);
   openModal('Set Up StudyOS 2', `<div class="small muted">Choose the subjects you study. You can change them later in Settings.</div><div class="form-grid mt16"><div class="field full"><label>Active subjects</label><div class="two-col-mobile" id="setupSubjects">${state.subjects.map(s=>`<label class="soft-box" style="display:flex;align-items:center;gap:8px;cursor:pointer"><input type="checkbox" data-setup-subject="${escapeHtml(s.id)}" ${checkedSubjects.includes(s.id)?'checked':''}> <span class="small strong">${escapeHtml(s.name)}</span></label>`).join('')}</div></div><div class="field full"><label>Teachers (optional)</label><div>${state.subjects.map(s=>`<div class="subject-setting"><span class="small strong">${escapeHtml(s.name)}</span><input class="input" data-setup-teacher="${escapeHtml(s.id)}" value="${escapeHtml(s.teacher)}" placeholder="Teacher"></div>`).join('')}</div></div><div class="field"><label for="setupHours">Daily study hours</label><input class="input" id="setupHours" type="number" min="0.25" max="16" step="0.25" value="${state.planner.dailyHours}"></div><div class="field"><label for="setupTarget">Target date</label><input class="input" id="setupTarget" type="date" value="${escapeHtml(state.planner.targetDate||'')}"></div><div class="field"><label for="setupSpeed">Playback speed</label><select class="select" id="setupSpeed">${[1,1.25,1.5,2].map(v=>`<option value="${v}" ${Number(state.planner.playbackSpeed)===v?'selected':''}>${v}x</option>`).join('')}</select></div><div class="field"><label for="setupStrategy">Strategy</label><select class="select" id="setupStrategy"><option value="balanced" ${state.planner.strategy==='balanced'?'selected':''}>Balanced</option><option value="priority" ${state.planner.strategy==='priority'?'selected':''}>High-Priority First</option><option value="deadline" ${state.planner.strategy==='deadline'?'selected':''}>Exam / Deadline Focused</option></select></div></div><div class="modal-actions"><button class="btn primary" data-finish-setup>Open Dashboard</button></div>`);
 }
 
+const NOTIFICATION_ONBOARDING_KEY='studyos_notification_onboarding_seen_v1';
+
+function notificationOnboardingHandled(){
+  try{return localStorage.getItem(NOTIFICATION_ONBOARDING_KEY)==='1'}catch(e){return false}
+}
+
+function showNotificationOnboarding(){
+  openModal('Stay on Track with StudyOS', `
+    <div class="soft-box">
+      <strong>Keep your study routine on track.</strong>
+      <div class="small muted mt8" style="line-height:1.6">
+        Get helpful study reminders and optional funny notifications from StudyOS 2.
+        You can change your notification preferences anytime in Settings.
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn primary" data-action="notification-onboarding-allow">Allow Notifications</button>
+      <button class="btn ghost" data-action="notification-onboarding-later">Maybe Later</button>
+    </div>
+  `);
+}
+
+function completeNotificationOnboarding(allow){
+  try{localStorage.setItem(NOTIFICATION_ONBOARDING_KEY,'1')}catch(e){}
+
+  if(allow){
+    state.notifications.enabled=true;
+    saveState();
+
+    let alreadyAllowed=false;
+    try{
+      alreadyAllowed=window.StudyOSNotifications?.areNotificationsEnabled?.()===true;
+      window.StudyOSNotifications?.requestPermission?.();
+    }catch(e){}
+
+    if(alreadyAllowed){
+      window.StudyOSOnAndroidPermissionChanged?.();
+    }
+  }else{
+    state.notifications.enabled=false;
+    saveState();
+    try{window.StudyOSNotifications?.cancelAllNotifications?.()}catch(e){}
+  }
+
+  closeModal();
+  navigate('dashboard');
+  setTimeout(maybeShowBackupReminder,900);
+  showToast(allow?'Notification preference saved.':'You can enable notifications later in Settings.');
+}
+
 function finishSetup(){
-    state.subjects.forEach(s=>{const cb=document.querySelector(`[data-setup-subject="${CSS.escape(s.id)}"]`);const inp=document.querySelector(`[data-setup-teacher="${CSS.escape(s.id)}"]`);s.enabled=!!cb?.checked;if(inp)s.teacher=inp.value.trim()});state.planner.dailyHours=clampNum(document.getElementById('setupHours').value,.25,16,3);state.planner.targetDate=document.getElementById('setupTarget').value;state.planner.playbackSpeed=Number(document.getElementById('setupSpeed').value)||1;state.planner.strategy=document.getElementById('setupStrategy').value;state.setup.done=true;state.firstRun=false;saveState();
-  try{window.StudyOSAndroid?.setOnboardingComplete?.(true)}catch(e){}
-  closeModal();navigate('dashboard');showToast('StudyOS 2 is ready.');
+    const selected=state.subjects.filter(s=>{
+      const cb=document.querySelector(`[data-setup-subject="${CSS.escape(s.id)}"]`);
+      return !!cb?.checked;
+    });
+    if(!selected.length){
+      showToast('Choose at least one subject to continue.');
+      return;
+    }
+    state.subjects.forEach(s=>{
+      const cb=document.querySelector(`[data-setup-subject="${CSS.escape(s.id)}"]`);
+      const inp=document.querySelector(`[data-setup-teacher="${CSS.escape(s.id)}"]`);
+      s.enabled=!!cb?.checked;
+      if(inp)s.teacher=inp.value.trim();
+    });
+    state.planner.dailyHours=clampNum(document.getElementById('setupHours').value,.25,16,3);
+    state.planner.targetDate=document.getElementById('setupTarget').value;
+    state.planner.playbackSpeed=Number(document.getElementById('setupSpeed').value)||1;
+    state.planner.strategy=document.getElementById('setupStrategy').value;
+    state.setup.done=true;
+    state.firstRun=false;
+    saveState();
+    try{window.StudyOSAndroid?.setOnboardingComplete?.(true)}catch(e){}
+    closeModal();
+    if(!notificationOnboardingHandled()){
+      showNotificationOnboarding();
+      return;
+    }
+    navigate('dashboard');
+    setTimeout(maybeShowBackupReminder,900);
+    showToast('StudyOS 2 is ready.');
   }
 
   // =========================================================
@@ -3175,6 +4272,7 @@ function finishSetup(){
     document.querySelectorAll('.nav button[data-page]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.page)));
     document.getElementById('menuBtn').addEventListener('click',openDrawer);document.getElementById('drawerOverlay').addEventListener('click',closeDrawer);document.getElementById('modalClose').addEventListener('click',closeModal);document.getElementById('modalBackdrop').addEventListener('click',e=>{if(e.target.id==='modalBackdrop')closeModal()});
     document.getElementById('quickAddBtn').addEventListener('click',()=>openPersonalModal());document.getElementById('themeQuickBtn').addEventListener('click',()=>setTheme(preferredTheme()==='dark'?'light':'dark'));
+    document.getElementById('classSwitcher').addEventListener('change',e=>switchClass(e.target.value));
     document.addEventListener('click',onDocumentClick);document.addEventListener('change',onDocumentChange);document.addEventListener('input',onDocumentInput);
     document.getElementById('calPrev').addEventListener('click',()=>{calendarCursor=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()-1,1);renderCalendar()});document.getElementById('calNext').addEventListener('click',()=>{calendarCursor=new Date(calendarCursor.getFullYear(),calendarCursor.getMonth()+1,1);renderCalendar()});document.getElementById('calToday').addEventListener('click',()=>{const d=CONFIG.TODAY();calendarCursor=new Date(d.getFullYear(),d.getMonth(),1);renderCalendar()});
     const mq=matchMedia('(prefers-color-scheme: dark)');mq.addEventListener?.('change',()=>{if(state.theme==='system')applyTheme()});
@@ -3216,6 +4314,22 @@ function finishSetup(){
     const a=actionEl.dataset.action;
     const id=actionEl.dataset.id;
 
+    if(a==='about-feedback'){
+      const category=actionEl.dataset.feedback||'Feedback';
+      const message=`StudyOS 2 — ${category}\\n\\n`;
+      const url='https://wa.me/917507503475?text='+encodeURIComponent(message);
+      openStudyOSExternal(url);
+      return;
+    }
+    if(a==='about-whatsapp'){
+      openStudyOSExternal('https://wa.me/917507503475');
+      return;
+    }
+    if(a==='about-website'){
+      openStudyOSExternal('https://naitik310.github.io/StudyOS-2/');
+      return;
+    }
+
     if(a==='go-planner'||a==='open-planner'){navigate('planner');return}
     if(a==='rebalance'){generatePlan({rebalance:true});return}
     if(a==='generate-plan'){generatePlan();return}
@@ -3251,6 +4365,9 @@ function finishSetup(){
     if(a==='edit-chapter'){openChapterModal(id);return}
     if(a==='restore-chapter'){restoreChapter(id);return}
 
+    if(a==='notification-onboarding-allow'){completeNotificationOnboarding(true);return}
+    if(a==='notification-onboarding-later'){completeNotificationOnboarding(false);return}
+
     if(a==='notifications-enable'){enableStudyOSNotifications();return}
     if(a==='notifications-disable'){disableStudyOSNotifications();return}
     if(a==='notifications-permission'){
@@ -3258,10 +4375,17 @@ function finishSetup(){
       renderSettings();
       return;
     }
+    if(a==='notifications-exact-alarm'){
+      try{
+        window.StudyOSNotifications?.openExactAlarmSettings?.();
+      }catch(e){}
+      return;
+    }
 
     if(a==='funny-yes'){
       state.notifications.funnyEnabled=true;
       saveState();
+      resetStudyOSNotificationSchedule();
       renderSettings();
       showToast('Funny notifications enabled.');
       return;
@@ -3362,6 +4486,12 @@ function finishSetup(){
     return;
   }
 
+  const relearnChoice=e.target.closest('[data-relearn-choice]');
+  if(relearnChoice){
+    chooseChapterRelearning(relearnChoice.dataset.relearnChoice==='yes');
+    return;
+  }
+
   const confirmOk=e.target.closest('[data-confirm-ok]');
   if(confirmOk){
     acceptConfirm();
@@ -3396,13 +4526,24 @@ const skipWelcomeVideo=e.target.closest('[data-skip-welcome-video]');
   if(skipWelcomeVideo){
     document.getElementById('studyosWelcomeOverlay')?.remove();
     closeModal();
-    showWelcomeScreen();
+    showClassSelection();
     return;
   }
 
 const welcomeContinue=e.target.closest('[data-continue-welcome]');
   if(welcomeContinue){
-    showSubjectSetup();
+    if(state.setup?.done){
+      closeModal();
+      navigate('dashboard');
+    }else{
+      showSubjectSetup();
+    }
+    return;
+  }
+
+  const initialClass=e.target.closest('[data-select-initial-class]');
+  if(initialClass){
+    selectInitialClass(initialClass.dataset.selectInitialClass);
     return;
   }
 
@@ -3417,7 +4558,7 @@ function onDocumentChange(e){
     const el=e.target;
     if(el.matches('[data-task-id]')){toggleTask(el.dataset.taskId,el.dataset.taskType,el.checked);return}
     if(el.matches('[data-chapter-id][data-check-index]')){toggleChapterChecklist(el.dataset.chapterId,Number(el.dataset.checkIndex),el.checked);return}
-    if(el.matches('[data-check-label]')){const sid=el.dataset.checkLabel,i=Number(el.dataset.index);state.checklistLabels[sid]??=[...(DEFAULT_LABELS[sid]||DEFAULT_LABELS.physics)];state.checklistLabels[sid][i]=el.value.trim()||`Activity ${i+1}`;saveState();return}
+    if(el.matches('[data-check-label]')){const sid=el.dataset.checkLabel,i=Number(el.dataset.index);state.checklistLabels[sid]??=[...(defaultChecklistLabels(sid))];state.checklistLabels[sid][i]=el.value.trim()||`Activity ${i+1}`;saveState();return}
     if(el.matches('[data-subject-enable]')){const s=currentSubject(el.dataset.subjectEnable);if(s){s.enabled=el.checked;if(!s.enabled)state.academicTasks=state.academicTasks.filter(t=>t.completed||t.subjectId!==s.id||t.date<todayKey()||!t.generated);saveState();renderCurrent()}return}
     if(el.matches('[data-teacher-subject]')){const s=currentSubject(el.dataset.teacherSubject);if(s){s.teacher=el.value.trim();saveState();renderCurrent()}return}
     if(el.id==='themeSetting'){setTheme(el.value);return}
@@ -3441,6 +4582,7 @@ function onDocumentChange(e){
 }
     if(el.id==='plannerSpeed'){state.planner.playbackSpeed=Number(el.value)||1;saveState();if(state.planner.targetDate)generatePlan({rebalance:true});else{renderPlanner();renderDashboard();updateSidebar()}return}
     if(el.id==='plannerStrategy'){state.planner.strategy=el.value;saveState();renderPlanner();return}
+    if(el.id==='plannerMode'){state.planner.mode=el.value==='revision'?'revision':'firstTime';saveState();if(state.planner.targetDate)generatePlan({rebalance:true});else renderPlanner();return}
     if(el.id==='syllabusFilter'||el.id==='syllabusSubjectFilter'||el.id==='dailyFilter'||el.id==='dailyDateFilter'){if(activePage==='syllabus')renderSyllabus();if(activePage==='daily')renderDaily();return}
     if(el.id==='importFile'&&el.files?.[0]){importBackup(el.files[0]);el.value='';return}
     if(el.matches('[data-setup-subject],[data-setup-teacher]'))return;
@@ -3452,7 +4594,7 @@ function onDocumentChange(e){
 
     if(el.matches('[data-check-label]')){
       const sid=el.dataset.checkLabel,i=Number(el.dataset.index);
-      state.checklistLabels[sid]??=[...(DEFAULT_LABELS[sid]||DEFAULT_LABELS.physics)];
+      state.checklistLabels[sid]??=[...(defaultChecklistLabels(sid))];
       state.checklistLabels[sid][i]=el.value;
       saveState();
     }
@@ -3976,10 +5118,15 @@ function toggleChapterChecklist(chid,index,checked){
 
   if(!wasComplete && isComplete){
     createRevisionSchedule(c);
+    c.includeInFirstTimeLearning=false;
   }
 
   saveState();
   renderCurrent();
+
+  if(!wasComplete && isComplete){
+    openChapterRelearnPrompt(c);
+  }
 
   if(typeof window.studyOSCheckAchievements==='function'){
     window.studyOSCheckAchievements();
@@ -3994,23 +5141,39 @@ let formulaVaultLoadPromise = null;
 
 const FORMULA_VAULT_STORAGE_KEY = 'studyos2_formula_vault_user';
 
-function loadFormulaVaultUser(){
+function formulaVaultStorageKey(classId=activeClass){
+  return `${FORMULA_VAULT_STORAGE_KEY}_${classId}`;
+}
+
+function loadFormulaVaultUser(classId=activeClass){
   try{
-    const raw = localStorage.getItem(FORMULA_VAULT_STORAGE_KEY);
-    const parsed = raw ? safeParse(raw) : null;
+    let raw=localStorage.getItem(formulaVaultStorageKey(classId));
+
+    // Migrate the original shared key into Class XI exactly once.
+    if(!raw&&classId==='class11'){
+      raw=localStorage.getItem(FORMULA_VAULT_STORAGE_KEY);
+      if(raw) localStorage.setItem(formulaVaultStorageKey('class11'),raw);
+    }
+
+    const parsed=raw?safeParse(raw):null;
     return {
-      favorites: parsed?.favorites && typeof parsed.favorites === 'object' ? parsed.favorites : {},
-      known: parsed?.known && typeof parsed.known === 'object' ? parsed.known : {},
-      viewed: parsed?.viewed && typeof parsed.viewed === 'object' ? parsed.viewed : {}
+      favorites:parsed?.favorites&&typeof parsed.favorites==='object'?parsed.favorites:{},
+      known:parsed?.known&&typeof parsed.known==='object'?parsed.known:{},
+      viewed:parsed?.viewed&&typeof parsed.viewed==='object'?parsed.viewed:{}
     };
   }catch(e){
     return {favorites:{},known:{},viewed:{}};
   }
 }
 
-function saveFormulaVaultUser(data){
+function saveFormulaVaultUser(data,classId=activeClass){
   try{
-    localStorage.setItem(FORMULA_VAULT_STORAGE_KEY, JSON.stringify(data));
+    const clean={
+      favorites:data?.favorites&&typeof data.favorites==='object'?data.favorites:{},
+      known:data?.known&&typeof data.known==='object'?data.known:{},
+      viewed:data?.viewed&&typeof data.viewed==='object'?data.viewed:{}
+    };
+    localStorage.setItem(formulaVaultStorageKey(classId),JSON.stringify(clean));
   }catch(e){
     showToast('Could not save Formula Vault progress.');
   }
@@ -4020,22 +5183,32 @@ async function loadFormulaVault(){
   if(formulaVaultData)return formulaVaultData;
   if(formulaVaultLoadPromise)return formulaVaultLoadPromise;
 
-  formulaVaultLoadPromise = fetch('data/formula-vault.json')
+  const classId=activeClass;
+  const file=classId==='class12'
+    ? 'data/formula-vault-class12.json'
+    : 'data/formula-vault.json';
+
+  const request=fetch(file)
     .then(r=>{
       if(!r.ok)throw new Error('Formula Vault data could not be loaded.');
       return r.json();
     })
     .then(data=>{
-      formulaVaultData=data;
+      if(activeClass===classId && formulaVaultLoadPromise===request){
+        formulaVaultData=data;
+      }
       return data;
     })
     .catch(err=>{
       console.error('Formula Vault:',err);
-      formulaVaultLoadPromise=null;
+      if(formulaVaultLoadPromise===request){
+        formulaVaultLoadPromise=null;
+      }
       throw err;
     });
 
-  return formulaVaultLoadPromise;
+  formulaVaultLoadPromise=request;
+  return request;
 }
 
 function renderFormulaVault(){
@@ -4047,7 +5220,7 @@ function renderFormulaVault(){
       <div class="section-head">
         <div>
           <h2>Formula Vault</h2>
-          <p>Fast Class 11 CBSE 2026–27 academic reference.</p>
+          <p>Fast Class ${activeClass==='class12'?'12':'11'} CBSE 2026–27 academic reference.</p>
         </div>
       </div>
       <div class="card">
@@ -4159,6 +5332,8 @@ const mathFormat=v=>{
      .replace(/\b5\/8\b/g,'⅝')
      .replace(/\b7\/8\b/g,'⅞');
 
+  x=x.replace(/\bsqrt\s*\(([^()]*)\)/g,'√($1)');
+
   x=x.replace(/>=/g,'≥')
      .replace(/<=/g,'≤')
      .replace(/!=/g,'≠')
@@ -4196,7 +5371,24 @@ const esc=v=>String(v??'')
     .replace(/"/g,'&quot;')
     .replace(/'/g,'&#039;');
 
-const mathEsc=v=>esc(mathFormat(v));
+
+const mathHtml=v=>{
+  let x=esc(mathFormat(v));
+
+  // Render simple mathematical fractions vertically.
+  // Operands are already HTML-escaped before being inserted.
+  x=x.replace(
+    /(\|[^|\n]+\||√\([^()\n]*\)|\([^()\n]+\)|[A-Za-zΑ-Ωα-ω0-9₀-₉⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁽⁾ΔΦεπτλμΩρ]+)\s*\/\s*(\|[^|\n]+\||√\([^()\n]*\)|\([^()\n]+\)|[A-Za-zΑ-Ωα-ω0-9₀-₉⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁽⁾ΔΦεπτλμΩρ]+)/g,
+    (_,numerator,denominator)=>
+      `<span class="fv-math-fraction"><span>${numerator}</span><span>${denominator}</span></span>`
+  );
+
+  return x;
+};
+
+const mathEsc=v=>
+  sel.subject==='computer_science' ? esc(v) : mathHtml(v);
+
 
   const totalItems=Object.values(subjects).reduce(
     (n,x)=>n+(x.chapters||[]).reduce((m,c)=>m+(Array.isArray(c.items)?c.items.length:0),0),0
@@ -4287,7 +5479,7 @@ const mathEsc=v=>esc(mathFormat(v));
 
           ${frontText?`
             <div style="margin-top:11px;font-size:12px;line-height:1.65">
-              ${esc(frontText)}
+              ${mathEsc(frontText)}
             </div>`:''}
 
           <div class="formula-vault-flip-hint">Tap card to flip · See meaning & details →</div>
@@ -4306,7 +5498,7 @@ const mathEsc=v=>esc(mathFormat(v));
             <div style="margin-top:11px;padding:11px 12px;border-radius:12px;background:var(--panel-soft);font-size:11px;line-height:1.65">
               <strong>${isPoeticDevice?'Example':'Meaning / Use'}</strong>
               <div style="margin-top:6px;color:var(--muted)">
-                ${esc(backText)}
+                ${mathEsc(backText)}
               </div>
             </div>`:''}
 
@@ -4321,7 +5513,7 @@ const mathEsc=v=>esc(mathFormat(v));
             <div style="margin-top:12px;padding:11px 12px;border-radius:12px;background:var(--panel-soft);font-size:11px;line-height:1.65">
               <strong>Explanation</strong>
               <div style="margin-top:6px;color:var(--muted)">
-                ${esc(item.explanation)}
+                ${mathEsc(item.explanation)}
               </div>
             </div>`:''}
 
@@ -4551,69 +5743,224 @@ const STUDYOS_SPECIAL_UPDATE = {
   action:"play_important_update"
 };
 
+function resetStudyOSNotificationSchedule(){
+  const KEY='studyos_preloaded_notification_cycle_v1';
+  const bridge=window.StudyOSNotifications;
+
+  try{
+    bridge?.cancelAllNotifications?.();
+  }catch(e){
+    console.warn('Could not reset scheduled notifications:',e);
+  }
+
+  let previous=null;
+  try{
+    previous=JSON.parse(localStorage.getItem(KEY)||'null');
+  }catch(e){}
+
+  const nextRequestCode=Number.isSafeInteger(previous?.nextRequestCode)
+    && previous.nextRequestCode>=2000000
+    && previous.nextRequestCode<2000000000
+      ? previous.nextRequestCode
+      : 2000000;
+
+  let queue=[11];
+
+  if(state?.notifications?.funnyEnabled){
+    const priority=STUDYOS_PRELOADED_MESSAGES.slice(0,4)
+      .map((_,i)=>i).sort(()=>Math.random()-0.5);
+    const rest=STUDYOS_PRELOADED_MESSAGES.slice(4)
+      .map((_,i)=>i+4).sort(()=>Math.random()-0.5);
+    queue=[...priority,...rest,11];
+  }
+
+  try{
+    localStorage.setItem(KEY,JSON.stringify({
+      queue,
+      scheduledUntil:Date.now(),
+      version:2,
+      nextRequestCode
+    }));
+  }catch(e){
+    console.warn('Could not reset notification queue:',e);
+  }
+
+  if(state?.notifications?.enabled
+     && bridge?.areNotificationsEnabled?.()===true){
+    scheduleStudyOSPreloadedNotifications();
+  }
+}
+
 function scheduleStudyOSPreloadedNotifications(){
   try {
     if (!state?.notifications?.enabled) return;
+
     const bridge = window.StudyOSNotifications;
     if (!bridge || typeof bridge.scheduleNotification !== 'function') return;
+
+    if(typeof bridge.areNotificationsEnabled!=='function'
+       || bridge.areNotificationsEnabled()!==true){
+      return;
+    }
 
     const KEY = 'studyos_preloaded_notification_cycle_v1';
     const DAY = 24 * 60 * 60 * 1000;
     const now = Date.now();
+
     let data;
-    try { data = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch(e) {}
-    if (!data || !Array.isArray(data.queue) || !Number.isFinite(data.scheduledUntil)) {
+    try {
+      data = JSON.parse(localStorage.getItem(KEY) || 'null');
+    } catch(e) {}
+
+    const validQueue = Array.isArray(data?.queue)
+      && data.queue.every(i => Number.isInteger(i) && i >= 0 && i <= 11);
+
+    if (!data || !validQueue) {
       const priority = STUDYOS_PRELOADED_MESSAGES.slice(0,4)
         .map((_,i)=>i).sort(()=>Math.random()-0.5);
       const rest = STUDYOS_PRELOADED_MESSAGES.slice(4)
         .map((_,i)=>i+4).sort(()=>Math.random()-0.5);
       const regular = [...rest, 11].sort(()=>Math.random()-0.5);
-      data = {queue:[...priority,...regular], scheduledUntil:now};
+
+      data = {
+        queue:state.notifications.funnyEnabled
+          ? [...priority,...regular]
+          : [11],
+        scheduledUntil:now,
+        version:2,
+        nextRequestCode:2000000
+      };
     }
 
-    // Schedule notifications at minute :31, approximately every 2–3 hours.
-      let date = new Date(now);
-      date.setSeconds(0, 0);
-      date.setMinutes(31);
-      if (date.getTime() <= now + 60000) {
-        date.setHours(date.getHours() + 1);
-        date.setMinutes(31, 0, 0);
-      }
+    // Never schedule old funny messages when the user has disabled them.
+    if(!state.notifications.funnyEnabled){
+      data.queue=data.queue.filter(i=>i===11);
+    }
 
-      const endTime = now + 30 * DAY;
-      while (date.getTime() < endTime) {
-        const trigger = date.getTime();
-        if (trigger > data.scheduledUntil) {
-          const index = data.queue.shift();
-          let item = index === 11
-            ? STUDYOS_SPECIAL_UPDATE
-            : STUDYOS_PRELOADED_MESSAGES[index];
+    // One-time migration from the old day-based request-code system.
+    if (data.version !== 2) {
+      if (typeof bridge.cancelNotification === 'function') {
+        const currentDay = Math.floor(now / DAY);
 
-          if (!item) {
-            data.queue = STUDYOS_PRELOADED_MESSAGES.map((_, i) => i)
-              .sort(() => Math.random() - 0.5);
-            item = STUDYOS_PRELOADED_MESSAGES[data.queue.shift()];
-          }
-
-          if (item) {
-            bridge.scheduleNotification(
-              73100 + Math.floor(trigger / DAY) % 30000,
-              trigger, item.title, item.message, item.action || ''
-            );
-            data.scheduledUntil = trigger;
-          }
+        for (let offset = -60; offset <= 30; offset++) {
+          const legacyCode = 73100 + ((currentDay + offset) % 30000 + 30000) % 30000;
+          try { bridge.cancelNotification(legacyCode); } catch(e) {}
         }
-        date.setHours(date.getHours() + 2 + Math.floor(Math.random() * 2));
-        date.setMinutes(31, 0, 0);
       }
-      localStorage.setItem(KEY, JSON.stringify(data));
+
+      data.scheduledUntil = now;
+      data.version = 2;
+      data.nextRequestCode = 2000000;
+    }
+
+    if (!Number.isFinite(data.scheduledUntil)) {
+      data.scheduledUntil = now;
+    }
+
+    if (!Number.isSafeInteger(data.nextRequestCode)
+        || data.nextRequestCode < 2000000
+        || data.nextRequestCode >= 2000000000) {
+      data.nextRequestCode = 2000000;
+    }
+
+    if (!data.queue.length && state.notifications.funnyEnabled) {
+      data.queue = STUDYOS_PRELOADED_MESSAGES.map((_,i)=>i)
+        .sort(()=>Math.random()-0.5);
+    }
+
+    // When funny notifications are off, only the queued special update
+    // may be scheduled. Do not refill the queue with funny messages.
+    // Schedule notifications at minute :31, approximately every 2–3 hours.
+    let date = new Date(now);
+    date.setSeconds(0, 0);
+    date.setMinutes(31);
+
+    if (date.getTime() <= now + 60000) {
+      date.setHours(date.getHours() + 1);
+      date.setMinutes(31, 0, 0);
+    }
+
+    const endTime = now + 30 * DAY;
+
+    while (date.getTime() < endTime) {
+      if(!data.queue.length){
+        if(!state.notifications.funnyEnabled) break;
+
+        data.queue=STUDYOS_PRELOADED_MESSAGES.map((_,i)=>i)
+          .sort(()=>Math.random()-0.5);
+      }
+
+      const trigger = date.getTime();
+
+      if (trigger > data.scheduledUntil) {
+        const index = data.queue[0];
+
+        let item = index === 11
+          ? STUDYOS_SPECIAL_UPDATE
+          : STUDYOS_PRELOADED_MESSAGES[index];
+
+        if (!item) {
+          if(!state.notifications.funnyEnabled) break;
+
+          data.queue = STUDYOS_PRELOADED_MESSAGES.map((_,i)=>i)
+            .sort(()=>Math.random()-0.5);
+          continue;
+        }
+
+        const requestCode = data.nextRequestCode++;
+
+        let scheduled = false;
+        try {
+          scheduled = bridge.scheduleNotification(
+            requestCode,
+            trigger,
+            item.title,
+            item.message,
+            item.action || ''
+          ) === true;
+        } catch(e) {
+          console.warn('Could not schedule notification:', e);
+        }
+
+        if (!scheduled) {
+          // Keep this message at the front for the next retry.
+          break;
+        }
+
+        data.queue.shift();
+        data.scheduledUntil = trigger;
+      }
+
+      date.setHours(date.getHours() + 2 + Math.floor(Math.random() * 2));
+      date.setMinutes(31, 0, 0);
+    }
+
+    localStorage.setItem(KEY, JSON.stringify(data));
   } catch(e) {
     console.warn('StudyOS notification scheduling failed:', e);
   }
 }
+window.StudyOSOnAndroidPermissionChanged=function(){
+  try{
+    renderSettings();
+    const bridge=window.StudyOSNotifications;
+    if(state?.notifications?.enabled
+       && bridge?.areNotificationsEnabled?.()===true){
+      scheduleStudyOSPreloadedNotifications();
+    }
+  }catch(e){
+    console.warn('Could not refresh notification state:',e);
+  }
+};
 
 function init(){
   state=loadState();
+
+  // Recover a Streak Saver offer interrupted by an app restart.
+  if(state.streakSaver?.pendingMissedDate){
+    state.streakSaver.pendingMissedDate='';
+    saveState();
+  }
 
   // Android stores completion outside WebView localStorage so ordinary restarts
   // and activity recreation cannot replay onboarding.
@@ -4621,7 +5968,7 @@ function init(){
     const android=window.StudyOSAndroid;
     if(android&&typeof android.isOnboardingComplete==='function'){
       const complete=android.isOnboardingComplete();
-      if(complete===true){
+      if(complete===true && activeClass==='class11' && state.setup?.done!==true){
         state.setup=state.setup&&typeof state.setup==='object'?state.setup:{};
         state.setup.done=true;
         state.firstRun=false;
@@ -4635,6 +5982,8 @@ function init(){
   applyTheme();bindEvents();updateDerivedMeta();
   if(!state.setup?.done){
     showOnboarding();
+  }else if(!notificationOnboardingHandled()){
+    showNotificationOnboarding();
   }else{
     navigate('dashboard');
     setTimeout(maybeShowBackupReminder,900);
@@ -5314,6 +6663,16 @@ window.showImportantUpdateVideo = function () {
   video.play().catch(() => {});
   overlay.querySelector('button').onclick = () => { video.pause(); overlay.remove(); };
 };
+</script>
+
+
+<script>
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .catch(error => console.warn('StudyOS offline setup:', error));
+  });
+}
 </script>
 
 </body>

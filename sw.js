@@ -1,4 +1,4 @@
-const CACHE_NAME = "studyos-2-v2";
+const CACHE_NAME = "studyos-2-v4";
 
 const APP_SHELL = [
   "./",
@@ -27,11 +27,36 @@ self.addEventListener("activate", event => {
 });
 
 self.addEventListener("fetch", event => {
-  if (event.request.method !== "GET") return;
+  const request = event.request;
 
-  event.respondWith(
-    caches.match(event.request).then(cached => {
-      return cached || fetch(event.request).catch(() => caches.match("./"));
-    })
-  );
+  if (request.method !== "GET" || request.headers.has("range")) return;
+
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return;
+
+  event.respondWith((async () => {
+    const cached = await caches.match(request);
+    if (cached) return cached;
+
+    try {
+      const response = await fetch(request);
+
+      if (response.ok && response.type === "basic") {
+        const cache = await caches.open(CACHE_NAME);
+        await cache.put(request, response.clone());
+      }
+
+      return response;
+    } catch (error) {
+      if (request.mode === "navigate") {
+        return (await caches.match("./index.html")) ||
+               (await caches.match("./"));
+      }
+
+      return new Response("You are offline and this file is not cached yet.", {
+        status: 503,
+        headers: { "Content-Type": "text/plain; charset=utf-8" }
+      });
+    }
+  })());
 });
