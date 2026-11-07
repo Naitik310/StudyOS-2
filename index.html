@@ -4177,7 +4177,7 @@ function showClassIntroIfNeeded(onComplete=()=>{}){
       }
     </style>
 
-    <video playsinline webkit-playsinline preload="auto"
+    <video playsinline webkit-playsinline preload="metadata"
       disablepictureinpicture
       controlslist="nodownload noplaybackrate noremoteplayback">
       <source src="${videoPath}" type="video/mp4">
@@ -4260,15 +4260,6 @@ function showClassIntroIfNeeded(onComplete=()=>{}){
     start.textContent='Continue';
   },{once:true});
 
-  const autoplay=video.play();
-
-  if(autoplay&&autoplay.then){
-    autoplay.then(revealVideo).catch(()=>{
-      video.pause();
-      video.currentTime=0;
-      hint.textContent='Your introduction is ready. Tap below to begin.';
-    });
-  }
 }
 function showSubjectSetup(){
   showClassIntroIfNeeded(()=>renderSubjectSetup());
