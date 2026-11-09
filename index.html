@@ -3936,10 +3936,10 @@ function showWelcomeVideo(){
   overlay.style.cssText='position:fixed;inset:0;width:100%;height:100%;height:100dvh;background:radial-gradient(ellipse at 50% 35%,#203b49 0%,#101c28 48%,#070b11 100%);z-index:2147483647;display:flex;align-items:center;justify-content:center;overflow:hidden;color:#f7f4ec;font-family:inherit';
 
   overlay.innerHTML=`
-    <video id="studyosWelcomeVideo" playsinline preload="auto"
+    <video id="studyosWelcomeVideo" playsinline preload="metadata"
       disablepictureinpicture controlslist="nodownload noplaybackrate noremoteplayback"
       style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;opacity:0;transition:opacity .35s">
-      <source src="./studyos-welcome.mp4" type="video/mp4">
+      <source src="./studyos-welcome-optimized.mp4" type="video/mp4">
     </video>
     <div data-intro-cover style="position:relative;z-index:1;text-align:center;width:min(90%,560px);padding:28px">
       <div style="font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#c8b887;margin-bottom:20px">A NEW CHAPTER STARTS HERE</div>
